@@ -12,7 +12,7 @@ Install dependencies
 
 Run in browser
 
-'ionic serve -l`
+`ionic serve -l`
 
 ## References
 ##### GatherBoard website: https://gatherboard.com/
