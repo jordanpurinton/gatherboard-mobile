@@ -16,9 +16,6 @@ Description: The system shall use the Cordova Geolocation Plugin to find the use
 Purpose: Find user location for input into other functions.
 Dependencies: MA F1
 
-
-Figure 2. User Preferences data flow diagram
-
 Functional Requirement 2.2:
 ID: MA F2
 Name: Add user preferences.
