@@ -14,5 +14,6 @@ Run in browser
 
 'ionic serve -l`
 
-#### References
+## References
+##### GatherBoard website: https://gatherboard.com/
 ##### App wireframe example: https://projects.invisionapp.com/share/TMAGNBSXY#/screens
