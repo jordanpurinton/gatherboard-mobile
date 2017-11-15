@@ -2,7 +2,17 @@
 
 This is the workspace for the GatherBoard mobile project for UM's Advanced Programming course. 
 
-To run this program, make sure you have node/npm installed as well as ionic. 
+## Configurations
+To run this program, make sure you have node/npm installed as well as the Ionic Framework.
+
+## Running the program
+Install dependencies
+
+`npm i` 
+
+Run in browser
+
+'ionic serve -l`
 
 #### References
 ##### App wireframe example: https://projects.invisionapp.com/share/TMAGNBSXY#/screens
