@@ -1,0 +1,364 @@
+(Via SRS document)
+3.2.2 Mobile Application Functions
+The functions in this section form the core of the services provided by the mobile application.
+
+Functional Requirement 2.1:
+ID: MA F1
+Name: Enable location services.
+Description: The system shall explicitly require the user to enable location services.
+Purpose: To ensure the device can properly communicate with the phone and use its geolocation information.
+Dependencies: none
+
+Functional Requirement 2.1.1:
+ID: MA F1.1
+Name: Get device location.
+Description: The system shall use the Cordova Geolocation Plugin to find the user's location in GPS coordinates.
+Purpose: Find user location for input into other functions.
+Dependencies: MA F1
+
+
+Figure 2. User Preferences data flow diagram
+
+Functional Requirement 2.2:
+ID: MA F2
+Name: Add user preferences.
+Description: The system shall offer the user a series of lists that can be saved to improve the filtering of recommendations.
+Purpose: Sets up preferences for better recommendations.
+Dependencies: RE F1, MAS F4
+
+Functional Requirement 2.2.1:
+ID: MA F2.1
+Name: Add category preferences.
+Description: The system shall offer the user a list of preset category preferences that can be selected. The user will be able to save their selected preferences.
+Purpose: Sets up user categories for better recommendations.
+Dependencies: MA F2, MAS F4
+
+Functional Requirement 2.2.2:
+ID: MA F2.2
+Name: Add tag preferences.
+Description: The system shall offer the user a list of preset tag preferences that can be selected. The user will be able to save their selected preferences.
+Purpose: Sets up user tags for better recommendations.
+Dependencies: MA F2, MAS F4
+
+Functional Requirement 2.2.3:
+ID: MA F2.3
+Name: Add age preference.
+Description: The system shall offer the user a list of preset age preferences that can be selected. The user will be able to save their selected preferences.
+Purpose: Sets up user age ranges for better recommendations.
+Dependencies: MA F2, MAS F4
+
+Functional Requirement 2.2.4:
+ID: MA F2.4
+Name: Clear preferences
+Description: The system shall offer the user the option to remove their existing preferences.
+Purpose: Allows users to reset their preferences.
+Dependencies: MA F2, MAS F4
+
+Functional Requirement 2.3:
+ID: MA F3
+Name: Browse events by preference
+Description: The system shall provide the user with a list of 50 recommended events in their area. Recommended events will be based on the user’s location and preferences.
+Purpose: Provide a selection of filtered events for the user.
+Dependencies: RE F1, RE F2, RE F3, RE F4, RE F6, MAS F4
+
+Functional Requirement 2.4.1:
+ID: MA F3.1
+Name: Get new list of events
+Description: The system shall allow the user to perform the query again, excluding the previous results from the new list of events.
+Purpose: Allow the user to continue browsing recommended events.
+Dependencies: RE F1, RE F2, RE F3, RE F4, RE F6, MA F3
+
+Functional Requirement 2.4:
+ID: MA F4
+Name: Custom Browse
+Description: The system shall allow users receive a set of recommendations based on user set factors. The events that are recommended will be parsed by the user’s preferences and heavily weighted to include the special factors that the user enters.
+Purpose: Provide users the ability to add extra factors to the recommendations that they receive.
+Dependencies: RE F1, RE F2, RE F3, RE F4
+
+Functional Requirement 2.4.1:
+ID: MA F4.1
+Name: Browse by Location
+Description: The system shall allow the user to select a new location that has a GatherBoard database associated with it to browse events from.
+Purpose: Let users browse events from other locations.
+Dependencies: RE F1, RE F2, RE F3, RE F4
+
+    Functional Requirement 2.4.2:
+ID: MA F4.2
+Name: Browse by Parameter
+Description: The system shall allow users receive a set of recommended events that will always include the specified parameter. These parameters will include:
+Age range
+Category
+Tag
+Venue
+Purpose: Provide users the ability to hard-filter the recommendations they receive.
+Dependencies: RE F1, RE F2, RE F3, RE F4
+
+Functional Requirement 2.4.3:
+ID: MA F4.3
+Name: Save Custom Browse
+Description: The system shall allow the user to save up to 5 custom browse filters locally.
+Purpose: Lets the user save browse parameters.
+Dependencies: RE F1, RE F2, RE F3, RE F4, MAS F4
+
+Functional Requirement 2.4.4:
+ID: MA F4.4
+Name: Retrieve Custom Browse
+Description: The system shall allow the user to perform a custom browse from one of the locally stored custom browse filters.
+Purpose: Lets the user quickly repeat a previous custom browse.
+Dependencies: RE F1, RE F2, RE F3, RE F4, MAS F4
+
+
+
+Functional Requirement 2.5:
+ID: MA F5
+Name: Special Browse
+Description: The system shall have a list of premade custom browse filters that the user can select from. These browse filters will be ran in the same way as custom browse filters.
+Purpose: Provide the user with some premade event options.
+Dependencies: MA F4
+
+Functional Requirement 2.5.1:
+ID: MA F5.1
+Name: Browse Nightlife
+Description: The system shall retrieve recommendations that are in the adult age range and occur after 5pm on the day that this function is called.
+Purpose: Present events taking place during specific times of the day and concern a specific age range.
+Dependencies: MA F4
+
+    Functional Requirement 2.5.2:
+ID: MA F5.2
+Name: Browse The Weekend
+Description: The system shall retrieve recommendations that will occur on the Friday, Saturday, or Sunday following the day that this function is called.
+Purpose: Present events taking place on specific days of the week.
+Dependencies: MA F5
+
+    Functional Requirement 2.5.3:
+ID: MA F5.3
+Name: Browse by Popularity
+Description: The system shall retrieve events that have been shared more frequently by people relative to other events on the database.
+Purpose: Present events with high popularity determined data collected from users frequently sharing the event.
+Dependencies: MA F5
+
+    Functional Requirement 2.5.4:
+ID: MA F5.4
+Name: Browse Fresh Events
+Description: The system shall retrieve events relevant to the user's preferences that have been recently posted.
+Purpose: Present newly posted events to the user.
+Dependencies: MA F4, MA F2, RE F9
+
+    Functional Requirement 2.5.5:
+ID: MA F5.5
+Name: Discovery Browse
+Description: The system shall retrieve events that are in the user's preferred age range, but do not contain any other user preferences.
+Purpose: Present new types of events to the user based on user age range.
+Dependencies: MA F15, MA F2
+
+Functional Requirement 2.6:
+ID: MA F6
+Name: Connect to Facebook
+Description: The system shall allow the user to connect to their Facebook profile to improve and refine the recommendations they receive.
+Purpose: Increase the data the system has access to for making recommendations.
+Dependencies: none
+
+Functional Requirement 2.7:
+ID: MA F7
+Name: Connect to Google+
+Description: The system shall allow the user to connect to their Google+ profile to improve and refine the recommendations they receive.
+Purpose: Increase the data the system has access to for making recommendations.
+Dependencies: none
+
+Functional Requirement 2.8:
+ID: MA F8
+Name: Connect to LinkedIn
+Description: The system shall allow the user to connect to their LinkedIn profile to improve and refine the recommendations they receive.
+Purpose: Increase the data the system has access to for making recommendations.
+Dependencies: none
+
+Functional Requirement 2.9:
+ID: MA F9
+Name: View Event Detail
+Description: The system shall allow users to view a more detailed description of an event.
+Purpose: Allow users to view event detail in a model with extended information.
+Dependencies: none
+
+Functional Requirement 2.9.1:
+ID: MA F9.1
+Name: Share event on Facebook
+Description: The system shall allow the user share an event on Facebook while viewing the detail of an event. If the user shares the event it will be added to a list of events that they plan to attend.
+Purpose: Provide users with the ability to share events on their existing social media platforms.
+Dependencies: none
+
+Functional Requirement 2.9.2:
+ID: MA F9.2
+Name: Share event on Google+
+Description: The system shall allow the user share an event on Google+ while viewing the detail of an event. If the user shares the event it will be added to a list of events that they plan to attend.
+Purpose: Provide users with the ability to share events on their existing social media platforms.
+Dependencies: none
+
+Functional Requirement 2.9.3:
+ID: MA F9.3
+Name: Add Event to Google Calendar
+Description: When the user is viewing the details of an event the system shall allow the user to export the event to their Google Calendar. If the user performs this the event it will be added to a list of events that they plan to attend.
+Purpose: Provide the users with the ability to post events to their existing calendar applications.
+Dependencies: none
+
+Functional Requirement 2.9.4:
+ID: MA F9.4
+Name: Add event to Outlook
+Description: When the user is viewing the details of an event the system shall allow the user to export the event to their Outlook application. If the user performs this the event it will be added to a list of events that they plan to attend.
+Purpose: Provide the users with the ability to post events to their existing calendar applications.
+Dependencies: none
+
+Functional Requirement 2.9.5:
+ID: MA F9.4
+Name: Add event to Apple Calendar
+Description: When the user is viewing the details of an event the system shall allow the user to export the event to their Apple Calendar application. If the user performs this the event it will be added to a list of events that they plan to attend.
+Purpose: Provide the users with the ability to post events to their existing calendar applications.
+Dependencies: none
+
+Functional Requirement 2.9.6:
+ID: MA F9.5
+Name: Remind Me
+Description: The system shall allow the user to save an event to a list of events that they want to be reminded of later. The list of events will be stored locally and used in notifications.
+Purpose: Provide the users with the ability to set a list of reminders about upcoming events that they are planning to attend.
+Dependencies: none
+
+Functional Requirement 2.10:
+ID: MA F10
+Name: Set Home Board
+Description: The system shall provide the user with the ability to set a particular GatherBoard website as their “home board”, when the user’s location is near the area covered by their home board, recommended events they receive will be more likely to originate from their home board.
+Purpose: Allows users to choose a specific board that they are interested in, even in locations that may be covered by multiple boards.
+Dependencies: MAS F4
+
+Functional Requirement 2.11:
+ID: MA F11
+Name: Add Favorite Venue
+Description: The system shall present  the user with the option to add a venue in their area as a favorite venue. Favorite venues will be stored on the user's device.
+Purpose: Create and maintain a list of favorite venues that can be used to notify the user of new events.
+Dependencies: RE F5, MAS F4
+
+Functional Requirement 2.11.1:
+ID: MA F11.1
+Name: Remove Favorite Venue
+Description: The system shall allow the user to remove a favorite venue. Thus no longer receiving notifications regarding events from that venue.
+Purpose: Allow the user to manage their favorite venues.
+Dependencies: MAS F4
+
+
+Figure 3. Notification data-flow diagram
+
+Functional Requirement 2.12:
+ID: MA F12
+Name: Display Notification
+Description: The system shall alert users to new developments via in-app notifications.
+Purpose: Keep the user up to date on relevant events and updates.
+Dependencies: none
+
+Functional Requirement 2.13:
+ID: MA F13
+Name: Home Board Notification
+Description: The system shall alert the user if a new event has been posted on the GatherBoard website that is designated as their home board that is relevant to their preferences as set in MA F2 and its sub-functions.
+Purpose: Inform users of new events they might be interested in that are in their area.
+Dependencies: MA F2, MA F12, MA F10
+
+Functional Requirement 2.13.1:
+ID: MA F13.1
+Name: Home Board Notification Settings
+Description: The system shall allow the user to disable home board notifications, set notifications to appear when the event is posted, or a set number of days before the event start date. These settings will be saved on the user's device.
+Purpose: Allow the user to modify the behavior of home board notifications.
+Dependencies: MAS F4
+
+Functional Requirement 2.14:
+ID: MA F14
+Name: Venue Notification
+Description: The system shall notify the user of any new event that will occur at one of the events on their favorite events list.
+Purpose: Ensure that users are kept up to date on the events that are happening at venues they are interested in.
+Dependencies: MA F11, MA F12, MAS F4
+
+Functional Requirement 2.14.1:
+ID: MA F14.1
+Name: Venue Notification Settings
+Description: The system shall provide the user with the ability to change when venue notifications are presented, the options will include: notify on post, notify a set number of days before event, notify on day of, and any combination of these.
+Purpose: Give users a higher level of customization regarding notifications.
+Dependencies: MAS F4
+
+Functional Requirement 2.15:
+ID: MA F15
+Name: Upcoming Event Notification
+Description: The system shall notify the user of any event that is stored in the list of events that they have shared on social media or added to their “remind me” list.
+Purpose: Remind users about events that they were interested in.
+Dependencies: MA F9, MA F12, MAS F4
+
+
+Functional Requirement 2.15.1:
+ID: MA F15.1
+Name: Upcoming Event Notification Settings
+Description: The system shall allow the user to set the length of time before the upcoming event that they will be notified, the number of notifications they will receive about an event. The user will also be able to disable upcoming event notifications entirely.
+Purpose: Give users a higher level of customization regarding notifications.
+Dependencies: MAS F4
+
+
+Functional Requirement 2.16:
+ID: MA F16
+Name: Search events
+Description: The system shall allow for users to search for events based on any discriminators.
+Purpose: Enable users to search for events.
+Dependencies: none
+
+Functional Requirement 2.16.1:
+ID: MA F16.1
+Name: Set search terms
+Description: The system shall provide the user with a set of fields that determine their search terms, these fields will be:
+Location
+Start date and time
+End date and time
+Category
+Tags
+Venue
+Age range
+Purpose: Enable users to search for specific events
+Dependencies: none
+
+    Functional Requirement 2.16.2:
+ID: MA F16.2
+Name: Get Search Results
+Description: The system shall query the database using the search terms provided by the user, and return events that correspond to those terms.
+Purpose: Lets a user see the results of their search
+Dependencies: none
+
+
+3.2.3 Mobile Application System Functions
+The following functions pertain to the system management and data storage of the mobile application.
+
+Functional Requirement 3.1:
+ID: MAS F1
+Name: Download Application
+Description: The system shall be available for free download on application stores for Android and iOS devices.
+Purpose: Allows a user to download the mobile application
+Dependencies: none
+
+Functional Requirement 3.2:
+ID: MAS F2
+Name: Update Application
+Description: The system shall notify users about new versions of the application, and allow the user to download the updated version.
+Purpose: Allows a user to update the mobile application
+Dependencies: none
+
+Functional Requirement 3.3:
+ID: MAS F3
+Name: Application Startup Check
+Description: The system shall check to if the application has started correctly and if it has not or does not have access to the internet. If it does not the application will notify the user.
+Purpose: Guarantees that the application will start correctly.
+Dependencies: none
+
+Functional Requirement 3.4:
+ID: MAS F4
+Name: Ionic Storage
+Description: The system shall store pertinent user data using Ionic’s Storage package to move data back and forth from views, API, etc.
+Purpose: To allow data to be moved around in a secure, efficient way.
+Dependencies: none
+
+Functional Requirement 3.5:
+    ID: MAS F5
+    Name: Package Management
+    Description: The system shall utilize Node and npm for package management.
+Purpose: To allow the usage of outside plugins to enhance the app and make development easier.
+    Dependencies: none
