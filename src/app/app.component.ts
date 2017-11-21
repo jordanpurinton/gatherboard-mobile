@@ -20,7 +20,8 @@ export class MyApp
     {
       statusBar.styleDefault();
       splashScreen.hide();
-      this.dataProvider.getEvents();
+      console.log(this.dataProvider.getEvents());
+      console.log(this.dataProvider.getEventDetail('cdec51e2')); // arbitrary event for example purposes
     });
   }
 }
