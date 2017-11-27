@@ -27,17 +27,17 @@ export class MyApp
           err => console.log(err)
       );
 
-      this.dataProvider.getEventsByVenue('a001bef8') // arbitrary venue
+      this.dataProvider.getEventsByVenue('a001bef8')
         .subscribe(
           data => console.log(data),
           err => console.log(err)
-        );
+        ); // arbitrary venue
 
       this.dataProvider.getEventDetail('af9c566e')
         .subscribe(
           data => console.log(data),
           err => console.log(err)
-        ); // arbitrary event for example purposes
+        ); // arbitrary event
     });
 
     this.dataProvider.getVenues()

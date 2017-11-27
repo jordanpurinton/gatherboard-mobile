@@ -36,9 +36,28 @@ export class DataProvider
     }
   }
 
+  /**
+   * Returns events related to a single venue.
+   * @param uid
+   * @returns {Observable<any>}
+   */
   getEventsByVenue(uid)
   {
     return this.http.get(Secret.uri + '/venue/' + uid, this.reqOpts)
+      .map(
+        res => res.json(),
+        err => console.log(err)
+      )
+  }
+
+  /**
+   * Returns events related to a single tag.
+   * @param uid
+   * @returns {Observable<any>}
+   */
+  getEventsByTag(uid)
+  {
+    return this.http.get(Secret.uri + '/tag/' + uid, this.reqOpts)
       .map(
         res => res.json(),
         err => console.log(err)
