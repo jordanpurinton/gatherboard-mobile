@@ -49,6 +49,12 @@ export class MyApp
       .subscribe(
         data => console.log(data),
         err => console.log(err)
+      );
+
+    this.dataProvider.getCategories()
+      .subscribe(
+        data => console.log(data),
+        err => console.log(err)
       )
   }
 }

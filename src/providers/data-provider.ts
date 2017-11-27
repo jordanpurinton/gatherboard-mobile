@@ -50,6 +50,20 @@ export class DataProvider
   }
 
   /**
+   * Returns listing of current active categories.
+   * @returns {Observable<any>}
+   */
+  getCategories()
+  {
+    return this.http.get(Secret.uri + '/categories', this.reqOpts)
+      .map(
+        res => res.json(),
+        err => console.log(err)
+      )
+
+  }
+
+  /**
    * Returns all active venues related to this account. Includes venue description and image URIs.
    * NOTE: This is the ONLY way (too my knowledge), that we can receive a venue UID.
    * /events/{uid} doesn't return a venue id.
