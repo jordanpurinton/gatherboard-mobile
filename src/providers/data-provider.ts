@@ -1,14 +1,13 @@
-import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import {Headers, Http, RequestOptions} from '@angular/http';
 import {Secret} from '../app/secret';
-import {HttpHeaders} from "@angular/common/http";
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class DataProvider {
-  constructor(public http: HttpClient) {
+  headers = new Headers({'Authorization': 'bearer ' + Secret.token});
+  reqOpts = new RequestOptions({headers: this.headers});
+  constructor(public http: Http) {
   }
 
   /**
@@ -20,20 +19,16 @@ export class DataProvider {
    */
   getEvents(category?) {
     if (category) { // category specified
-      return this.http.get(Secret.uri + '/events/' + category,
-        {
-        headers: new HttpHeaders().set('Authorization',
-          'bearer ' + Secret.token)
-      })
-        .map((res: Response) => res.json())
+      return this.http.get(Secret.uri + '/events/' + category, this.reqOpts)
+        .map(
+          res => res.json(),
+          err => console.log(err))
     }
     else { // no category
-      return this.http.get(Secret.uri + '/events',
-        {
-        headers: new HttpHeaders().set('Authorization',
-          'bearer ' + Secret.token)
-      })
-        .map((res: Response) => res.json())
+      return this.http.get(Secret.uri + '/events', this.reqOpts)
+        .map(
+          res => res.json(),
+          err => console.log(err))
     }
   }
 
@@ -42,12 +37,10 @@ export class DataProvider {
    * @param uid
    */
   getEventDetail(uid) {
-    return this.http.get(Secret.uri + '/events/' + uid,
-      {
-      headers: new HttpHeaders().set('Authorization',
-        'bearer ' + Secret.token)
-    })
-      .map((res: Response) => res.json())
+    return this.http.get(Secret.uri + '/event/' + uid, this.reqOpts)
+      .map(
+        res => res.json(),
+        err => console.log(err))
   }
 
 }
