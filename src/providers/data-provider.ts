@@ -51,6 +51,8 @@ export class DataProvider
 
   /**
    * Returns all active venues related to this account. Includes venue description and image URIs.
+   * NOTE: This is the ONLY way (too my knowledge), that we can receive a venue UID.
+   * /events/{uid} doesn't return a venue id.
    * @returns {Observable<any>}
    */
   getVenues()
@@ -60,5 +62,20 @@ export class DataProvider
         res => res.json(),
         err => console.log(err)
       )
+  }
+
+  /**
+   Returns listing of feature pages.
+   This is a combination of venues and tags as seen on the Feature page.
+   Includes feature description and image URIs.
+   * @returns {Observable<any>}
+   */
+  getFeatures()
+  {
+    return this.http.get(Secret.uri + '/features', this.reqOpts)
+      .map(
+        res => res.json(),
+        err => console.log(err)
+      );
   }
 }

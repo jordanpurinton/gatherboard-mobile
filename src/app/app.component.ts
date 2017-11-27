@@ -37,7 +37,13 @@ export class MyApp
       .subscribe(
         data => console.log(data),
         err => console.log(err)
-      )
+      );
+
+    this.dataProvider.getFeatures()
+      .subscribe(
+        data => console.log(data),
+        err => console.log(err)
+      );
   }
 }
 
