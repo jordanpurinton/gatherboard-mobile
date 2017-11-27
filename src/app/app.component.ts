@@ -44,6 +44,12 @@ export class MyApp
         data => console.log(data),
         err => console.log(err)
       );
+
+    this.dataProvider.getTags()
+      .subscribe(
+        data => console.log(data),
+        err => console.log(err)
+      )
   }
 }
 

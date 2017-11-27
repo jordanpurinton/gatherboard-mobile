@@ -78,4 +78,20 @@ export class DataProvider
         err => console.log(err)
       );
   }
+
+  /**
+   * FIXME: NOT WORKING
+   * TODO: Let Molly know
+   * Returns all active tags related to this account.
+   * Includes tag description and image URIs.
+   * @returns {Observable<any>}
+   */
+  getTags()
+  {
+    return this.http.get(Secret.uri + '/tags', this.reqOpts)
+      .map(
+        res => res.json(),
+        err => console.log(err)
+      )
+  }
 }
