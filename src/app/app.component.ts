@@ -20,16 +20,24 @@ export class MyApp
     {
       statusBar.styleDefault();
       splashScreen.hide();
-      console.log(this.dataProvider.getEvents());
+
       this.dataProvider.getEvents()
         .subscribe(
-        data => console.log(data)
-      )
+        data => console.log(data),
+          err => console.log(err)
+      );
       this.dataProvider.getEventDetail('af9c566e')
         .subscribe(
-          data => console.log(data)
+          data => console.log(data),
+          err => console.log(err)
         ); // arbitrary event for example purposes
     });
+
+    this.dataProvider.getVenues()
+      .subscribe(
+        data => console.log(data),
+        err => console.log(err)
+      )
   }
 }
 

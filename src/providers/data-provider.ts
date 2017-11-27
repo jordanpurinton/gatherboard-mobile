@@ -4,10 +4,13 @@ import {Secret} from '../app/secret';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class DataProvider {
+export class DataProvider
+{
   headers = new Headers({'Authorization': 'bearer ' + Secret.token});
   reqOpts = new RequestOptions({headers: this.headers});
-  constructor(public http: Http) {
+
+  constructor(public http: Http)
+  {
   }
 
   /**
@@ -15,9 +18,10 @@ export class DataProvider {
    * No params will return a listing of blended events.
    * 100 events will be returned.
    * @param category
-   * @returns {Subscription}
+   * @returns {Observable<any>}
    */
-  getEvents(category?) {
+  getEvents(category?)
+  {
     if (category) { // category specified
       return this.http.get(Secret.uri + '/events/' + category, this.reqOpts)
         .map(
@@ -33,14 +37,28 @@ export class DataProvider {
   }
 
   /**
-   * Returns event detail of a single event based on uid.
+   * Returns event detail of a single event.
    * @param uid
+   * @returns {Observable<any>}
    */
-  getEventDetail(uid) {
+  getEventDetail(uid)
+  {
     return this.http.get(Secret.uri + '/event/' + uid, this.reqOpts)
       .map(
         res => res.json(),
         err => console.log(err))
   }
 
+  /**
+   * Returns all active venues related to this account. Includes venue description and image URIs.
+   * @returns {Observable<any>}
+   */
+  getVenues()
+  {
+    return this.http.get(Secret.uri + '/venues', this.reqOpts)
+      .map(
+        res => res.json(),
+        err => console.log(err)
+      )
+  }
 }
