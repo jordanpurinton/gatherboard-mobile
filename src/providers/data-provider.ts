@@ -36,6 +36,15 @@ export class DataProvider
     }
   }
 
+  getEventsByVenue(uid)
+  {
+    return this.http.get(Secret.uri + '/venue/' + uid, this.reqOpts)
+      .map(
+        res => res.json(),
+        err => console.log(err)
+      )
+  }
+
   /**
    * Returns event detail of a single event.
    * @param uid

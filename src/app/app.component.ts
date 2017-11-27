@@ -26,6 +26,13 @@ export class MyApp
         data => console.log(data),
           err => console.log(err)
       );
+
+      this.dataProvider.getEventsByVenue('a001bef8') // arbitrary venue
+        .subscribe(
+          data => console.log(data),
+          err => console.log(err)
+        );
+
       this.dataProvider.getEventDetail('af9c566e')
         .subscribe(
           data => console.log(data),
