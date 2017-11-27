@@ -16,16 +16,15 @@ export class MyApp
               splashScreen: SplashScreen,
               public dataProvider: DataProvider)
   {
-    platform.ready().then(() =>
-    {
+    platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
 
       this.dataProvider.getEvents()
         .subscribe(
-        data => console.log(data),
+          data => console.log(data),
           err => console.log(err)
-      );
+        );
 
       this.dataProvider.getEventsByVenue('a001bef8')
         .subscribe(
@@ -38,31 +37,37 @@ export class MyApp
           data => console.log(data),
           err => console.log(err)
         ); // arbitrary event
+
+      this.dataProvider.getVenues()
+        .subscribe(
+          data => console.log(data),
+          err => console.log(err)
+        );
+
+      this.dataProvider.getFeatures()
+        .subscribe(
+          data => console.log(data),
+          err => console.log(err)
+        );
+
+      this.dataProvider.getTags()
+        .subscribe(
+          data => console.log(data),
+          err => console.log(err)
+        );
+
+      this.dataProvider.getCategories()
+        .subscribe(
+          data => console.log(data),
+          err => console.log(err)
+        );
+
+      this.dataProvider.getSubcategories('68c8cb8b')
+        .subscribe(
+          data => console.log(data),
+          err => console.log(err)
+        ); // arbitrary category
     });
-
-    this.dataProvider.getVenues()
-      .subscribe(
-        data => console.log(data),
-        err => console.log(err)
-      );
-
-    this.dataProvider.getFeatures()
-      .subscribe(
-        data => console.log(data),
-        err => console.log(err)
-      );
-
-    this.dataProvider.getTags()
-      .subscribe(
-        data => console.log(data),
-        err => console.log(err)
-      );
-
-    this.dataProvider.getCategories()
-      .subscribe(
-        data => console.log(data),
-        err => console.log(err)
-      )
   }
 }
 

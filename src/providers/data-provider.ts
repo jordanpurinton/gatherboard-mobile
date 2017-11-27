@@ -91,6 +91,15 @@ export class DataProvider
 
   }
 
+  getSubcategories(uri)
+  {
+    return this.http.get(Secret.uri + '/subcategories/' + uri, this.reqOpts)
+      .map(
+        res => res.json(),
+        err => console.log(err)
+      )
+  }
+
   /**
    * Returns all active venues related to this account. Includes venue description and image URIs.
    * NOTE: This is the ONLY way (too my knowledge), that we can receive a venue UID.
