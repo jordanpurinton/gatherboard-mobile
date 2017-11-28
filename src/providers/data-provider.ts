@@ -91,9 +91,14 @@ export class DataProvider
 
   }
 
-  getSubcategories(uri)
+  /**
+  * Returns listing of subcategories for given category
+  * @param uid
+  * @returns {Observable<any>}
+  */
+  getSubcategories(uid)
   {
-    return this.http.get(Secret.uri + '/subcategories/' + uri, this.reqOpts)
+    return this.http.get(Secret.uri + '/subcategories/' + uid, this.reqOpts)
       .map(
         res => res.json(),
         err => console.log(err)
@@ -102,7 +107,7 @@ export class DataProvider
 
   /**
    * Returns all active venues related to this account. Includes venue description and image URIs.
-   * NOTE: This is the ONLY way (too my knowledge), that we can receive a venue UID.
+   * NOTE: This is the ONLY way (to my knowledge), that we can receive a venue UID.
    * /events/{uid} doesn't return a venue id.
    * @returns {Observable<any>}
    */
