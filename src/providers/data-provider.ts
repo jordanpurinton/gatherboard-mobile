@@ -131,8 +131,6 @@ export class DataProvider
   }
 
   /**
-   * FIXME: NOT WORKING
-   * TODO: Let Molly know
    * Returns all active tags related to this account.
    * Includes tag description and image URIs.
    * @returns {Observable<any>}
