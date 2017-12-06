@@ -1,15 +1,14 @@
 import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions} from '@angular/http';
 import {Secret} from '../app/secret';
 import 'rxjs/add/operator/map';
+import {HttpClient} from "@angular/common/http";
+import {HttpHeaders} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class DataProvider
 {
-  headers = new Headers({'Authorization': 'bearer ' + Secret.token});
-  reqOpts = new RequestOptions({headers: this.headers});
-
-  constructor(public http: Http)
+  constructor(public http: HttpClient)
   {
   }
 
@@ -20,18 +19,20 @@ export class DataProvider
    * @param category
    * @returns {Observable<any>}
    */
-  getEvents(category?)
+  getEvents(category?): Observable<any>
   {
+    console.log(Secret.token);
+    let headers = new HttpHeaders().set('Authorization', 'bearer ' + Secret.token);
     if (category) { // category specified
-      return this.http.get(Secret.uri + '/events/' + category, this.reqOpts)
+      return this.http.get(Secret.uri + '/events/' + category, {headers})
         .map(
-          res => res.json(),
+          res => res,
           err => console.log(err))
     }
     else { // no category
-      return this.http.get(Secret.uri + '/events', this.reqOpts)
+      return this.http.get(Secret.uri + '/events', {headers})
         .map(
-          res => res.json(),
+          res => res,
           err => console.log(err))
     }
   }
@@ -41,11 +42,12 @@ export class DataProvider
    * @param uid
    * @returns {Observable<any>}
    */
-  getEventsByVenue(uid)
+  getEventsByVenue(uid): Observable<any>
   {
-    return this.http.get(Secret.uri + '/venue/' + uid, this.reqOpts)
+    let headers = new HttpHeaders().set('Authorization', 'bearer ' + Secret.token);
+    return this.http.get(Secret.uri + '/venue/' + uid, {headers})
       .map(
-        res => res.json(),
+        res => res,
         err => console.log(err)
       )
   }
@@ -55,11 +57,12 @@ export class DataProvider
    * @param uid
    * @returns {Observable<any>}
    */
-  getEventsByTag(uid)
+  getEventsByTag(uid): Observable<any>
   {
-    return this.http.get(Secret.uri + '/tag/' + uid, this.reqOpts)
+    let headers = new HttpHeaders().set('Authorization', 'bearer ' + Secret.token);
+    return this.http.get(Secret.uri + '/tag/' + uid, {headers})
       .map(
-        res => res.json(),
+        res => res,
         err => console.log(err)
       )
   }
@@ -69,11 +72,12 @@ export class DataProvider
    * @param uid
    * @returns {Observable<any>}
    */
-  getEventDetail(uid)
+  getEventDetail(uid): Observable<any>
   {
-    return this.http.get(Secret.uri + '/event/' + uid, this.reqOpts)
+    let headers = new HttpHeaders().set('Authorization', 'bearer ' + Secret.token);
+    return this.http.get(Secret.uri + '/event/' + uid, {headers})
       .map(
-        res => res.json(),
+        res => res,
         err => console.log(err))
   }
 
@@ -81,11 +85,12 @@ export class DataProvider
    * Returns listing of current active categories.
    * @returns {Observable<any>}
    */
-  getCategories()
+  getCategories(): Observable<any>
   {
-    return this.http.get(Secret.uri + '/categories', this.reqOpts)
+    let headers = new HttpHeaders().set('Authorization', 'bearer ' + Secret.token);
+    return this.http.get(Secret.uri + '/categories', {headers})
       .map(
-        res => res.json(),
+        res => res,
         err => console.log(err)
       )
 
@@ -96,11 +101,12 @@ export class DataProvider
   * @param uid
   * @returns {Observable<any>}
   */
-  getSubcategories(uid)
+  getSubcategories(uid): Observable<any>
   {
-    return this.http.get(Secret.uri + '/subcategories/' + uid, this.reqOpts)
+    let headers = new HttpHeaders().set('Authorization', 'bearer ' + Secret.token);
+    return this.http.get(Secret.uri + '/subcategories/' + uid, {headers})
       .map(
-        res => res.json(),
+        res => res,
         err => console.log(err)
       )
   }
@@ -111,11 +117,12 @@ export class DataProvider
    * /events/{uid} doesn't return a venue id.
    * @returns {Observable<any>}
    */
-  getVenues()
+  getVenues(): Observable<any>
   {
-    return this.http.get(Secret.uri + '/venues', this.reqOpts)
+    let headers = new HttpHeaders().set('Authorization', 'bearer ' + Secret.token);
+    return this.http.get(Secret.uri + '/venues', {headers})
       .map(
-        res => res.json(),
+        res => res,
         err => console.log(err)
       )
   }
@@ -126,11 +133,12 @@ export class DataProvider
    Includes feature description and image URIs.
    * @returns {Observable<any>}
    */
-  getFeatures()
+  getFeatures(): Observable<any>
   {
-    return this.http.get(Secret.uri + '/features', this.reqOpts)
+    let headers = new HttpHeaders().set('Authorization', 'bearer ' + Secret.token);
+    return this.http.get(Secret.uri + '/features', {headers})
       .map(
-        res => res.json(),
+        res => res,
         err => console.log(err)
       );
   }
@@ -140,11 +148,12 @@ export class DataProvider
    * Includes tag description and image URIs.
    * @returns {Observable<any>}
    */
-  getTags()
+  getTags(): Observable<any>
   {
-    return this.http.get(Secret.uri + '/tags', this.reqOpts)
+    let headers = new HttpHeaders().set('Authorization', 'bearer ' + Secret.token);
+    return this.http.get(Secret.uri + '/tags', {headers})
       .map(
-        res => res.json(),
+        res => res,
         err => console.log(err)
       )
   }
