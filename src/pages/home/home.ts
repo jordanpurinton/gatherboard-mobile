@@ -42,7 +42,7 @@ export class HomePage
     }
 
     // 12:00p - 12:59p
-    if(firstIndex == 1 && secondIndex == 2) {
+    else if(firstIndex == 1 && secondIndex == 2) {
       return startTime.substring(0, startTime.length - 3) + 'p';
     }
 
