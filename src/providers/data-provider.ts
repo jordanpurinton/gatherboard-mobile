@@ -21,7 +21,6 @@ export class DataProvider
    */
   getEvents(category?): Observable<any>
   {
-    console.log(Secret.token);
     let headers = new HttpHeaders().set('Authorization', 'bearer ' + Secret.token);
     if (category) { // category specified
       return this.http.get(Secret.uri + '/events/' + category, {headers})

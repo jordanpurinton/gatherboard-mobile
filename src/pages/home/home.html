@@ -8,17 +8,8 @@
 
 <ion-content>
   <ion-list text-wrap>
-    <ion-card *ngFor="let event of events" text-wrap>
-      <ion-item>
-        <ion-row>
-          <ion-col class="event-time" col-2>
-            {{formatStartTime(event.EventTime)}}
-          </ion-col>
-          <ion-col col-10>
-            {{event.EventTitle}}
-          </ion-col>
-        </ion-row>
-      </ion-item>
-    </ion-card>
+    <div *ngFor="let event of events">
+      <event-card [event]="event"></event-card>
+    </div>
   </ion-list>
 </ion-content>
