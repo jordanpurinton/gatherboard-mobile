@@ -9,23 +9,31 @@ import {HomePage} from '../pages/home/home';
 import {DataProvider} from '../providers/data-provider';
 import {HttpClientModule} from "@angular/common/http";
 import {EventCardComponent} from "../components/event-card/event-card";
+import {TabsPage} from "../pages/tabs/tabs";
+import {MapPage} from "../pages/map/map";
+import {SettingsPage} from "../pages/settings/settings";
 
 @NgModule({
   declarations: [
     MyApp,
+    TabsPage,
     HomePage,
+    MapPage,
+    SettingsPage,
     EventCardComponent
   ],
   imports: [
     BrowserModule,
-    HttpModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    TabsPage,
     HomePage,
+    MapPage,
+    SettingsPage
   ],
   providers: [
     StatusBar,
