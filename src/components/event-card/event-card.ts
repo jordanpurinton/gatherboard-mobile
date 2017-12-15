@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import moment from 'moment';
 
 @Component({
   selector: 'event-card',
@@ -32,5 +33,10 @@ export class EventCardComponent {
     else {
       return startTime.substring(0, startTime.length - 3) + 'a';
     }
+  }
+
+  formatDate(date)
+  {
+    return moment(date).format('M/D');
   }
 }

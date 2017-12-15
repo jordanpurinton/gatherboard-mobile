@@ -24,6 +24,7 @@ export class HomePage
       .subscribe(
         data =>
         {
+          console.log(data);
           this.events = data;
         }
       )
