@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
 import {DataProvider} from "../../providers/data-provider";
-import moment from 'moment';
+import {Loading, LoadingController} from "ionic-angular";
 
 @Component({
   selector: 'page-home',
@@ -11,21 +10,31 @@ export class HomePage
 {
 
   events;
+  loading: Loading;
 
-  constructor(public navCtrl: NavController,
-              public dataProvider: DataProvider)
+  constructor(public dataProvider: DataProvider,
+              public loadingController: LoadingController)
   {
+  }
 
+  ionViewDidLoad()
+  {
+    this.createLoader();
+    this.loading.present();
   }
 
   ionViewDidEnter()
   {
     this.dataProvider.getEvents()
       .subscribe(
-        data =>
-        {
+        data => {
           console.log(data);
           this.events = data;
+          this.dismissLoading();
+        },
+        err => {
+          console.log(err);
+          this.dismissLoading();
         }
       )
   }
@@ -38,12 +47,12 @@ export class HomePage
     let combinedInt = parseInt(combined);
 
     // 13:00 - 23:59
-    if(combinedInt > 12) {
+    if (combinedInt > 12) {
       return (combinedInt - 12).toString() + ':' + startTime[3] + startTime[4] + 'p';
     }
 
     // 12:00p - 12:59p
-    else if(firstIndex == 1 && secondIndex == 2) {
+    else if (firstIndex == 1 && secondIndex == 2) {
       return startTime.substring(0, startTime.length - 3) + 'p';
     }
 
@@ -53,4 +62,16 @@ export class HomePage
     }
   }
 
+  createLoader()
+  {
+    this.loading = this.loadingController.create({showBackdrop: false});
+  }
+
+  dismissLoading()
+  {
+    if (this.loading) {
+      this.loading.dismiss();
+      this.loading = null;
+    }
+  }
 }
