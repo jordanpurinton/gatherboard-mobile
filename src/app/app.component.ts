@@ -57,11 +57,21 @@ export class MyApp
       //     err => console.log(err)
       //   );
       //
-      // this.dataProvider.getCategories()
-      //   .subscribe(
-      //     data => console.log(data),
-      //     err => console.log(err)
-      //   );
+      this.dataProvider.getCategories()
+        .subscribe(
+          data => {
+
+            let categories = [];
+
+            for (let i = 0; i < data.length; i++) {
+              categories.push(data[i].CatName);
+            }
+
+            localStorage.setItem('Categories', JSON.stringify(categories));
+            console.log(localStorage.getItem('Categories'));
+          },
+          err => console.log(err)
+        );
       //
       // this.dataProvider.getSubcategories('68c8cb8b')
       //   .subscribe(

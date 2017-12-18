@@ -1,14 +1,20 @@
 <ion-card padding no-border no-lines text-wrap>
-  <ion-card-header no-padding>
-    <ion-icon name="map"></ion-icon>
-  </ion-card-header>
   <ion-item no-padding text-wrap>
     <ion-row text-wrap>
-      <ion-col class="card-first-col" no-padding text-wrap col-3>
-        {{formatDate(event.EventStartDate)}}
+      <ion-col no-padding text-center text-wrap col-4>
+        {{formatDate(event.EventStartDate)}}<br>
+        <div>
+          <ion-icon *ngIf="event.ParentCatName == 'Education'" name="school"></ion-icon>
+          <ion-icon *ngIf="event.ParentCatName == 'Food'" name="restaurant"></ion-icon>
+          <ion-icon *ngIf="event.ParentCatName == 'Art'" name="color-palette"></ion-icon>
+          <ion-icon *ngIf="event.ParentCatName == 'Music'" name="musical-notes"></ion-icon>
+          <ion-icon *ngIf="event.ParentCatName == 'Sports'" name="american-football"></ion-icon>
+          <ion-icon *ngIf="event.ParentCatName == 'Business'" name="american-football"></ion-icon>
+          <ion-icon *ngIf="!matchesCategory(event.ParentCatName)" name="star"></ion-icon>
+        </div>
         {{formatStartTime(event.EventTime)}}
       </ion-col>
-      <ion-col class="card-second-col" no-padding text-wrap col-9>
+      <ion-col no-padding text-wrap col-8>
         {{event.EventTitle}}
       </ion-col>
     </ion-row>

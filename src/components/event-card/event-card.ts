@@ -5,11 +5,47 @@ import moment from 'moment';
   selector: 'event-card',
   templateUrl: 'event-card.html'
 })
-export class EventCardComponent {
+export class EventCardComponent
+{
 
   @Input() event: any;
 
-  constructor() {
+  constructor()
+  {
+  }
+
+  matchesCategory(category)
+  {
+    switch (category) {
+
+      case 'Education':
+        return true;
+        break;
+
+      case 'Food':
+        return true;
+        break;
+
+      case 'Art':
+        return true;
+        break;
+
+      case 'Music':
+        return true;
+        break;
+
+      case 'Sports':
+        return true;
+        break;
+
+      case 'Business':
+        return true;
+        break;
+
+      default:
+        return false;
+        break;
+    }
   }
 
   formatStartTime(startTime)
@@ -20,12 +56,12 @@ export class EventCardComponent {
     let combinedInt = parseInt(combined);
 
     // 13:00 - 23:59
-    if(combinedInt > 12) {
+    if (combinedInt > 12) {
       return (combinedInt - 12).toString() + ':' + startTime[3] + startTime[4] + 'p';
     }
 
     // 12:00p - 12:59p
-    else if(firstIndex == 1 && secondIndex == 2) {
+    else if (firstIndex == 1 && secondIndex == 2) {
       return startTime.substring(0, startTime.length - 3) + 'p';
     }
 
