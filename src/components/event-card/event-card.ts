@@ -9,8 +9,15 @@ export class EventCardComponent
 {
 
   @Input() event: any;
+  backgroundColorMap = {'Education': '#FFF5E3', 'Food': '#F3E5E1', 'Art': '#E1ECF5', 'Music': '#E1F0EC',
+    'Sports': '#ff00003d', 'Business': '#708090', 'Government': '#ff00003d'};
+  iconColorMap = {'Education': '#FFB019', 'Food': '#9F2200', 'Art': '#0C5FAF', 'Music': '#00845E',
+    'Sports': '#ff00003d', 'Business': '#708090', 'Government': '#ff00003d'};
+  colorMap = {};
   category: string;
   iconName: string;
+  categoryColumnColor: string;
+  categories = JSON.parse(localStorage.getItem('Categories'));
 
   constructor()
   {
@@ -18,6 +25,9 @@ export class EventCardComponent
 
   ngOnInit()
   {
+
+    console.log(this.colorMap);
+
     this.category = this.event.ParentCatName;
 
     // sorry this is bad, couldn't get switch cases to work
