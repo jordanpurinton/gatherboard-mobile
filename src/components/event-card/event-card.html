@@ -1,14 +1,14 @@
 <ion-card padding no-border no-lines text-wrap>
   <ion-item no-padding text-wrap>
     <ion-row text-wrap>
-      <ion-col no-padding text-center text-wrap col-4>
+      <ion-col class="first-col" no-padding text-center text-wrap col-3>
         {{formatDate(event.EventStartDate)}}<br>
         <div>
-          <ion-icon name="{{name}}"></ion-icon>
+          <ion-icon name="{{iconName}}"></ion-icon>
         </div>
         {{formatStartTime(event.EventTime)}}
       </ion-col>
-      <ion-col no-padding text-wrap col-8>
+      <ion-col class="second-col" no-padding text-wrap col-9>
         {{event.EventTitle}}
       </ion-col>
     </ion-row>

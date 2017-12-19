@@ -1,8 +1,25 @@
 event-card {
   ion-card.card.card-md{
     padding: 0;
+    height: 100%;
   }
   ion-card.card.card-ios{
     padding: 0;
+    height: 100%;
+  }
+  ion-label.label.label-md {
+    margin: 0;
+    height: 100% !important;
+  }
+  ion-label.label.label-ios {
+    margin: 0;
+    height: 100% !important;
+  }
+  .first-col{
+    padding: 4px;
+    background-color: red;
+  }
+  .second-col{
+    padding-left: 8px;
   }
 }

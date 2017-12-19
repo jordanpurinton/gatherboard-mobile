@@ -9,8 +9,8 @@ export class EventCardComponent
 {
 
   @Input() event: any;
-  category;
-  name: string;
+  category: string;
+  iconName: string;
 
   constructor()
   {
@@ -23,35 +23,35 @@ export class EventCardComponent
     // sorry this is bad, couldn't get switch cases to work
     // so this will have to do
     if (this.category == 'Education') {
-      this.name = 'school';
+      this.iconName = 'school';
     }
 
     else if (this.category == 'Food') {
-      this.name = 'restaurant';
+      this.iconName = 'restaurant';
     }
 
     else if (this.category == 'Art') {
-      this.name = 'color-palette';
+      this.iconName = 'color-palette';
     }
 
     else if (this.category == 'Music') {
-      this.name = 'musical-notes';
+      this.iconName = 'musical-notes';
     }
 
     else if (this.category == 'Sports'){
-      this.name = 'american-football';
+      this.iconName = 'american-football';
     }
 
     else if (this.category == 'Business') {
-      this.name = 'briefcase';
+      this.iconName = 'briefcase';
     }
 
     else if (this.category == 'Government') {
-      this.name = 'megaphone';
+      this.iconName = 'megaphone';
     }
 
     else {
-      this.name = 'star';
+      this.iconName = 'star';
     }
   }
 
