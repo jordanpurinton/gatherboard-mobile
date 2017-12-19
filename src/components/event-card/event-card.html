@@ -3,12 +3,15 @@
     <ion-row text-wrap>
       <ion-col class="first-col" [ngStyle]="{'background-color': backgroundColorMap[event.ParentCatName]}"
                no-padding text-center text-wrap col-3>
-        {{formatDate(event.EventStartDate)}}<br>
+        <span [ngStyle]="{'color': iconColorMap[event.ParentCatName]}">
+          {{formatDate(event.EventStartDate)}}</span>
+        <br>
         <div>
           <ion-icon [ngStyle]="{'color': iconColorMap[event.ParentCatName]}"
                     name="{{iconName}}"></ion-icon>
         </div>
-        {{formatStartTime(event.EventTime)}}
+        <span [ngStyle]="{'color': iconColorMap[event.ParentCatName]}">
+          {{formatStartTime(event.EventTime)}}</span>
       </ion-col>
       <ion-col class="second-col" no-padding text-wrap col-9>
         {{event.EventTitle}}
