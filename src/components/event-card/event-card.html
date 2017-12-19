@@ -4,13 +4,7 @@
       <ion-col no-padding text-center text-wrap col-4>
         {{formatDate(event.EventStartDate)}}<br>
         <div>
-          <ion-icon *ngIf="event.ParentCatName == 'Education'" name="school"></ion-icon>
-          <ion-icon *ngIf="event.ParentCatName == 'Food'" name="restaurant"></ion-icon>
-          <ion-icon *ngIf="event.ParentCatName == 'Art'" name="color-palette"></ion-icon>
-          <ion-icon *ngIf="event.ParentCatName == 'Music'" name="musical-notes"></ion-icon>
-          <ion-icon *ngIf="event.ParentCatName == 'Sports'" name="american-football"></ion-icon>
-          <ion-icon *ngIf="event.ParentCatName == 'Business'" name="american-football"></ion-icon>
-          <ion-icon *ngIf="!matchesCategory(event.ParentCatName)" name="star"></ion-icon>
+          <ion-icon name="{{name}}"></ion-icon>
         </div>
         {{formatStartTime(event.EventTime)}}
       </ion-col>

@@ -9,42 +9,49 @@ export class EventCardComponent
 {
 
   @Input() event: any;
+  category;
+  name: string;
 
   constructor()
   {
   }
 
-  matchesCategory(category)
+  ngOnInit()
   {
-    switch (category) {
+    this.category = this.event.ParentCatName;
 
-      case 'Education':
-        return true;
-        break;
+    // sorry this is bad, couldn't get switch cases to work
+    // so this will have to do
+    if (this.category == 'Education') {
+      this.name = 'school';
+    }
 
-      case 'Food':
-        return true;
-        break;
+    else if (this.category == 'Food') {
+      this.name = 'restaurant';
+    }
 
-      case 'Art':
-        return true;
-        break;
+    else if (this.category == 'Art') {
+      this.name = 'color-palette';
+    }
 
-      case 'Music':
-        return true;
-        break;
+    else if (this.category == 'Music') {
+      this.name = 'musical-notes';
+    }
 
-      case 'Sports':
-        return true;
-        break;
+    else if (this.category == 'Sports'){
+      this.name = 'american-football';
+    }
 
-      case 'Business':
-        return true;
-        break;
+    else if (this.category == 'Business') {
+      this.name = 'briefcase';
+    }
 
-      default:
-        return false;
-        break;
+    else if (this.category == 'Government') {
+      this.name = 'megaphone';
+    }
+
+    else {
+      this.name = 'star';
     }
   }
 
