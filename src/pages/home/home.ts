@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {DataProvider} from "../../providers/data-provider";
 import {Loading, LoadingController} from "ionic-angular";
+import moment from 'moment';
 
 @Component({
   selector: 'page-home',
@@ -30,6 +31,11 @@ export class HomePage
         data => {
           console.log(data);
           this.events = data;
+          for (let i = 0; i < this.events.length; i++) {
+            if (i != 0) {
+              this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
+            }
+          }
           this.dismissLoading();
         },
         err => {
@@ -60,6 +66,11 @@ export class HomePage
     else {
       return startTime.substring(0, startTime.length - 3) + 'a';
     }
+  }
+
+  formatStartDate(startDate)
+  {
+    return moment(startDate).format('M/D');
   }
 
   createLoader()
