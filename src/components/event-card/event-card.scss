@@ -1,11 +1,9 @@
 event-card {
   ion-card.card.card-md {
     padding: 0;
-    height: 100%;
   }
   ion-card.card.card-ios {
     padding: 0;
-    height: 100%;
   }
   ion-label.label.label-md {
     margin: 0;
@@ -16,24 +14,24 @@ event-card {
     height: 100% !important;
   }
   .first-col {
-    padding: 4px;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
   .second-col {
-    padding-top: 4px;
-    padding-left: 8px;
-    line-height: 17px;
+    padding: 12px 8px 4px 8px;
   }
-  .second-col p {
+  .second-col {
     font-size: 90%;
-    color: #708090;
   }
   .event-title{
-    font-size: 90%;
+    padding-bottom: 2px;
+    color: black;
   }
   .event-venue{
-    font-size: 80%;
+    zoom: 90%;
+    color: #708090;
   }
   ion-icon {
-    zoom: 130%;
+    font-size: 20px;
   }
 }

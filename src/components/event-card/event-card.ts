@@ -68,12 +68,22 @@ export class EventCardComponent
     }
   }
 
+  /**
+   * Hacky method for formatting plain time string sent back from API
+   * @param startTime
+   * @returns {string}
+   */
   formatStartTime(startTime)
   {
     let firstIndex = parseInt(startTime[0]);
     let secondIndex = parseInt(startTime[1]);
     let combined = startTime[0] + startTime[1];
     let combinedInt = parseInt(combined);
+
+    // remove trailing 0
+    if(parseInt(startTime[0]) == 0){
+      startTime = startTime.substring(1, startTime.length + 1);
+    }
 
     // 13:00 - 23:59
     if (combinedInt > 12) {

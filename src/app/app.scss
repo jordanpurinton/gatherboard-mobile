@@ -1,1 +1,22 @@
+#tabpanel-t0-0 > page-home > ion-content > div.scroll-content {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+}
+div::-webkit-scrollbar {
+  border:none;
+  width:0;
+  background: rgba(0,0,0,0);
+}
 
+div::-webkit-scrollbar-track {
+  border:none;
+  width:0;
+  background: rgba(0,0,0,0);
+}
+
+div::-webkit-scrollbar-thumb {
+  border:none;
+  width:0;
+  background: rgba(0,0,0,0);
+}

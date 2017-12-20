@@ -2,7 +2,7 @@
   <button ion-item no-padding text-wrap detail-push>
     <ion-row text-wrap>
       <ion-col class="first-col" [ngStyle]="{'background-color': backgroundColorMap[event.ParentCatName]}"
-               no-padding text-center text-wrap col-4>
+               no-padding text-center text-wrap col-3>
         <span class="start-date" [ngStyle]="{'color': iconColorMap[event.ParentCatName]}">
           {{formatDate(event.EventStartDate)}}
         </span>
@@ -14,8 +14,8 @@
           {{formatStartTime(event.EventTime)}}
         </span>
       </ion-col>
-      <ion-col class="second-col" no-padding text-wrap col-8>
-        <span class="event-title">{{event.EventTitle}}</span>
+      <ion-col class="second-col" no-padding text-wrap col-9>
+        <p class="event-title">{{event.EventTitle}}</p>
         <p class="event-venue">{{event.Venue}}</p>
       </ion-col>
     </ion-row>
