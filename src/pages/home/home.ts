@@ -73,6 +73,11 @@ export class HomePage
     return moment(startDate).format('M/D');
   }
 
+  isTodayEvent(startDate)
+  {
+    return moment(startDate).format('M/D') == moment().format('M/D');
+  }
+
   createLoader()
   {
     this.loading = this.loadingController.create({showBackdrop: false});

@@ -1,7 +1,10 @@
 <ion-content>
   <ion-list text-wrap>
     <div *ngFor="let event of events; let i = index">
-      <ion-list-header no-margin *ngIf="event.PrevStartDate != event.EventStartDate">
+      <ion-list-header no-margin *ngIf="isTodayEvent(event.EventStartDate)">
+        <b>Today</b>
+      </ion-list-header>
+      <ion-list-header no-margin *ngIf="!isTodayEvent(event.EventStartDate) && event.PrevStartDate != event.EventStartDate">
         <b>{{formatStartDate(event.EventStartDate)}}</b>
       </ion-list-header>
       <event-card [event]="event"></event-card>
