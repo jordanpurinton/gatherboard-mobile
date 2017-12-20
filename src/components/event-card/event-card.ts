@@ -63,6 +63,7 @@ export class EventCardComponent
     }
 
     else {
+      this.backgroundColorMap[this.category] = '#cacfd4';
       this.iconName = 'star';
     }
   }

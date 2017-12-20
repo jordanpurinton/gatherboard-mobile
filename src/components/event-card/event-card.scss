@@ -1,9 +1,9 @@
 event-card {
-  ion-card.card.card-md{
+  ion-card.card.card-md {
     padding: 0;
     height: 100%;
   }
-  ion-card.card.card-ios{
+  ion-card.card.card-ios {
     padding: 0;
     height: 100%;
   }
@@ -15,11 +15,25 @@ event-card {
     margin: 0;
     height: 100% !important;
   }
-  .first-col{
+  .first-col {
     padding: 4px;
   }
-  .second-col{
+  .second-col {
     padding-top: 4px;
     padding-left: 8px;
+    line-height: 17px;
+  }
+  .second-col p {
+    font-size: 90%;
+    color: #708090;
+  }
+  .event-title{
+    font-size: 90%;
+  }
+  .event-venue{
+    font-size: 80%;
+  }
+  ion-icon {
+    zoom: 130%;
   }
 }
