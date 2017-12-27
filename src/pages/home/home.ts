@@ -12,6 +12,7 @@ export class HomePage
 
   events;
   loading: Loading;
+  platform = localStorage.getItem('Platform');
 
   constructor(public dataProvider: DataProvider,
               public loadingController: LoadingController)
@@ -20,6 +21,7 @@ export class HomePage
 
   ionViewDidLoad()
   {
+
     this.createLoader();
     this.loading.present();
   }

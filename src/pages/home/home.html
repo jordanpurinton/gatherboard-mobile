@@ -1,6 +1,7 @@
 <ion-content>
   <ion-list text-wrap>
     <div *ngFor="let event of events; let i = index">
+      <br *ngIf="platform == 'Android' && i != 0 && event.PrevStartDate != event.EventStartDate">
       <ion-list-header no-margin *ngIf="isTodayEvent(event.EventStartDate) && i == 0">
         <b>Today</b>
       </ion-list-header>

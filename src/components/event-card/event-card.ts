@@ -19,11 +19,11 @@ export class EventCardComponent
   // color strings
   backgroundColorMap = {
     'Education': '#FFF5E3', 'Food': '#F3E5E1', 'Art': '#E1ECF5', 'Music': '#E1F0EC',
-    'Sports': '#ffe6d1', 'Business': '#708090', 'Government': '#EFD9FF'
+    'Sports': '#ffe6d1', 'Business': '#cacfd4', 'Government': '#EFD9FF'
   };
   iconColorMap = {
-    'Education': '#FFB019', 'Food': '#9F2200', 'Art': '#0C5FAF', 'Music': '#00845E',
-    'Sports': '#ff8514', 'Business': '#708090', 'Government': '#70005D'
+    'Education': '#f1a007', 'Food': '#9F2200', 'Art': '#0C5FAF', 'Music': '#00845E',
+    'Sports': '#ff8514', 'Business': 'black', 'Government': '#70005D'
   };
   constructor(public modalController: ModalController)
   {
@@ -65,7 +65,7 @@ export class EventCardComponent
     }
 
     else {
-      this.backgroundColorMap[this.category] = '#cacfd4';
+      this.backgroundColorMap[this.category] = '#fbfafa';
       this.iconName = 'star';
     }
   }
