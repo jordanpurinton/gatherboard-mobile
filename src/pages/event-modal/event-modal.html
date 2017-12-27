@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar text-wrap>
-    <ion-title text-wrap>{{event.EventTitle}}</ion-title>
+    <ion-buttons left>
+      <button class="modal-close" ion-button (click)="closeModal()">
+        <ion-icon class="close-icon" name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{event.EventTitle}}</ion-title>
   </ion-navbar>
 </ion-header>
 

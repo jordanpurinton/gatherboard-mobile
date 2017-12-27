@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavParams, ViewController} from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -10,12 +10,17 @@ export class EventModalPage {
 
   event = this.navParams.get('event');
 
-  constructor(public navCtrl: NavController,
+  constructor(public viewController: ViewController,
               public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log(this.event)
+  }
+
+  closeModal()
+  {
+    this.viewController.dismiss();
   }
 
 }
