@@ -1,4 +1,4 @@
-<ion-card no-padding no-border no-lines text-wrap>
+<ion-card (click)="openModal(event)" no-padding no-border no-lines text-wrap>
   <button ion-item no-padding text-wrap detail-push>
     <ion-row text-wrap>
       <ion-col class="first-col" [ngStyle]="{'background-color': backgroundColorMap[event.ParentCatName]}"

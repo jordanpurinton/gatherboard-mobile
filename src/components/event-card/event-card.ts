@@ -1,5 +1,7 @@
 import {Component, Input} from '@angular/core';
 import moment from 'moment';
+import {ModalController} from "ionic-angular";
+import {EventModalPage} from "../../pages/event-modal/event-modal";
 
 @Component({
   selector: 'event-card',
@@ -23,7 +25,7 @@ export class EventCardComponent
     'Education': '#FFB019', 'Food': '#9F2200', 'Art': '#0C5FAF', 'Music': '#00845E',
     'Sports': '#ff8514', 'Business': '#708090', 'Government': '#70005D'
   };
-  constructor()
+  constructor(public modalController: ModalController)
   {
   }
 
@@ -67,6 +69,14 @@ export class EventCardComponent
       this.iconName = 'star';
     }
   }
+
+
+  openModal(event)
+  {
+    let modal = this.modalController.create(EventModalPage, {'event': event});
+    modal.present();
+  }
+
 
   /**
    * Hacky method for formatting plain time string sent back from API

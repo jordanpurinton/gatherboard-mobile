@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { HomePage } from './home';
-import {EventCardComponent} from "../../components/event-card/event-card";
+import {ComponentsModule} from "../../components/components.module";
+import {EventModalPage} from "../event-modal/event-modal";
 
 @NgModule({
   declarations: [
-    HomePage, EventCardComponent
+    HomePage
   ],
   imports: [
     IonicPageModule.forChild(HomePage),
-    EventCardComponent
+    ComponentsModule
   ],
+  entryComponents: [
+    EventModalPage
+  ]
 })
 export class HomePageModule {}

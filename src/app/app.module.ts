@@ -11,6 +11,7 @@ import {EventCardComponent} from "../components/event-card/event-card";
 import {TabsPage} from "../pages/tabs/tabs";
 import {MapPage} from "../pages/map/map";
 import {SettingsPage} from "../pages/settings/settings";
+import {EventModalPage} from "../pages/event-modal/event-modal";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {SettingsPage} from "../pages/settings/settings";
     HomePage,
     MapPage,
     SettingsPage,
-    EventCardComponent
+    EventCardComponent,
+    EventModalPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import {SettingsPage} from "../pages/settings/settings";
     TabsPage,
     HomePage,
     MapPage,
-    SettingsPage
+    SettingsPage,
+    EventModalPage
   ],
   providers: [
     StatusBar,
