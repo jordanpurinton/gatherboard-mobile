@@ -17,5 +17,6 @@ Run in browser
 ## References
 ##### GatherBoard website: https://gatherboard.com/
 ##### App wireframe example: https://marvelapp.com/project/2487328/
+##### Original app wireframe example: https://projects.invisionapp.com/share/TMAGNBSXY
 ##### GatherBoard admin portal: https://manage.gatherboard.com/
-##### Ionic Documentation: https://ionicframework.com/docs/
+##### Ionic documentation: https://ionicframework.com/docs/
