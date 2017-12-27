@@ -10,7 +10,7 @@ import {TabsPage} from "../pages/tabs/tabs";
 })
 export class MyApp
 {
-  rootPage: any = TabsPage;
+  rootPage: any;
 
   constructor(platform: Platform,
               statusBar: StatusBar,
@@ -27,42 +27,6 @@ export class MyApp
         localStorage.setItem('Platform', 'Android');
       }
 
-      // this.dataProvider.getEvents()
-      //   .subscribe(
-      //     data => console.log(data),
-      //     err => console.log(err)
-      //   );
-      //
-      // this.dataProvider.getEventsByVenue('a001bef8')
-      //   .subscribe(
-      //     data => console.log(data),
-      //     err => console.log(err)
-      //   ); // arbitrary venue
-      //
-      // this.dataProvider.getEventDetail('af9c566e')
-      //   .subscribe(
-      //     data => console.log(data),
-      //     err => console.log(err)
-      //   ); // arbitrary event
-      //
-      // this.dataProvider.getVenues()
-      //   .subscribe(
-      //     data => console.log(data),
-      //     err => console.log(err)
-      //   );
-      //
-      // this.dataProvider.getFeatures()
-      //   .subscribe(
-      //     data => console.log(data),
-      //     err => console.log(err)
-      //   );
-      //
-      // this.dataProvider.getTags()
-      //   .subscribe(
-      //     data => console.log(data),
-      //     err => console.log(err)
-      //   );
-      //
       this.dataProvider.getCategories()
         .subscribe(
           data => {
@@ -74,16 +38,10 @@ export class MyApp
             }
 
             localStorage.setItem('Categories', JSON.stringify(categories));
-            console.log(localStorage.getItem('Categories'));
+            this.rootPage = TabsPage;
           },
           err => console.log(err)
         );
-      //
-      // this.dataProvider.getSubcategories('68c8cb8b')
-      //   .subscribe(
-      //     data => console.log(data),
-      //     err => console.log(err)
-      //   ); // arbitrary category
     });
   }
 }

@@ -15,6 +15,9 @@
         </span>
       </ion-col>
       <ion-col class="second-col" no-padding text-wrap col-9>
+        <p class="event-category" [ngStyle]="{'color': iconColorMap[event.ParentCatName]}">
+          {{event.ParentCatName}} <span *ngIf="event.SecCatName">   >   {{event.SecCatName}}</span>
+        </p>
         <p class="event-title">{{event.EventTitle}}</p>
         <p class="event-venue">{{event.Venue}}</p>
       </ion-col>

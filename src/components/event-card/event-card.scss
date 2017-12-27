@@ -23,12 +23,16 @@ event-card {
   .second-col {
     font-size: 90%;
   }
-  .event-title{
-    padding-bottom: 2px;
+  .event-category {
+    zoom: 80%;
+  }
+  .header-md::after, .tabs-md[tabsPlacement="top"] > .tabbar::after, .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+    height: 0;
+  }
+  .event-title {
     color: black;
   }
-  .event-venue{
-    zoom: 90%;
+  .event-venue {
     color: #708090;
   }
   ion-icon {
