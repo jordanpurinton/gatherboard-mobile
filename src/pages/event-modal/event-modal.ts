@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as _ from 'underscore';
 import {IonicPage, NavParams, ViewController} from 'ionic-angular';
 
 @IonicPage()
@@ -23,4 +24,8 @@ export class EventModalPage {
     this.viewController.dismiss();
   }
 
+  escapeEntity(string)
+  {
+    return _.unescape(string);
+  }
 }
