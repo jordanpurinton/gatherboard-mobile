@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import moment from 'moment';
+import * as _ from 'underscore';
 import {ModalController} from "ionic-angular";
 import {EventModalPage} from "../../pages/event-modal/event-modal";
 
@@ -23,7 +24,7 @@ export class EventCardComponent
   };
   iconColorMap = {
     'Education': '#f1a007', 'Food': '#9F2200', 'Art': '#0C5FAF', 'Music': '#00845E',
-    'Sports': '#ff8514', 'Business': 'black', 'Government': '#70005D'
+    'Sports': '#ff8514', 'Business': '#708090', 'Government': '#70005D'
   };
   constructor(public modalController: ModalController)
   {
@@ -65,7 +66,7 @@ export class EventCardComponent
     }
 
     else {
-      this.backgroundColorMap[this.category] = '#fbfafa';
+      this.backgroundColorMap[this.category] = '#cacfd4';
       this.iconName = 'star';
     }
   }
@@ -114,5 +115,10 @@ export class EventCardComponent
   formatDate(date)
   {
     return moment(date).format('M/D');
+  }
+
+  escapeEntity(string)
+  {
+    return _.unescape(string);
   }
 }

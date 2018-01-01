@@ -92,4 +92,5 @@ export class HomePage
       this.loading = null;
     }
   }
+
 }

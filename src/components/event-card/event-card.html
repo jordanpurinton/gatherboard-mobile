@@ -1,24 +1,26 @@
 <ion-card (click)="openModal(event)" no-padding no-border no-lines text-wrap>
   <button ion-item no-padding text-wrap detail-push>
-    <ion-row text-wrap>
-      <ion-col class="first-col" [ngStyle]="{'background-color': backgroundColorMap[event.ParentCatName]}"
+    <ion-row text-wrap align-items-center>
+      <ion-col class="first-col" align-self-stretch [ngStyle]="{'background-color': backgroundColorMap[event.ParentCatName]}"
                no-padding text-center text-wrap col-3>
-        <span class="start-date" [ngStyle]="{'color': iconColorMap[event.ParentCatName]}">
-          {{formatDate(event.EventStartDate)}}
-        </span>
-        <br>
-        <div>
-          <ion-icon [ngStyle]="{'color': iconColorMap[event.ParentCatName]}" name="{{iconName}}"></ion-icon>
-        </div>
+        <!--<span class="start-date" [ngStyle]="{'color': iconColorMap[event.ParentCatName]}">-->
+        <!--{{formatDate(event.EventStartDate)}}-->
+        <!--</span>-->
+        <!--<br>-->
         <span class="start-time" [ngStyle]="{'color': iconColorMap[event.ParentCatName]}">
           {{formatStartTime(event.EventTime)}}
         </span>
+          <div>
+            <ion-icon [ngStyle]="{'color': iconColorMap[event.ParentCatName]}" name="{{iconName}}"></ion-icon>
+          </div>
       </ion-col>
       <ion-col class="second-col" no-padding text-wrap col-9>
         <p class="event-category" [ngStyle]="{'color': iconColorMap[event.ParentCatName]}">
-          {{event.ParentCatName}} <span *ngIf="event.SecCatName">   >   {{event.SecCatName}}</span>
+          <span class="parent-cat">{{event.ParentCatName}}</span>
+          <span *ngIf="event.SecCatName"> > </span>
+          <span class="secondary-cat">{{event.SecCatName}}</span>
         </p>
-        <p class="event-title">{{event.EventTitle}}</p>
+        <p class="event-title">{{escapeEntity(event.EventTitle)}}</p>
         <p class="event-venue">{{event.Venue}}</p>
       </ion-col>
     </ion-row>
