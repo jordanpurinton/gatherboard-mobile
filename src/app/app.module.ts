@@ -26,7 +26,13 @@ import {EventModalPage} from "../pages/event-modal/event-modal";
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {
+      platforms: {
+        ios: {
+          statusbarPadding: true
+        }
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -2,4 +2,14 @@ page-home {
   .event-time{
     font-size: .6em;
   }
+  ion-content > div.scroll-content > ion-list > div > ion-card-header {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .md-padding {
+    padding-top: 16px;
+  }
+  .ios-padding {
+    padding-top: 39px;
+  }
 }

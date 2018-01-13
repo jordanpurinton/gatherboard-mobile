@@ -21,7 +21,6 @@ export class HomePage
 
   ionViewDidLoad()
   {
-
     this.createLoader();
     this.loading.present();
   }

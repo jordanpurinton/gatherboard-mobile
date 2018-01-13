@@ -20,6 +20,7 @@ export class MyApp
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
+
       if(platform.is('ios')) {
         localStorage.setItem('Platform', 'Ios');
       }

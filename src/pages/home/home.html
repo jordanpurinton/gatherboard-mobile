@@ -1,14 +1,21 @@
 <ion-content>
+  <div *ngIf="platform == 'Ios'" class="ios-padding"></div>
+  <div *ngIf="platform == 'Android'" class="md-padding"></div>
+
+  <!--event list-->
   <ion-list text-wrap>
-    <div *ngFor="let event of events; let i = index">
-      <br *ngIf="platform == 'Android' && i != 0 && event.PrevStartDate != event.EventStartDate">
-      <ion-list-header no-margin *ngIf="isTodayEvent(event.EventStartDate) && i == 0">
-        <b>Today</b>
-      </ion-list-header>
-      <ion-list-header no-margin *ngIf="!isTodayEvent(event.EventStartDate) && event.PrevStartDate != event.EventStartDate">
-        <b>{{formatStartDate(event.EventStartDate)}}</b>
-      </ion-list-header>
-      <event-card [event]="event"></event-card>
+    <div *ngFor="let e of events; let i = index">
+      <br *ngIf="i != 0 && e.PrevStartDate != e.EventStartDate">
+
+      <!--date header-->
+      <ion-card-header>
+        <b *ngIf="isTodayEvent(e.EventStartDate) && i == 0">Today</b>
+        <b *ngIf="!isTodayEvent(e.EventStartDate) && e.PrevStartDate != e.EventStartDate">{{formatStartDate(e.EventStartDate)}}</b>
+      </ion-card-header>
+
+      <!--event-->
+      <event-card [e]="e"></event-card>
+
     </div>
   </ion-list>
 </ion-content>

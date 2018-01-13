@@ -9,14 +9,14 @@ import {IonicPage, NavParams, ViewController} from 'ionic-angular';
 })
 export class EventModalPage {
 
-  event = this.navParams.get('event');
+  e = this.navParams.get('e');
 
   constructor(public viewController: ViewController,
               public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log(this.event)
+    console.log(this.e)
   }
 
   closeModal()

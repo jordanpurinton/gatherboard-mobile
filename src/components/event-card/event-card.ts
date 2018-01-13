@@ -11,7 +11,7 @@ import {EventModalPage} from "../../pages/event-modal/event-modal";
 export class EventCardComponent
 {
 
-  @Input() event: any;
+  @Input() e: any;
   colorMap = {};
   category: string;
   iconName: string;
@@ -33,7 +33,7 @@ export class EventCardComponent
   ngOnInit()
   {
 
-    this.category = this.event.ParentCatName;
+    this.category = this.e.ParentCatName;
 
     // sorry this is bad, couldn't get switch cases to work
     // so this will have to do
@@ -72,9 +72,9 @@ export class EventCardComponent
   }
 
 
-  openModal(event)
+  openModal(e)
   {
-    let modal = this.modalController.create(EventModalPage, {'event': event});
+    let modal = this.modalController.create(EventModalPage, {'e': this.e});
     modal.present();
   }
 
