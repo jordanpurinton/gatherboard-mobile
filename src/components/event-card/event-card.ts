@@ -72,7 +72,7 @@ export class EventCardComponent
   }
 
 
-  openModal(e)
+  openModal()
   {
     let modal = this.modalController.create(EventModalPage, {'e': this.e});
     modal.present();
