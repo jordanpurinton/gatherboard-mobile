@@ -9,6 +9,7 @@ To run this program, make sure you have node/npm installed as well as the Ionic 
 Make sure you have Ionic and Cordova installed globally
 
 `yarn add ionic --global`
+
 `yarn add cordova --global`
 
 Install dependencies
