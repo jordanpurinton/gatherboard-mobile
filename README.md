@@ -8,7 +8,7 @@ To run this program, make sure you have node/npm installed as well as the Ionic 
 ## Running the program
 Install dependencies
 
-`npm i` 
+`yarn i` 
 
 Run in browser
 
