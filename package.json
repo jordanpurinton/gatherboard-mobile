@@ -1,8 +1,8 @@
 {
   "name": "GatherBoard",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": "Meme Team",
+  "homepage": "https://www.gatherboard.com",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -40,5 +40,5 @@
     "@ionic/app-scripts": "^3.1.7",
     "typescript": "^2.6.2"
   },
-  "description": "An Ionic project"
+  "description": "Mobile application for GatherBoard platform"
 }
