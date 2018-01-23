@@ -6,6 +6,11 @@ This is the workspace for the GatherBoard mobile project for UM's Advanced Progr
 To run this program, make sure you have node/npm installed as well as the Ionic Framework.
 
 ## Running the program
+Make sure you have Ionic and Cordova installed globally
+
+`yarn add ionic --global`
+`yarn add cordova --global`
+
 Install dependencies
 
 `yarn i` 
