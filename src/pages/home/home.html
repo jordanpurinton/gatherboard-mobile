@@ -8,9 +8,13 @@
       </ion-searchbar>
     </ion-row>
     <ion-row>
-      <ion-label (click)="onViewClick()" [ngClass]="{hiddenViewStyle: selectedView == 'All'}"
+      <ion-label (click)="onViewClick()" [ngClass]="{
+      hiddenViewStyle: selectedView == 'All',
+      visibleViewStyle: selectedView == 'My Feed'}"
                  ion-button clear class="header-label-left">My Feed</ion-label>
-      <ion-label (click)="onViewClick()" [ngClass]="{hiddenViewStyle: selectedView == 'My Feed'}"
+      <ion-label (click)="onViewClick()" [ngClass]="{
+      hiddenViewStyle: selectedView == 'My Feed',
+      visibleViewStyle: selectedView == 'All'}"
         ion-button clear class="header-label-right">All</ion-label>
     </ion-row>
   </ion-toolbar>
