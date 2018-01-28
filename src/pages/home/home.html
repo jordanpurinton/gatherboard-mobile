@@ -2,8 +2,7 @@
   <ion-toolbar>
     <ion-row>
       <ion-col col-11>
-        <ion-searchbar [(ngModel)]="searchInput" (ionInput)="onSearchInput($event)" (ionCancel)="onSearchCancel($event)">
-        </ion-searchbar>
+        <ion-searchbar [(ngModel)]="searchTerms" (ionInput)="onSearchInput($event)" (ionClear)="onSearchClear()"></ion-searchbar>
       </ion-col>
       <ion-col text-center no-padding col-1>
         <ion-icon class="calendar-icon" name="calendar"></ion-icon>
@@ -29,6 +28,7 @@
 <ion-content>
   <div *ngIf="platform == 'Ios'" class="ios-padding"></div>
   <div *ngIf="platform == 'Android'" class="md-padding"></div>
+  <div *ngIf="searchLoading" class="search-loading"><ion-spinner></ion-spinner></div>
 
   <!--event list-->
   <ion-list *ngIf="hasEvents" text-wrap>

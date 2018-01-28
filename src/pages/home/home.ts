@@ -12,7 +12,8 @@ export class HomePage
 
   events;
   hasEvents;
-  searchInput;
+  searchLoading = false;
+  searchTerms = '';
   selectedView = 'My Feed';
   loading: Loading;
   platform = localStorage.getItem('Platform');
@@ -55,14 +56,69 @@ export class HomePage
     this.selectedView == 'My Feed' ? this.selectedView = 'All' : this.selectedView = 'My Feed';
   }
 
-  onSearchInput()
+  onSearchInput(event)
   {
+    this.searchLoading = true;
 
+    if (event.inputType == 'insertText') {
+      this.events = this.events.filter(
+        e => {
+          return e.EventTitle.toLowerCase().includes(this.searchTerms);
+        });
+      this.searchLoading = false;
+    }
+    else {
+      this.dataProvider.getEvents()
+        .subscribe(
+          data => {
+            this.events = data;
+            this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
+
+            for (let i = 0; i < this.events.length; i++) {
+              if (i != 0) {
+                this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
+              }
+            }
+            this.events = this.events.filter(
+              e => {
+                return e.EventTitle.toLowerCase().includes(this.searchTerms);
+              });
+            this.searchLoading = false;
+          },
+          err => {
+            console.log(err);
+            this.searchLoading = false;
+          }
+        )
+    }
   }
 
-  onSearchCancel()
+  onSearchClear()
   {
+    this.searchLoading = true;
+    this.searchTerms = '';
+    this.dataProvider.getEvents()
+      .subscribe(
+        data => {
+          this.events = data;
+          this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
 
+          for (let i = 0; i < this.events.length; i++) {
+            if (i != 0) {
+              this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
+            }
+          }
+          this.events = this.events.filter(
+            e => {
+              return e.EventTitle.toLowerCase().includes(this.searchTerms);
+            });
+          this.searchLoading = false;
+        },
+        err => {
+          console.log(err);
+          this.searchLoading = false;
+        }
+      )
   }
 
   formatStartDate(startDate)

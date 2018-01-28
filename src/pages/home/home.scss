@@ -29,6 +29,10 @@ page-home {
     color: #a2a2a2;
   }
 
+  .search-loading {
+    text-align: center;
+  }
+
   .visibleViewStyle {
     font-weight: bold;
   }
@@ -37,7 +41,7 @@ page-home {
     background-color: #0A559F;
   }
 
-  .event-time{
+  .event-time {
     font-size: .6em;
   }
   ion-content > div.scroll-content > ion-list > div > ion-card-header {
