@@ -1,21 +1,27 @@
 <ion-header>
   <ion-toolbar>
     <ion-row>
-      <ion-searchbar
-        [(ngModel)]="searchInput"
-        (ionInput)="onSearchInput($event)"
-        (ionCancel)="onSearchCancel($event)">
-      </ion-searchbar>
+      <ion-col col-11>
+        <ion-searchbar [(ngModel)]="searchInput" (ionInput)="onSearchInput($event)" (ionCancel)="onSearchCancel($event)">
+        </ion-searchbar>
+      </ion-col>
+      <ion-col text-center no-padding col-1>
+        <ion-icon class="calendar-icon" name="calendar"></ion-icon>
+      </ion-col>
     </ion-row>
     <ion-row>
+
+      <!--my feed view-->
       <ion-label (click)="onViewClick()" [ngClass]="{
       hiddenViewStyle: selectedView == 'All',
-      visibleViewStyle: selectedView == 'My Feed'}"
-                 ion-button clear class="header-label-left">My Feed</ion-label>
+      visibleViewStyle: selectedView == 'My Feed'}" ion-button clear class="header-label-left">My Feed
+      </ion-label>
+      <!--all event view-->
       <ion-label (click)="onViewClick()" [ngClass]="{
       hiddenViewStyle: selectedView == 'My Feed',
-      visibleViewStyle: selectedView == 'All'}"
-        ion-button clear class="header-label-right">All</ion-label>
+      visibleViewStyle: selectedView == 'All'}" ion-button clear class="header-label-right">All
+      </ion-label>
+
     </ion-row>
   </ion-toolbar>
 </ion-header>
