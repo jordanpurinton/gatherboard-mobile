@@ -11,6 +11,9 @@ export class HomePage
 {
 
   events;
+  hasEvents;
+  searchInput;
+  selectedView = 'My Feed';
   loading: Loading;
   platform = localStorage.getItem('Platform');
 
@@ -30,8 +33,9 @@ export class HomePage
     this.dataProvider.getEvents()
       .subscribe(
         data => {
-          console.log(data);
           this.events = data;
+          this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
+
           for (let i = 0; i < this.events.length; i++) {
             if (i != 0) {
               this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
@@ -46,27 +50,19 @@ export class HomePage
       )
   }
 
-  formatStartTime(startTime)
+  onViewClick()
   {
-    let firstIndex = parseInt(startTime[0]);
-    let secondIndex = parseInt(startTime[1]);
-    let combined = startTime[0] + startTime[1];
-    let combinedInt = parseInt(combined);
+    this.selectedView == 'My Feed' ? this.selectedView = 'All' : this.selectedView = 'My Feed';
+  }
 
-    // 13:00 - 23:59
-    if (combinedInt > 12) {
-      return (combinedInt - 12).toString() + ':' + startTime[3] + startTime[4] + 'p';
-    }
+  onSearchInput()
+  {
 
-    // 12:00p - 12:59p
-    else if (firstIndex == 1 && secondIndex == 2) {
-      return startTime.substring(0, startTime.length - 3) + 'p';
-    }
+  }
 
-    // 00:00 - 11:59
-    else {
-      return startTime.substring(0, startTime.length - 3) + 'a';
-    }
+  onSearchCancel()
+  {
+
   }
 
   formatStartDate(startDate)

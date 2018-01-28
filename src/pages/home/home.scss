@@ -1,4 +1,25 @@
 page-home {
+
+  .header-label-left {
+    padding-left: 36px;
+    text-align: center;
+    color: white;
+    width: 50%;
+    margin: 0;
+  }
+
+  .header-label-right {
+    padding-right: 36px;
+    text-align: center;
+    color: white;
+    width: 50%;
+    margin: 0;
+  }
+
+  .hiddenViewStyle {
+    color: #a2a2a2;
+  }
+
   .event-time{
     font-size: .6em;
   }
@@ -10,6 +31,6 @@ page-home {
     padding-top: 16px;
   }
   .ios-padding {
-    padding-top: 39px;
+    padding-top: 16px;
   }
 }

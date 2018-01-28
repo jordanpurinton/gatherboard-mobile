@@ -1,9 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row>
+      <ion-searchbar
+        [(ngModel)]="searchInput"
+        (ionInput)="onSearchInput($event)"
+        (ionCancel)="onSearchCancel($event)">
+      </ion-searchbar>
+    </ion-row>
+    <ion-row>
+      <ion-label (click)="onViewClick()" [ngClass]="{hiddenViewStyle: selectedView == 'All'}"
+                 ion-button clear class="header-label-left">My Feed</ion-label>
+      <ion-label (click)="onViewClick()" [ngClass]="{hiddenViewStyle: selectedView == 'My Feed'}"
+        ion-button clear class="header-label-right">All</ion-label>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <div *ngIf="platform == 'Ios'" class="ios-padding"></div>
   <div *ngIf="platform == 'Android'" class="md-padding"></div>
 
   <!--event list-->
-  <ion-list text-wrap>
+  <ion-list *ngIf="hasEvents" text-wrap>
     <div *ngFor="let e of events; let i = index">
       <br *ngIf="i != 0 && e.PrevStartDate != e.EventStartDate">
 
@@ -18,4 +36,5 @@
 
     </div>
   </ion-list>
+  <ion-label *ngIf="!hasEvents && loading == null" text-center>No events found</ion-label>
 </ion-content>
