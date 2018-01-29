@@ -23,12 +23,14 @@ export class HomePage
   {
   }
 
+  // first page load
   ionViewDidLoad()
   {
     this.createLoader();
     this.loading.present();
   }
 
+  // when page becomes in focus
   ionViewDidEnter()
   {
     this.dataProvider.getEvents()
@@ -51,11 +53,13 @@ export class HomePage
       )
   }
 
+  // change event view type
   onViewClick()
   {
     this.selectedView == 'My Feed' ? this.selectedView = 'All' : this.selectedView = 'My Feed';
   }
 
+  // when search term character is added or deleted
   onSearchInput(event)
   {
     this.searchLoading = true;
@@ -63,8 +67,16 @@ export class HomePage
     if (event.inputType == 'insertText') {
       this.events = this.events.filter(
         e => {
-          return e.EventTitle.toLowerCase().includes(this.searchTerms);
+          return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
+            e.Venue.toLowerCase().includes(this.searchTerms);
         });
+
+      for (let i = 0; i < this.events.length; i++) {
+        if (i != 0) {
+          this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
+        }
+      }
+      this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
       this.searchLoading = false;
     }
     else {
@@ -74,15 +86,18 @@ export class HomePage
             this.events = data;
             this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
 
+            this.events = this.events.filter(
+              e => {
+                return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
+                  e.Venue.toLowerCase().includes(this.searchTerms)
+              });
+
             for (let i = 0; i < this.events.length; i++) {
               if (i != 0) {
                 this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
               }
             }
-            this.events = this.events.filter(
-              e => {
-                return e.EventTitle.toLowerCase().includes(this.searchTerms);
-              });
+            this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
             this.searchLoading = false;
           },
           err => {
@@ -93,6 +108,7 @@ export class HomePage
     }
   }
 
+  // when full search term string is cleared
   onSearchClear()
   {
     this.searchLoading = true;
@@ -103,15 +119,18 @@ export class HomePage
           this.events = data;
           this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
 
+          this.events = this.events.filter(
+            e => {
+              return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
+                e.Venue.toLowerCase().includes(this.searchTerms);
+            });
+
           for (let i = 0; i < this.events.length; i++) {
             if (i != 0) {
               this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
             }
           }
-          this.events = this.events.filter(
-            e => {
-              return e.EventTitle.toLowerCase().includes(this.searchTerms);
-            });
+          this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
           this.searchLoading = false;
         },
         err => {
