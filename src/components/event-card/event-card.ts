@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
-import moment from 'moment';
-import * as _ from 'underscore';
+import * as _ from 'he';
 import {ModalController} from "ionic-angular";
 import {EventModalPage} from "../../pages/event-modal/event-modal";
 
@@ -11,10 +10,8 @@ import {EventModalPage} from "../../pages/event-modal/event-modal";
 export class EventCardComponent {
 
     @Input() e: any;
-    colorMap = {};
     category: string;
     iconName: string;
-    categories = JSON.parse(localStorage.getItem('Categories'));
 
     // color strings
     backgroundColorMap = {
@@ -112,13 +109,8 @@ export class EventCardComponent {
         }
     }
 
-    formatDate(date)
-    {
-        return moment(date).format('M/D');
-    }
-
     escapeEntity(string)
     {
-        return _.unescape(string);
+        return _.decode(string);
     }
 }
