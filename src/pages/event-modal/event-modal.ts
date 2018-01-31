@@ -1,31 +1,33 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import * as _ from 'underscore';
 import {IonicPage, NavParams, ViewController} from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-event-modal',
-  templateUrl: 'event-modal.html',
+    selector: 'page-event-modal',
+    templateUrl: 'event-modal.html',
 })
 export class EventModalPage {
 
-  e = this.navParams.get('e');
+    e = this.navParams.get('e');
 
-  constructor(public viewController: ViewController,
-              public navParams: NavParams) {
-  }
+    constructor(public viewController: ViewController,
+                public navParams: NavParams)
+    {
+    }
 
-  ionViewDidLoad() {
-    console.log(this.e)
-  }
+    ionViewDidLoad()
+    {
+        console.log(this.e)
+    }
 
-  closeModal()
-  {
-    this.viewController.dismiss();
-  }
+    closeModal()
+    {
+        this.viewController.dismiss();
+    }
 
-  escapeEntity(string)
-  {
-    return _.unescape(string);
-  }
+    escapeEntity(string)
+    {
+        return _.unescape(string);
+    }
 }

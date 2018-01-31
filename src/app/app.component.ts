@@ -6,44 +6,43 @@ import {DataProvider} from "../providers/data-provider";
 import {TabsPage} from "../pages/tabs/tabs";
 
 @Component({
-  templateUrl: 'app.html'
+    templateUrl: 'app.html'
 })
-export class MyApp
-{
-  rootPage: any;
+export class MyApp {
+    rootPage: any;
 
-  constructor(platform: Platform,
-              statusBar: StatusBar,
-              splashScreen: SplashScreen,
-              public dataProvider: DataProvider)
-  {
-    platform.ready().then(() => {
-      statusBar.styleDefault();
-      splashScreen.hide();
+    constructor(platform: Platform,
+                statusBar: StatusBar,
+                splashScreen: SplashScreen,
+                public dataProvider: DataProvider)
+    {
+        platform.ready().then(() => {
+            statusBar.styleDefault();
+            splashScreen.hide();
 
-      if(platform.is('ios')) {
-        localStorage.setItem('Platform', 'Ios');
-      }
-      else {
-        localStorage.setItem('Platform', 'Android');
-      }
-
-      this.dataProvider.getCategories()
-        .subscribe(
-          data => {
-
-            let categories = [];
-
-            for (let i = 0; i < data.length; i++) {
-              categories.push(data[i].CatName);
+            if (platform.is('ios')) {
+                localStorage.setItem('Platform', 'Ios');
+            }
+            else {
+                localStorage.setItem('Platform', 'Android');
             }
 
-            localStorage.setItem('Categories', JSON.stringify(categories));
-            this.rootPage = TabsPage;
-          },
-          err => console.log(err)
-        );
-    });
-  }
+            this.dataProvider.getCategories()
+                .subscribe(
+                    data => {
+
+                        let categories = [];
+
+                        for (let i = 0; i < data.length; i++) {
+                            categories.push(data[i].CatName);
+                        }
+
+                        localStorage.setItem('Categories', JSON.stringify(categories));
+                        this.rootPage = TabsPage;
+                    },
+                    err => console.log(err)
+                );
+        });
+    }
 }
 

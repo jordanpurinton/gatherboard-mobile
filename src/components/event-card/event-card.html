@@ -1,24 +1,25 @@
 <ion-card (click)="openModal(e)" no-padding no-border no-lines text-wrap>
-  <button ion-item no-padding text-wrap detail-push>
-    <ion-row text-wrap align-items-center>
-      <ion-col class="first-col" align-self-stretch [ngStyle]="{'background-color': backgroundColorMap[e.ParentCatName]}"
-               no-padding text-center text-wrap col-3>
+    <button ion-item no-padding text-wrap detail-push>
+        <ion-row text-wrap align-items-center>
+            <ion-col class="first-col" align-self-stretch
+                     [ngStyle]="{'background-color': backgroundColorMap[e.ParentCatName]}"
+                     no-padding text-center text-wrap col-3>
         <span class="start-time" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}">
           {{formatStartTime(e.EventTime)}}
         </span>
-          <div>
-            <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="{{iconName}}"></ion-icon>
-          </div>
-      </ion-col>
-      <ion-col class="second-col" no-padding text-wrap col-9>
-        <p class="event-category" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}">
-          <span class="parent-cat">{{e.ParentCatName}}</span>
-          <span *ngIf="e.SecCatName"> > </span>
-          <span class="secondary-cat">{{e.SecCatName}}</span>
-        </p>
-        <p class="event-title">{{escapeEntity(e.EventTitle)}}</p>
-        <p class="event-venue">{{e.Venue}}</p>
-      </ion-col>
-    </ion-row>
-  </button>
+                <div>
+                    <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="{{iconName}}"></ion-icon>
+                </div>
+            </ion-col>
+            <ion-col class="second-col" no-padding text-wrap col-9>
+                <p class="event-category" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}">
+                    <span class="parent-cat">{{e.ParentCatName}}</span>
+                    <span *ngIf="e.SecCatName"> > </span>
+                    <span class="secondary-cat">{{e.SecCatName}}</span>
+                </p>
+                <p class="event-title">{{escapeEntity(e.EventTitle)}}</p>
+                <p class="event-venue">{{e.Venue}}</p>
+            </ion-col>
+        </ion-row>
+    </button>
 </ion-card>

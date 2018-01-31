@@ -66,9 +66,14 @@ export class HomePage {
         if (event.inputType == 'insertText') {
             this.events = this.events.filter(
                 e => {
+                    let secCatName = '';
+                    if(e.SecCatName) { // make this check because there may not always be a sec cat name
+                        secCatName = e.SecCatName.toLowerCase();
+                    }
                     return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
                         e.Venue.toLowerCase().includes(this.searchTerms) ||
-                        e.ParentCatName.toLowerCase().includes(this.searchTerms);
+                        e.ParentCatName.toLowerCase().includes(this.searchTerms) ||
+                        secCatName.includes(this.searchTerms);
                 });
 
             for (let i = 0; i < this.events.length; i++) {
@@ -88,9 +93,14 @@ export class HomePage {
 
                         this.events = this.events.filter(
                             e => {
+                                let secCatName = '';
+                                if(e.SecCatName) { // make this check because there may not always be a sec cat name
+                                    secCatName = e.SecCatName.toLowerCase();
+                                }
                                 return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
                                     e.Venue.toLowerCase().includes(this.searchTerms) ||
-                                    e.ParentCatName.toLowerCase().includes(this.searchTerms);
+                                    e.ParentCatName.toLowerCase().includes(this.searchTerms) ||
+                                    secCatName.includes(this.searchTerms);
                             });
 
                         for (let i = 0; i < this.events.length; i++) {
@@ -122,9 +132,14 @@ export class HomePage {
 
                     this.events = this.events.filter(
                         e => {
+                            let secCatName = '';
+                            if(e.SecCatName) { // make this check because there may not always be a sec cat name
+                                secCatName = e.SecCatName.toLowerCase();
+                            }
                             return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
                                 e.Venue.toLowerCase().includes(this.searchTerms) ||
-                                e.ParentCatName.toLowerCase().includes(this.searchTerms);
+                                e.ParentCatName.toLowerCase().includes(this.searchTerms) ||
+                                secCatName.includes(this.searchTerms);
                         });
 
                     for (let i = 0; i < this.events.length; i++) {

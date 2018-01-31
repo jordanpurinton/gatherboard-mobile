@@ -3,32 +3,37 @@
   padding-right: 0;
   padding-top: 0;
 }
+
 div::-webkit-scrollbar {
-  border:none;
-  width:0;
-  background: rgba(0,0,0,0);
+  border: none;
+  width: 0;
+  background: rgba(0, 0, 0, 0);
 }
 
 div::-webkit-scrollbar-track {
-  border:none;
-  width:0;
-  background: rgba(0,0,0,0);
+  border: none;
+  width: 0;
+  background: rgba(0, 0, 0, 0);
 }
 
 div::-webkit-scrollbar-thumb {
-  border:none;
-  width:0;
-  background: rgba(0,0,0,0);
+  border: none;
+  width: 0;
+  background: rgba(0, 0, 0, 0);
 }
+
 .toolbar-background-ios {
   background: #488aff;
 }
+
 .toolbar-background-md {
   background: #488aff;
 }
+
 .toolbar-title-ios {
   color: white;
 }
+
 .toolbar-title-md {
   color: white;
 }

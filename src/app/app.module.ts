@@ -14,42 +14,41 @@ import {SettingsPage} from "../pages/settings/settings";
 import {EventModalPage} from "../pages/event-modal/event-modal";
 
 @NgModule({
-  declarations: [
-    MyApp,
-    TabsPage,
-    HomePage,
-    MapPage,
-    SettingsPage,
-    EventCardComponent,
-    EventModalPage
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    IonicModule.forRoot(MyApp, {
-      platforms: {
-        ios: {
-          statusbarPadding: true
-        }
-      }
-    })
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    TabsPage,
-    HomePage,
-    MapPage,
-    SettingsPage,
-    EventModalPage
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DataProvider
-  ]
+    declarations: [
+        MyApp,
+        TabsPage,
+        HomePage,
+        MapPage,
+        SettingsPage,
+        EventCardComponent,
+        EventModalPage
+    ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        IonicModule.forRoot(MyApp, {
+            platforms: {
+                ios: {
+                    statusbarPadding: true
+                }
+            }
+        })
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        TabsPage,
+        HomePage,
+        MapPage,
+        SettingsPage,
+        EventModalPage
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        {provide: ErrorHandler, useClass: IonicErrorHandler},
+        DataProvider
+    ]
 })
-export class AppModule
-{
+export class AppModule {
 }
