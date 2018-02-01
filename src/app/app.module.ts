@@ -12,6 +12,7 @@ import {TabsPage} from "../pages/tabs/tabs";
 import {MapPage} from "../pages/map/map";
 import {SettingsPage} from "../pages/settings/settings";
 import {EventModalPage} from "../pages/event-modal/event-modal";
+import {GoogleMaps} from '@ionic-native/google-maps';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import {EventModalPage} from "../pages/event-modal/event-modal";
         StatusBar,
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
-        DataProvider
+        DataProvider,
+        GoogleMaps
     ]
 })
 export class AppModule {
