@@ -15,7 +15,7 @@
     "@angular/common": "^5.2.2",
     "@angular/compiler": "^5.2.2",
     "@angular/compiler-cli": "^5.2.2",
-    "@angular/core": "^5.2.2",
+    "@angular/core": "^5.2.3",
     "@angular/forms": "^5.2.2",
     "@angular/http": "^5.2.2",
     "@angular/platform-browser": "^5.2.2",
@@ -30,12 +30,14 @@
     "angular": "^1.6.8",
     "cordova": "^8.0.0",
     "cordova-android": "^7.0.0",
+    "cordova-plugin-facebook4": "^1.9.1",
     "cordova-plugin-googlemaps": "^2.2.2",
     "eslint": "^4.16.0",
     "he": "^1.1.1",
     "ionic": "^3.19.1",
     "ionic-angular": "^3.9.2",
     "ionicons": "^3.0.0",
+    "lock": "^1.1.0",
     "moment": "^2.20.1",
     "rxjs": "^5.5.6",
     "sw-toolbox": "^3.6.0",
@@ -52,6 +54,10 @@
       "cordova-plugin-googlemaps": {
         "API_KEY_FOR_ANDROID": "AIzaSyCGNhkJGtzBEwRi0srNiZsKIbRiu1F-tNY",
         "API_KEY_FOR_IOS": "AIzaSyDLTpsRaXzg41owGr6FFkS9805FIe-fzbQ"
+      },
+      "cordova-plugin-facebook4": {
+        "APP_ID": "154765992578412",
+        "APP_NAME": "GatherBoard-SocialMedia"
       }
     }
   }
