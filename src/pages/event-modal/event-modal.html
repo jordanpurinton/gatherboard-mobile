@@ -1,19 +1,25 @@
 <ion-header>
-    <ion-navbar text-wrap>
-        <ion-buttons left>
-            <button class="modal-close" ion-button (click)="closeModal()">
-                <ion-icon class="close-icon" name="arrow-back"></ion-icon>
-            </button>
-        </ion-buttons>
-        <ion-title text-wrap>{{escapeEntity(e.EventTitle)}}</ion-title>
-    </ion-navbar>
+  <ion-navbar text-wrap>
+    <ion-buttons left>
+      <button class="modal-close" ion-button (click)="closeModal()">
+        <ion-icon class="close-icon" name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-wrap>{{escapeEntity(e.EventTitle)}}</ion-title>
+  </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
 
-    <ion-list>
+  <ion-buttons right>
+    <button class="modal-open" ion-button (click)="openModal()">
+      <ion-title text-warp>{{"Share to Facebook"}}</ion-title>
+    </button>
+  </ion-buttons>
 
-    </ion-list>
+  <ion-list>
+
+  </ion-list>
 
 </ion-content>
