@@ -13,6 +13,7 @@ import {MapPage} from "../pages/map/map";
 import {SettingsPage} from "../pages/settings/settings";
 import {EventModalPage} from "../pages/event-modal/event-modal";
 import {GoogleMaps} from '@ionic-native/google-maps';
+import {IonicStorageModule} from "@ionic/storage";
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import {GoogleMaps} from '@ionic-native/google-maps';
     imports: [
         BrowserModule,
         HttpClientModule,
+		  IonicStorageModule.forRoot(),
         IonicModule.forRoot(MyApp, {
             platforms: {
                 ios: {

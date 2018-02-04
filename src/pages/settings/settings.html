@@ -1,3 +1,9 @@
 <ion-content padding>
+<p *ngFor="let item of items">
+{{item}}
+</p>
+<ion-label fixed>input a thing</ion-label>
 
+<ion-input type="text" name="thing" [(ngModel)]="thing"></ion-input>
+<button ion-button (click)="save(thing);">Add</button>
 </ion-content>
