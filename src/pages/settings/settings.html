@@ -1,9 +1,23 @@
 <ion-content padding>
-<p *ngFor="let item of items">
-{{item}}
-</p>
-<ion-label fixed>input a thing</ion-label>
 
-<ion-input type="text" name="thing" [(ngModel)]="thing"></ion-input>
-<button ion-button (click)="save(thing);">Add</button>
+<ion-label fixed>Tags</ion-label>
+<p *ngFor="let tag of tags">
+{{tag}}
+</p>
+<ion-input type="text" name="tagInput" [(ngModel)]="tagInput"  placeholder="Enter a comma separated list of tags"></ion-input>
+<button ion-button (click)="saveTag(tagInput);">Add</button>
+
+<ion-item>
+	<ion-label> Age Range </ion-label>
+	<ion-range id="age-range-slider" dualKnobs="true" pin="true" [(ngModel)]="knobValues"(ionChange)="saveAgeRange(knobValues.lower,knobValues.upper)" color="positive" step="5" snap="true">
+	   <ion-label range-left>0</ion-label>
+      <ion-label range-right>99+</ion-label>
+	</ion-range>
+</ion-item>
+
+<ion-label fixed>Categories</ion-label>
+<ion-select placeholder="Select" multiple="true" [(ngModel)]="categorySelect" (ionChange)="saveCategories(categorySelect)" >
+    <ion-option *ngFor="let item of categories" [value]="item">{{item}}</ion-option>
+</ion-select>
+
 </ion-content>
