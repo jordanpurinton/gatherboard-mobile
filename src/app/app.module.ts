@@ -14,6 +14,7 @@ import {SettingsPage} from "../pages/settings/settings";
 import {EventModalPage} from "../pages/event-modal/event-modal";
 import {GoogleMaps} from '@ionic-native/google-maps';
 import {IonicStorageModule} from "@ionic/storage";
+import {SocialMediaPage} from "../pages/social-media/social-media";
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import {IonicStorageModule} from "@ionic/storage";
         MapPage,
         SettingsPage,
         EventCardComponent,
-        EventModalPage
+        EventModalPage,
+        SocialMediaPage
     ],
     imports: [
         BrowserModule,
@@ -44,7 +46,8 @@ import {IonicStorageModule} from "@ionic/storage";
         HomePage,
         MapPage,
         SettingsPage,
-        EventModalPage
+        EventModalPage,
+        SocialMediaPage
     ],
     providers: [
         StatusBar,

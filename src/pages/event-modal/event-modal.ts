@@ -13,6 +13,7 @@ export class EventModalPage {
   e = this.navParams.get('e');
 
   constructor(public viewController: ViewController,
+              public modalController: ModalController,
               public navParams: NavParams) {
   }
 
@@ -22,7 +23,7 @@ export class EventModalPage {
 
   openModal()
   {
-    let modal = this.ModalController.create(SocialMediaPage, {'e': this.e});
+    let modal = this.modalController.create(SocialMediaPage, {'e': this.e});
     modal.present();
   }
 
