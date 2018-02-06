@@ -16,8 +16,10 @@
 </ion-item>
 
 <ion-label fixed>Categories</ion-label>
+<ion-item>
 <ion-select placeholder="Select" multiple="true" [(ngModel)]="categorySelect" (ionChange)="saveCategories(categorySelect)" >
     <ion-option *ngFor="let item of categories" [value]="item">{{item}}</ion-option>
 </ion-select>
+</ion-item>
 
 </ion-content>
