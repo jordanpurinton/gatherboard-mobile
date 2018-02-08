@@ -14,19 +14,49 @@
 
   <script src="plugins/cordova-plugin-facebook4/scripts/openfb.js"></script>
   <script src="plugins/cordova-plugin-facebook4/scripts/ngopenfb.js"></script>
+  
+  
+	<ion-list text-wrap>
+    <ion-item>
+      <ion-label>Title: {{e.EventTitle}}</ion-label>
+    </ion-item>
+		
+    <ion-item text-center>
+		  <ion-icon name="musical-notes" class="thumbnail"></ion-icon>
+    </ion-item>
+		
+		<ion-item>
+			<ion-label>Date: {{e.EventStartDate}}</ion-label>
+			<ion-label>Time: {{formatStartTime(e.EventTime)}}</ion-label>
+		</ion-item>
+  
+    <ion-item>
+      <ion-label>Description: {{e.Description}}</ion-label>
+    </ion-item>
+    
+    <ion-list>
+      <ion-label>Venue: {{e.Venue}}</ion-label>
+      <ion-label>Address: {{e.VenueStreetAddress}}</ion-label>
+      <ion-label>City: {{e.VenueCity}}, {{e.VenueState}} {{e.VenueZip}}</ion-label>
+      <ion-label>Phone: {{e.VenuePhone}}</ion-label>
+    </ion-list>
+    
+    
+    <ion-item>
+      <ion-label>Website: {{e.Websites}}</ion-label>
+    </ion-item>
+    
 
-  <ion-buttons right>
-    <button class="button" ion-button (click)="closeModal()">
-      <ion-title text-warp>{{"Share to Facebook"}}</ion-title>
-      <ion-icon class="button" name="facebook"></ion-icon>
-    </button>
-    <button class="button" ion-button (click)="closeModal()">
-      <ion-title text-warp>{{"Add to Calendar"}}</ion-title>
-      <ion-icon class="button" name="calendar"></ion-icon>
-    </button>
-  </ion-buttons>
-
-  <ion-list>
+    <ion-buttons right>
+      <button class="button" ion-button (click)="closeModal()">
+        <ion-title text-warp>{{"Share to Facebook"}}</ion-title>
+        <ion-icon class="button" name="facebook"></ion-icon>
+      </button>
+      <button class="button" ion-button (click)="closeModal()">
+        <ion-title text-warp>{{"Add to Calendar"}}</ion-title>
+        <ion-icon class="button" name="calendar"></ion-icon>
+      </button>
+    </ion-buttons>
 
   </ion-list>
 
