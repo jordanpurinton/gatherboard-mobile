@@ -18,34 +18,35 @@ export class MapPage {
     mapReady: boolean = false;
     map: GoogleMap;
 
-    constructor(public toastCtrl: ToastController) {
+    constructor(public toastController: ToastController) {
     }
 
     ionViewDidLoad() {
         this.loadMap();
     }
 
+    // initialize map on page load to Missoula
     loadMap() {
         this.map = GoogleMaps.create('map_canvas', {
             camera: {
                 target: {
-                    lat: 43.0741704,
-                    lng: -89.3809802
+                    lat: 46.878718,
+                    lng: -113.996586
                 },
                 zoom: 18,
                 tilt: 30
             }
         });
 
-        // Wait the maps plugin is ready until the MAP_READY event
         this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
             this.mapReady = true;
         });
     }
 
+    // test click for getting a location other than Missoula
     onButtonClick() {
         if (!this.mapReady) {
-            this.showToast('map is not ready yet. Please try again.');
+            this.showToast('Whoops try again, or make sure you are running on an actual device ;)');
             return;
         }
         this.map.clear();
@@ -62,7 +63,7 @@ export class MapPage {
                     // add a marker
                     return this.map.addMarker({
                         title: '@ionic-native/google-maps plugin!',
-                        snippet: 'This plugin is awesome!',
+                        snippet: 'Here is a message!',
                         position: location.latLng,
                         animation: GoogleMapsAnimation.BOUNCE
                     });
@@ -77,11 +78,12 @@ export class MapPage {
         });
     }
 
-    showToast(message: string) {
-        let toast = this.toastCtrl.create({
+    // show err message if map not ready
+    showToast(message) {
+        let toast = this.toastController.create({
             message: message,
             duration: 2000,
-            position: 'middle'
+            position: 'top'
         });
 
         toast.present(toast);

@@ -23,11 +23,11 @@ export class HomePage {
 
     // first page load
     ionViewDidLoad() {
-        this.createLoader();
+        this.initLoad();
         this.loading.present();
     }
 
-    // when page becomes in focus
+    // when page becomes in focus, get events
     ionViewDidEnter() {
         this.dataProvider.getEvents()
             .subscribe(
@@ -49,11 +49,12 @@ export class HomePage {
             )
     }
 
-    // change event view type
+    // get events under my feed filter
     getMyFeed() {
         this.selectedView = 'My Feed';
     }
 
+    // get all scheduled events on the board
     getAllFeed() {
         this.selectedView = 'All';
     }
@@ -62,6 +63,7 @@ export class HomePage {
     onSearchInput(event) {
         this.searchLoading = true;
 
+        // adding text
         if (event.inputType == 'insertText') {
             this.events = this.events.filter(
                 e => {
@@ -83,6 +85,8 @@ export class HomePage {
             this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
             this.searchLoading = false;
         }
+
+        // removing text
         else {
             this.dataProvider.getEvents()
                 .subscribe(
@@ -155,18 +159,22 @@ export class HomePage {
             )
     }
 
+    // format string to M/D format
     formatStartDate(startDate) {
         return moment(startDate).format('M/D');
     }
 
+    // check if event is occuring today
     isTodayEvent(startDate) {
         return moment(startDate).format('M/D') == moment().format('M/D');
     }
 
-    createLoader() {
+    // create loading wheel
+    initLoad() {
         this.loading = this.loadingController.create({showBackdrop: false});
     }
 
+    // dismiss loading wheel when done
     dismissLoading() {
         if (this.loading) {
             this.loading.dismiss();

@@ -1,5 +1,7 @@
 <ion-header>
     <ion-toolbar>
+
+        <!--event search bar-->
         <ion-row>
             <ion-col col-11>
                 <ion-searchbar [(ngModel)]="searchTerms" (ionInput)="onSearchInput($event)"
@@ -12,14 +14,16 @@
         <ion-row>
 
             <!--my feed view-->
-            <ion-label (click)="getMyFeed()" [ngClass]="{
-      hiddenViewStyle: selectedView == 'All',
-      visibleViewStyle: selectedView == 'My Feed'}" ion-button clear class="header-label-left">My Feed
+            <ion-label (click)="getMyFeed()"
+                       [ngClass]="{hiddenViewStyle: selectedView == 'All',
+                                   visibleViewStyle: selectedView == 'My Feed'}"
+                       ion-button clear class="header-label-left">My Feed
             </ion-label>
             <!--all event view-->
-            <ion-label (click)="getAllFeed()" [ngClass]="{
-      hiddenViewStyle: selectedView == 'My Feed',
-      visibleViewStyle: selectedView == 'All'}" ion-button clear class="header-label-right">All
+            <ion-label (click)="getAllFeed()"
+                       [ngClass]="{hiddenViewStyle: selectedView == 'My Feed',
+                                   visibleViewStyle: selectedView == 'All'}"
+                       ion-button clear class="header-label-right">All
             </ion-label>
 
         </ion-row>
