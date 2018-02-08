@@ -18,20 +18,17 @@ export class HomePage {
     platform = localStorage.getItem('Platform');
 
     constructor(public dataProvider: DataProvider,
-                public loadingController: LoadingController)
-    {
+                public loadingController: LoadingController) {
     }
 
     // first page load
-    ionViewDidLoad()
-    {
+    ionViewDidLoad() {
         this.createLoader();
         this.loading.present();
     }
 
     // when page becomes in focus
-    ionViewDidEnter()
-    {
+    ionViewDidEnter() {
         this.dataProvider.getEvents()
             .subscribe(
                 data => {
@@ -53,21 +50,23 @@ export class HomePage {
     }
 
     // change event view type
-    onViewClick()
-    {
-        this.selectedView == 'My Feed' ? this.selectedView = 'All' : this.selectedView = 'My Feed';
+    onMyClick() {
+        this.selectedView = 'All'
+    }
+
+    onAllClick() {
+        this.selectedView = 'My Feed';
     }
 
     // when search term character is added or deleted
-    onSearchInput(event)
-    {
+    onSearchInput(event) {
         this.searchLoading = true;
 
         if (event.inputType == 'insertText') {
             this.events = this.events.filter(
                 e => {
                     let secCatName = '';
-                    if(e.SecCatName) { // make this check because there may not always be a sec cat name
+                    if (e.SecCatName) { // make this check because there may not always be a sec cat name
                         secCatName = e.SecCatName.toLowerCase();
                     }
                     return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
@@ -94,7 +93,7 @@ export class HomePage {
                         this.events = this.events.filter(
                             e => {
                                 let secCatName = '';
-                                if(e.SecCatName) { // make this check because there may not always be a sec cat name
+                                if (e.SecCatName) { // make this check because there may not always be a sec cat name
                                     secCatName = e.SecCatName.toLowerCase();
                                 }
                                 return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
@@ -120,8 +119,7 @@ export class HomePage {
     }
 
     // when full search term string is cleared
-    onSearchClear()
-    {
+    onSearchClear() {
         this.searchLoading = true;
         this.searchTerms = '';
         this.dataProvider.getEvents()
@@ -133,7 +131,7 @@ export class HomePage {
                     this.events = this.events.filter(
                         e => {
                             let secCatName = '';
-                            if(e.SecCatName) { // make this check because there may not always be a sec cat name
+                            if (e.SecCatName) { // make this check because there may not always be a sec cat name
                                 secCatName = e.SecCatName.toLowerCase();
                             }
                             return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
@@ -157,23 +155,19 @@ export class HomePage {
             )
     }
 
-    formatStartDate(startDate)
-    {
+    formatStartDate(startDate) {
         return moment(startDate).format('M/D');
     }
 
-    isTodayEvent(startDate)
-    {
+    isTodayEvent(startDate) {
         return moment(startDate).format('M/D') == moment().format('M/D');
     }
 
-    createLoader()
-    {
+    createLoader() {
         this.loading = this.loadingController.create({showBackdrop: false});
     }
 
-    dismissLoading()
-    {
+    dismissLoading() {
         if (this.loading) {
             this.loading.dismiss();
             this.loading = null;
