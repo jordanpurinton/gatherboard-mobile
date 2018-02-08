@@ -14,8 +14,7 @@ export class MyApp {
     constructor(platform: Platform,
                 statusBar: StatusBar,
                 splashScreen: SplashScreen,
-                public dataProvider: DataProvider)
-    {
+                public dataProvider: DataProvider) {
         platform.ready().then(() => {
             statusBar.styleDefault();
             splashScreen.hide();

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ToastController } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {ToastController} from 'ionic-angular';
 import {
     GoogleMaps,
     GoogleMap,
@@ -26,8 +26,6 @@ export class MapPage {
     }
 
     loadMap() {
-        // Create a map after the view is loaded.
-        // (platform is already ready in app.component.ts)
         this.map = GoogleMaps.create('map_canvas', {
             camera: {
                 target: {
@@ -52,12 +50,10 @@ export class MapPage {
         }
         this.map.clear();
 
-        // Get the location of you
         this.map.getMyLocation()
             .then((location: MyLocation) => {
-                console.log(JSON.stringify(location, null ,2));
+                console.log(JSON.stringify(location, null, 2));
 
-                // Move the map camera to the location with animation
                 return this.map.animateCamera({
                     target: location.latLng,
                     zoom: 17,
@@ -75,7 +71,6 @@ export class MapPage {
             // show the infoWindow
             marker.showInfoWindow();
 
-            // If clicked it, display the alert
             marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
                 this.showToast('clicked!');
             });

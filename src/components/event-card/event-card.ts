@@ -23,12 +23,10 @@ export class EventCardComponent {
         'Sports': '#ff8514', 'Business': '#708090', 'Government': '#70005D'
     };
 
-    constructor(public modalController: ModalController)
-    {
+    constructor(public modalController: ModalController) {
     }
 
-    ngOnInit()
-    {
+    ngOnInit() {
 
         this.category = this.e.ParentCatName;
 
@@ -69,8 +67,7 @@ export class EventCardComponent {
     }
 
 
-    openModal()
-    {
+    openModal() {
         let modal = this.modalController.create(EventModalPage, {'e': this.e});
         modal.present();
     }
@@ -81,8 +78,7 @@ export class EventCardComponent {
      * @param startTime
      * @returns {string}
      */
-    formatStartTime(startTime)
-    {
+    formatStartTime(startTime) {
         let firstIndex = parseInt(startTime[0]);
         let secondIndex = parseInt(startTime[1]);
         let combined = startTime[0] + startTime[1];
@@ -109,8 +105,7 @@ export class EventCardComponent {
         }
     }
 
-    escapeEntity(string)
-    {
+    escapeEntity(string) {
         return _.decode(string);
     }
 }

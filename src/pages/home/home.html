@@ -12,12 +12,12 @@
         <ion-row>
 
             <!--my feed view-->
-            <ion-label (click)="onMyClick()" [ngClass]="{
+            <ion-label (click)="getMyFeed()" [ngClass]="{
       hiddenViewStyle: selectedView == 'All',
       visibleViewStyle: selectedView == 'My Feed'}" ion-button clear class="header-label-left">My Feed
             </ion-label>
             <!--all event view-->
-            <ion-label (click)="onAllClick()" [ngClass]="{
+            <ion-label (click)="getAllFeed()" [ngClass]="{
       hiddenViewStyle: selectedView == 'My Feed',
       visibleViewStyle: selectedView == 'All'}" ion-button clear class="header-label-right">All
             </ion-label>

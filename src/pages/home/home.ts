@@ -50,12 +50,12 @@ export class HomePage {
     }
 
     // change event view type
-    onMyClick() {
-        this.selectedView = 'All'
+    getMyFeed() {
+        this.selectedView = 'My Feed';
     }
 
-    onAllClick() {
-        this.selectedView = 'My Feed';
+    getAllFeed() {
+        this.selectedView = 'All';
     }
 
     // when search term character is added or deleted

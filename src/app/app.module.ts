@@ -30,7 +30,7 @@ import {SocialMediaPage} from "../pages/social-media/social-media";
     imports: [
         BrowserModule,
         HttpClientModule,
-		  IonicStorageModule.forRoot(),
+        IonicStorageModule.forRoot(),
         IonicModule.forRoot(MyApp, {
             platforms: {
                 ios: {
