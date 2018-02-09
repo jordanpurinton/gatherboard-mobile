@@ -33,6 +33,7 @@
     "angular": "^1.6.8",
     "cordova": "^8.0.0",
     "cordova-android": "^7.0.0",
+    "cordova-browser": "^5.0.3",
     "cordova-plugin-calendar": "^5.0.0",
     "cordova-plugin-device": "^2.0.1",
     "cordova-plugin-geolocation": "^4.0.1",
@@ -78,7 +79,8 @@
       "cordova-plugin-ionic-keyboard": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ]
   }
 }

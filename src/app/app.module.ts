@@ -18,6 +18,12 @@ import {SocialMediaPage} from "../pages/social-media/social-media";
 import {Geolocation} from "@ionic-native/geolocation";
 import {Diagnostic} from "@ionic-native/diagnostic";
 import {EnableLocationPage} from "../pages/enable-location/enable-location";
+import {DiagnosticMock} from '../mocks/diagnostic-mock';
+import {SplashScreenMock} from '../mocks/splashscreen-mock';
+import {StatusBarMock} from '../mocks/status-bar-mock';
+import {ClassSelector} from './class-selector';
+
+let classSelector = new ClassSelector();
 
 @NgModule({
     declarations: [
@@ -61,7 +67,10 @@ import {EnableLocationPage} from "../pages/enable-location/enable-location";
         DataProvider,
         Geolocation,
         GoogleMaps,
-        Diagnostic
+        Diagnostic,
+        classSelector.getProvider(Diagnostic, DiagnosticMock),
+        classSelector.getProvider(SplashScreen, SplashScreenMock),
+        classSelector.getProvider(StatusBar, StatusBarMock),
     ]
 })
 export class AppModule {

@@ -1,63 +1,63 @@
 <ion-header>
-  <ion-navbar text-wrap>
-    <ion-buttons left>
-      <button class="modal-close" ion-button (click)="closeModal()">
-        <ion-icon class="close-icon" name="arrow-back"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title text-wrap>{{escapeEntity(e.EventTitle)}}</ion-title>
-  </ion-navbar>
+    <ion-navbar text-wrap>
+        <ion-buttons left>
+            <button class="modal-close" ion-button (click)="closeModal()">
+                <ion-icon class="close-icon" name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title text-wrap>Event details</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
+    <ion-list text-wrap>
 
-  <script src="plugins/cordova-plugin-facebook4/scripts/openfb.js"></script>
-  <script src="plugins/cordova-plugin-facebook4/scripts/ngopenfb.js"></script>
-  
-  
-	<ion-list text-wrap>
-    <ion-item>
-      <ion-label>Title: {{e.EventTitle}}</ion-label>
-    </ion-item>
-		
-    <ion-item text-center>
-		  <ion-icon name="musical-notes" class="thumbnail"></ion-icon>
-    </ion-item>
-		
-		<ion-item>
-			<ion-label>Date: {{e.EventStartDate}}</ion-label>
-			<ion-label>Time: {{formatStartTime(e.EventTime)}}</ion-label>
-		</ion-item>
-  
-    <ion-item>
-      <ion-label>Description: {{e.Description}}</ion-label>
-    </ion-item>
-    
-    <ion-list>
-      <ion-label>Venue: {{e.Venue}}</ion-label>
-      <ion-label>Address: {{e.VenueStreetAddress}}</ion-label>
-      <ion-label>City: {{e.VenueCity}}, {{e.VenueState}} {{e.VenueZip}}</ion-label>
-      <ion-label>Phone: {{e.VenuePhone}}</ion-label>
+        <ion-item text-center>
+            <ion-card-header class="event-title" text-wrap><b>{{e.EventTitle}}</b></ion-card-header>
+            <ion-icon name="musical-notes" class="category-icon"></ion-icon>
+        </ion-item>
+
+        <ion-item class="event-time-info">
+            <ion-label text-center icon-left>
+                <ion-icon name="calendar"></ion-icon>
+                {{formatStartDate(e.EventStartDate)}}
+            </ion-label>
+            <ion-label text-center icon-left>
+                <ion-icon name="clock"></ion-icon>
+                {{formatStartTime(e.EventTime)}}
+            </ion-label>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>{{e.Description}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Venue: {{e.Venue}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Address: {{e.VenueStreetAddress}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>City: {{e.VenueCity}}, {{e.VenueState}} {{e.VenueZip}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Phone: {{e.VenuePhone}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Website: {{e.Websites}}</ion-label>
+        </ion-item>
+
+
+        <ion-buttons right>
+            <button class="button" ion-button (click)="closeModal()">
+                <ion-icon class="button" name="facebook">Share to Facebook</ion-icon>
+            </button>
+            <button ion-button (click)="closeModal()">
+                <ion-icon name="calendar">Add to Calendar</ion-icon>
+            </button>
+        </ion-buttons>
+
     </ion-list>
-    
-    
-    <ion-item>
-      <ion-label>Website: {{e.Websites}}</ion-label>
-    </ion-item>
-    
-
-    <ion-buttons right>
-      <button class="button" ion-button (click)="closeModal()">
-        <ion-title text-warp>{{"Share to Facebook"}}</ion-title>
-        <ion-icon class="button" name="facebook"></ion-icon>
-      </button>
-      <button class="button" ion-button (click)="closeModal()">
-        <ion-title text-warp>{{"Add to Calendar"}}</ion-title>
-        <ion-icon class="button" name="calendar"></ion-icon>
-      </button>
-    </ion-buttons>
-
-  </ion-list>
 
 </ion-content>

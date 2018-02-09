@@ -15,7 +15,31 @@ page-event-modal {
   .toolbar-title-ios {
     font-size: 16px;
   }
-  .thumbnail {
-    font-size: 100px;
+  .category-icon {
+    font-size: 50px;
+  }
+
+  .event-title {
+    padding: 0;
+    font-size: 25px;
+  }
+
+  .event-time-info {
+    height: 100%;
+    zoom: 130%;
+    text-align: center;
+    margin: 0;
+    [icon-left] ion-icon, [icon-start] ion-icon {
+      line-height: 2;
+    }
+    ion-label {
+      margin-right: 0;
+    }
+  }
+  .list-ios > .item-block:first-child {
+    border: none;
+  }
+  .scroll-content {
+    padding-top: 0 !important;
   }
 }

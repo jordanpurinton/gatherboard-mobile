@@ -88,7 +88,7 @@ export class MapPage {
     showToast(message) {
         let toast = this.toastController.create({
             message: message,
-            duration: 2000,
+            duration: 4000,
             position: 'top'
         });
 

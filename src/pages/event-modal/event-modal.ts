@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import * as _ from 'underscore';
 import {IonicPage, NavParams, ViewController, ModalController} from 'ionic-angular';
+import moment from "moment";
 
 @IonicPage()
 @Component({
@@ -24,11 +25,6 @@ export class EventModalPage {
     this.viewController.dismiss();
   }
 
-  escapeEntity(string)
-  {
-    return _.unescape(string);
-  }
-  
   formatStartTime(startTime) {
     let firstIndex = parseInt(startTime[0]);
     let secondIndex = parseInt(startTime[1]);
@@ -55,9 +51,9 @@ export class EventModalPage {
         return startTime.substring(0, startTime.length - 3) + 'a';
     }
   }
-  
-  formatDate(eventDate){
-    
-  }
+    // format string to M/D format
+    formatStartDate(startDate) {
+        return moment(startDate).format('M/D');
+    }
   
 }
