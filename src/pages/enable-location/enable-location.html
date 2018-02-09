@@ -1,0 +1,20 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Enable Location</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content text-center padding>
+
+    <ion-card-header text-wrap>
+        In order to use this app, you need to enable location services so we can give you the most precise
+        event information. Please switch location settings on.
+    </ion-card-header>
+
+    <button *ngIf="diagnostic.isLocationAvailable()" [color]="secondary" ion-button (click)="closeModal()">Go Back</button>
+    <button ion-button (click)="onToggleClick()">Toggle Location</button>
+
+</ion-content>
