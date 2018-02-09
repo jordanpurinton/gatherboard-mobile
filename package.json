@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^5.2.2",
     "@ionic-native/calendar": "^4.5.3",
     "@ionic-native/core": "^4.5.3",
+    "@ionic-native/geolocation": "^4.5.3",
     "@ionic-native/google-maps": "^4.5.3",
     "@ionic-native/splash-screen": "^4.5.3",
     "@ionic-native/status-bar": "^4.5.3",
@@ -30,8 +31,9 @@
     "@types/underscore": "^1.8.7",
     "angular": "^1.6.8",
     "cordova": "^8.0.0",
-    "cordova-android": "^7.0.0",
+    "cordova-android": "7.0.0",
     "cordova-plugin-calendar": "^5.0.0",
+    "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googlemaps": "^2.2.2",
     "cordova-sqlite-storage": "^2.2.0",
     "eslint": "^4.16.0",
@@ -57,7 +59,10 @@
         "API_KEY_FOR_IOS": "AIzaSyDLTpsRaXzg41owGr6FFkS9805FIe-fzbQ"
       },
       "cordova-sqlite-storage": {},
-      "cordova-plugin-calendar": {}
+      "cordova-plugin-calendar": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To locate events in your area."
+      }
     }
   }
 }

@@ -15,6 +15,7 @@ import {EventModalPage} from "../pages/event-modal/event-modal";
 import {GoogleMaps} from '@ionic-native/google-maps';
 import {IonicStorageModule} from "@ionic/storage";
 import {SocialMediaPage} from "../pages/social-media/social-media";
+import {Geolocation} from "@ionic-native/geolocation";
 
 @NgModule({
     declarations: [
@@ -54,6 +55,7 @@ import {SocialMediaPage} from "../pages/social-media/social-media";
         SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         DataProvider,
+        Geolocation,
         GoogleMaps
     ]
 })

@@ -27,6 +27,7 @@ export class MapPage {
 
     // initialize map on page load to Missoula
     loadMap() {
+
         this.map = GoogleMaps.create('map_canvas', {
             camera: {
                 target: {
@@ -52,7 +53,7 @@ export class MapPage {
         this.map.clear();
 
         this.map.getMyLocation()
-            .then((location: MyLocation) => {
+            .then((location) => {
                 console.log(JSON.stringify(location, null, 2));
 
                 return this.map.animateCamera({
