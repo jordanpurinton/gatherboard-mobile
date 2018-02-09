@@ -5,9 +5,9 @@ import {
     GoogleMap,
     GoogleMapsEvent,
     Marker,
-    GoogleMapsAnimation,
-    MyLocation
+    GoogleMapsAnimation
 } from '@ionic-native/google-maps';
+import {Geolocation} from "@ionic-native/geolocation";
 
 @Component({
     selector: 'page-map',
@@ -18,33 +18,38 @@ export class MapPage {
     mapReady: boolean = false;
     map: GoogleMap;
 
-    constructor(public toastController: ToastController) {
+    constructor(public toastController: ToastController,
+                public geolocation: Geolocation) {
     }
 
     ionViewDidLoad() {
         this.loadMap();
     }
 
-    // initialize map on page load to Missoula
+    // initialize map on page load to your current location
     loadMap() {
 
-        this.map = GoogleMaps.create('map_canvas', {
-            camera: {
-                target: {
-                    lat: 46.878718,
-                    lng: -113.996586
-                },
-                zoom: 18,
-                tilt: 30
-            }
-        });
+        this.geolocation.getCurrentPosition().then(
+            data => {
+                this.map = GoogleMaps.create('map_canvas', {
+                    camera: {
+                        target: {
+                            lat: data.coords.latitude,
+                            lng: data.coords.longitude
+                        },
+                        zoom: 18,
+                        tilt: 30
+                    }
+                });
 
-        this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-            this.mapReady = true;
-        });
+                this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+                    this.mapReady = true;
+                });
+            }
+        )
     }
 
-    // test click for getting a location other than Missoula
+    // gets current location again and shows pop up
     onButtonClick() {
         if (!this.mapReady) {
             this.showToast('Whoops try again, or make sure you are running on an actual device ;)');

@@ -90,4 +90,6 @@
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate events in your area." />
     </plugin>
+    <plugin name="cordova.plugins.diagnostic" spec="^3.9.2" />
+    <engine name="android" spec="~7.0.0" />
 </widget>

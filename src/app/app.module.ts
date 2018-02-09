@@ -16,6 +16,8 @@ import {GoogleMaps} from '@ionic-native/google-maps';
 import {IonicStorageModule} from "@ionic/storage";
 import {SocialMediaPage} from "../pages/social-media/social-media";
 import {Geolocation} from "@ionic-native/geolocation";
+import {Diagnostic} from "@ionic-native/diagnostic";
+import {EnableLocationPage} from "../pages/enable-location/enable-location";
 
 @NgModule({
     declarations: [
@@ -26,7 +28,8 @@ import {Geolocation} from "@ionic-native/geolocation";
         SettingsPage,
         EventCardComponent,
         EventModalPage,
-        SocialMediaPage
+        SocialMediaPage,
+        EnableLocationPage
     ],
     imports: [
         BrowserModule,
@@ -48,7 +51,8 @@ import {Geolocation} from "@ionic-native/geolocation";
         MapPage,
         SettingsPage,
         EventModalPage,
-        SocialMediaPage
+        SocialMediaPage,
+        EnableLocationPage
     ],
     providers: [
         StatusBar,
@@ -56,7 +60,8 @@ import {Geolocation} from "@ionic-native/geolocation";
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         DataProvider,
         Geolocation,
-        GoogleMaps
+        GoogleMaps,
+        Diagnostic
     ]
 })
 export class AppModule {

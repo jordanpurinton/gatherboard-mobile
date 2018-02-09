@@ -1,7 +1,10 @@
 import {Component} from '@angular/core';
 import {DataProvider} from "../../providers/data-provider";
-import {Loading, LoadingController} from "ionic-angular";
+import {Loading, LoadingController, ModalController} from "ionic-angular";
 import moment from 'moment';
+import {Diagnostic} from "@ionic-native/diagnostic";
+import {EnableLocationPage} from "../enable-location/enable-location";
+import {Geolocation} from "@ionic-native/geolocation";
 
 @Component({
     selector: 'page-home',
@@ -18,12 +21,24 @@ export class HomePage {
     platform = localStorage.getItem('Platform');
 
     constructor(public dataProvider: DataProvider,
+                public diagnostic: Diagnostic,
+                public modalController: ModalController,
+                public geolocation: Geolocation,
                 public loadingController: LoadingController) {
     }
 
     // first page load
     ionViewDidLoad() {
         this.initLoad();
+        this.diagnostic.isLocationAvailable().then(
+            data => {
+                if(!data) {
+                    console.log('hi')
+                    console.log(data)
+                    this.geolocation.getCurrentPosition();
+                    this.showLocationModal();
+                }
+        });
         this.loading.present();
     }
 
@@ -167,6 +182,11 @@ export class HomePage {
     // check if event is occuring today
     isTodayEvent(startDate) {
         return moment(startDate).format('M/D') == moment().format('M/D');
+    }
+
+    showLocationModal() {
+        let modal = this.modalController.create(EnableLocationPage, {enableBackdropDismiss: false});
+        modal.present();
     }
 
     // create loading wheel
