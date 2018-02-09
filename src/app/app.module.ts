@@ -66,8 +66,10 @@ let classSelector = new ClassSelector();
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         DataProvider,
         Geolocation,
-        GoogleMaps,
-        Diagnostic,
+        // GoogleMaps,
+        // Diagnostic,
+
+        // comment these out when you're trying to test out device functionality and enable the real ones above
         classSelector.getProvider(Diagnostic, DiagnosticMock),
         classSelector.getProvider(SplashScreen, SplashScreenMock),
         classSelector.getProvider(StatusBar, StatusBarMock),
