@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import * as _ from 'underscore';
+import * as _ from 'he';
 import {IonicPage, NavParams, ViewController, ModalController} from 'ionic-angular';
 import moment from "moment";
 
@@ -55,5 +55,8 @@ export class EventModalPage {
     formatStartDate(startDate) {
         return moment(startDate).format('M/D');
     }
-  
+
+    escapeEntity(string) {
+        return _.decode(string);
+    }
 }

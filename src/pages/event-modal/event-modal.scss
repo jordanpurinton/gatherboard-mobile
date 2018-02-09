@@ -24,18 +24,29 @@ page-event-modal {
     font-size: 25px;
   }
 
-  .event-time-info {
-    height: 100%;
-    zoom: 130%;
-    text-align: center;
-    margin: 0;
-    [icon-left] ion-icon, [icon-start] ion-icon {
-      line-height: 2;
-    }
-    ion-label {
-      margin-right: 0;
+  #event-time-list {
+    margin-bottom: 0;
+    .event-time-info {
+      height: 100%;
+      zoom: 130%;
+      text-align: center;
+      border-bottom: none;
+      [icon-left] ion-icon, [icon-start] ion-icon {
+        line-height: 1.5;
+      }
+      ion-label {
+        margin-right: 0;
+      }
     }
   }
+
+  #event-detail-list {
+    margin-top: 0;
+    ion-label {
+      line-height: 1.5;
+    }
+  }
+
   .list-ios > .item-block:first-child {
     border: none;
   }

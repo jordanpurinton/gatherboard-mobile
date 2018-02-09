@@ -11,14 +11,13 @@
 
 
 <ion-content padding>
-    <ion-list text-wrap>
 
+    <ion-list id="event-time-list" text-wrap>
         <ion-item text-center>
-            <ion-card-header class="event-title" text-wrap><b>{{e.EventTitle}}</b></ion-card-header>
+            <ion-card-header class="event-title" text-wrap><b>{{escapeEntity(e.EventTitle)}}</b></ion-card-header>
             <ion-icon name="musical-notes" class="category-icon"></ion-icon>
         </ion-item>
-
-        <ion-item class="event-time-info">
+        <ion-item no-lines class="event-time-info">
             <ion-label text-center icon-left>
                 <ion-icon name="calendar"></ion-icon>
                 {{formatStartDate(e.EventStartDate)}}
@@ -28,36 +27,54 @@
                 {{formatStartTime(e.EventTime)}}
             </ion-label>
         </ion-item>
-
-        <ion-item>
-            <ion-label>{{e.Description}}</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>Venue: {{e.Venue}}</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>Address: {{e.VenueStreetAddress}}</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>City: {{e.VenueCity}}, {{e.VenueState}} {{e.VenueZip}}</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>Phone: {{e.VenuePhone}}</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>Website: {{e.Websites}}</ion-label>
-        </ion-item>
-
-
-        <ion-buttons right>
-            <button class="button" ion-button (click)="closeModal()">
-                <ion-icon class="button" name="facebook">Share to Facebook</ion-icon>
-            </button>
-            <button ion-button (click)="closeModal()">
-                <ion-icon name="calendar">Add to Calendar</ion-icon>
-            </button>
-        </ion-buttons>
-
     </ion-list>
 
+    <ion-list id="event-detail-list" text-wrap>
+
+        <ion-item *ngIf="e.Description">
+            <ion-label style="margin-top: 0">{{escapeEntity(e.Description)}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="e.Venue" icon-left>
+            <ion-label>
+                <ion-icon name="home"></ion-icon>
+                {{escapeEntity(e.Venue)}}
+            </ion-label>
+        </ion-item>
+        <ion-item *ngIf="e.VenueStreetAddress" icon-left>
+            <ion-label>
+                <ion-icon name="locate"></ion-icon>
+                {{escapeEntity(e.VenueStreetAddress)}}
+            </ion-label>
+        </ion-item>
+        <ion-item *ngIf="e.VenueCity || e.VenueState" icon-left>
+            <ion-label>
+                <ion-icon name="map"></ion-icon>
+                {{escapeEntity(e.VenueCity)}}, {{escapeEntity(e.VenueState)}} {{escapeEntity(e.VenueZip)}}
+            </ion-label>
+        </ion-item>
+        <ion-item *ngIf="e.VenuePhone" icon-left>
+            <ion-label>
+                <ion-icon name="grid"></ion-icon>
+                {{e.VenuePhone}}
+            </ion-label>
+        </ion-item>
+        <ion-item *ngIf="e.Websites" icon-left>
+            <ion-label>
+                <ion-icon name="link"></ion-icon>
+                <a href="{{e.Websites}}">{{e.Websites}}</a>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
+
+    <ion-buttons right>
+        <button ion-button (click)="closeModal()" icon-end>
+            Share to Facebook
+            <ion-icon name="logo-facebook"></ion-icon>
+        </button>
+        <button ion-button (click)="closeModal()" icon-end>
+            Add to Calendar
+            <ion-icon name="calendar"></ion-icon>
+        </button>
+    </ion-buttons>
 </ion-content>
