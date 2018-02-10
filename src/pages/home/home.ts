@@ -33,8 +33,6 @@ export class HomePage {
         this.diagnostic.isLocationAvailable().then(
             data => {
                 if(!data) {
-                    console.log('hi')
-                    console.log(data)
                     this.geolocation.getCurrentPosition();
                     this.showLocationModal();
                 }

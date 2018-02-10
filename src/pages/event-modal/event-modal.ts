@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import * as _ from 'he';
-import {IonicPage, NavParams, ViewController, ModalController} from 'ionic-angular';
+import {IonicPage, NavParams, ViewController, ModalController, Platform} from 'ionic-angular';
 import moment from "moment";
 
 @IonicPage()
@@ -12,13 +12,51 @@ export class EventModalPage {
 
     e = this.navParams.get('e');
     isExpandedText = false;
+    category = this.e.ParentCatName.replace(' ', '');
+    iconName = '';
+    iconColorMap = {
+        'Education': '#f1a007', 'Food': '#9F2200', 'Art': '#0C5FAF', 'Music': '#00845E',
+        'Sports': '#ff8514', 'Business': '#708090', 'Government': '#70005D'
+    };
 
     constructor(public viewController: ViewController,
+                public platform: Platform,
                 public navParams: NavParams) {
     }
 
-    ionViewDidLoad() {
-        console.log(this.e)
+    ionViewWillLoad() {
+        if (this.category == 'Education') {
+            this.iconName = 'school';
+        }
+
+        else if (this.category == 'Food') {
+            this.iconName = 'restaurant';
+        }
+
+        else if (this.category == 'Art') {
+            this.iconName = 'color-palette';
+        }
+
+        else if (this.category == 'Music') {
+            this.iconName = 'musical-notes';
+        }
+
+        else if (this.category == 'Sports') {
+            this.iconName = 'american-football';
+        }
+
+        else if (this.category == 'Business') {
+            this.iconName = 'briefcase';
+        }
+
+        else if (this.category == 'Government') {
+            this.iconName = 'megaphone';
+        }
+
+        else {
+            this.iconColorMap[this.category] = '#cacfd4';
+            this.iconName = 'star';
+        }
     }
 
     closeModal() {

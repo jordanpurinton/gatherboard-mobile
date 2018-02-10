@@ -24,8 +24,13 @@ page-event-modal {
   }
 
   .event-title {
-    padding: 0;
-    font-size: 25px;
+    padding: 4px;
+    font-size: 22px;
+  }
+
+  .event-category {
+    font-size: 18px;
+    font-weight: lighter;
   }
 
   // TIME
@@ -60,12 +65,7 @@ page-event-modal {
     padding-top: 0 !important;
   }
 
-  .expand-text {
-    margin-top: 7px;
-    color: #488aff;
-    cursor: pointer;
-  }
   .expand-text:active {
-    color: lightgray;
+    color: lightgray !important;
   }
 }
