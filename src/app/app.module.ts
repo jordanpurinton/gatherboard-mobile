@@ -61,12 +61,14 @@ let classSelector = new ClassSelector();
         EnableLocationPage
     ],
     providers: [
-        StatusBar,
-        SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         DataProvider,
         Geolocation,
-        // GoogleMaps,
+        GoogleMaps,
+
+        // enable these when trying to test out device functionality
+        // StatusBar,
+        // SplashScreen,
         // Diagnostic,
 
         // comment these out when you're trying to test out device functionality and enable the real ones above

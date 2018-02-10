@@ -56,6 +56,9 @@ page-event-modal {
     ion-label {
       line-height: 1.5;
     }
+    .label-md {
+      font-size: 1.7rem !important;
+    }
   }
 
   .list-ios > .item-block:first-child {
@@ -63,6 +66,10 @@ page-event-modal {
   }
   .scroll-content {
     padding-top: 0 !important;
+  }
+
+  .expand-text {
+    margin-bottom: 2px;
   }
 
   .expand-text:active {
