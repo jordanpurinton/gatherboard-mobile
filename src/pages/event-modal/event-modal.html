@@ -32,8 +32,16 @@
     <ion-list id="event-detail-list" text-wrap>
 
         <ion-item *ngIf="e.Description">
-            <ion-label style="margin-top: 0">{{escapeEntity(e.Description)}}</ion-label>
+            <ion-label *ngIf="!isExpandedText" style="margin-top: 0">
+                {{escapeEntity(e.Description).substr(0, 400)}}...
+                <p class="expand-text" (click)="expandDescription()">Show more</p>
+            </ion-label>
+            <ion-label *ngIf="isExpandedText" style="margin-top: 0">
+                {{escapeEntity(e.Description)}}
+                <p class="expand-text" (click)="collapseDescription()">Hide</p>
+            </ion-label>
         </ion-item>
+
         <ion-item *ngIf="e.Venue" icon-left>
             <ion-label>
                 <ion-icon name="home"></ion-icon>
@@ -61,6 +69,7 @@
         <ion-item *ngIf="e.Websites" icon-left>
             <ion-label>
                 <ion-icon name="link"></ion-icon>
+                <!--TODO, add fix for having multiple websites-->
                 <a href="{{e.Websites}}">{{e.Websites}}</a>
             </ion-label>
         </ion-item>

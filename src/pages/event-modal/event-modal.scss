@@ -1,4 +1,6 @@
 page-event-modal {
+
+  // HEADER
   .modal-close {
     font-size: 1.5em;
     color: #424242;
@@ -15,6 +17,8 @@ page-event-modal {
   .toolbar-title-ios {
     font-size: 16px;
   }
+
+  // TITLE
   .category-icon {
     font-size: 50px;
   }
@@ -24,6 +28,7 @@ page-event-modal {
     font-size: 25px;
   }
 
+  // TIME
   #event-time-list {
     margin-bottom: 0;
     .event-time-info {
@@ -40,6 +45,7 @@ page-event-modal {
     }
   }
 
+  // ADDITIONAL DETAILS
   #event-detail-list {
     margin-top: 0;
     ion-label {
@@ -52,5 +58,14 @@ page-event-modal {
   }
   .scroll-content {
     padding-top: 0 !important;
+  }
+
+  .expand-text {
+    margin-top: 7px;
+    color: #488aff;
+    cursor: pointer;
+  }
+  .expand-text:active {
+    color: lightgray;
   }
 }
