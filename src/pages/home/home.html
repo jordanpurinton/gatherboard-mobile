@@ -3,13 +3,13 @@
 
         <!--event search bar-->
         <ion-row>
-            <ion-col col-11>
+            <ion-col>
                 <ion-searchbar [(ngModel)]="searchTerms" (ionInput)="onSearchInput($event)"
                                (ionClear)="onSearchClear()"></ion-searchbar>
             </ion-col>
-            <ion-col text-center no-padding col-1>
-                <ion-icon class="calendar-icon" name="calendar"></ion-icon>
-            </ion-col>
+            <!--<ion-col text-center no-padding col-1>-->
+                <!--<ion-icon class="calendar-icon" name="calendar"></ion-icon>-->
+            <!--</ion-col>-->
         </ion-row>
         <ion-row>
 
@@ -31,8 +31,6 @@
 </ion-header>
 
 <ion-content>
-    <div *ngIf="platform == 'Ios'" class="ios-padding"></div>
-    <div *ngIf="platform == 'Android'" class="md-padding"></div>
     <div *ngIf="searchLoading" class="search-loading">
         <ion-spinner></ion-spinner>
     </div>
@@ -43,7 +41,7 @@
             <br *ngIf="i != 0 && e.PrevStartDate != e.EventStartDate">
 
             <!--date header-->
-            <ion-card-header>
+            <ion-card-header *ngIf="(isTodayEvent(e.EventStartDate) && i == 0) || (!isTodayEvent(e.EventStartDate) && e.PrevStartDate != e.EventStartDate)" class="date-header">
                 <b *ngIf="isTodayEvent(e.EventStartDate) && i == 0">Today</b>
                 <b *ngIf="!isTodayEvent(e.EventStartDate) && e.PrevStartDate != e.EventStartDate">{{formatStartDate(e.EventStartDate)}}</b>
             </ion-card-header>

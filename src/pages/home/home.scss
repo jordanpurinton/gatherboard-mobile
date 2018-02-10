@@ -6,6 +6,7 @@ page-home {
     color: white;
     width: 50%;
     margin: 0;
+    font-weight: 400 !important;
   }
 
   .header-label-right {
@@ -14,6 +15,7 @@ page-home {
     color: white;
     width: 50%;
     margin: 0;
+    font-weight: 400 !important;
   }
 
   .calendar-icon {
@@ -41,12 +43,14 @@ page-home {
     background-color: #0A559F;
   }
 
+  .date-header {
+    font-size: 20px;
+    padding: 8px;
+    color: gray;
+  }
+
   .event-time {
     font-size: .6em;
-  }
-  ion-content > div.scroll-content > ion-list > div > ion-card-header {
-    padding-top: 0;
-    padding-bottom: 0;
   }
   .md-padding {
     padding-top: 16px;
