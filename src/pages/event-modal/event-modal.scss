@@ -57,7 +57,7 @@ page-event-modal {
       line-height: 1.5;
     }
     .label-md {
-      font-size: 1.7rem !important;
+      font-size: 1.7rem;
     }
   }
 
@@ -69,6 +69,7 @@ page-event-modal {
   }
 
   .expand-text {
+    font-size: 14px !important;
     margin-bottom: 2px;
   }
 

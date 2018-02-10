@@ -90,13 +90,13 @@
     </ion-list>
 
 
-    <ion-buttons right>
-        <button ion-button (click)="closeModal()" icon-end>
-            Share to Facebook
+    <ion-buttons text-center>
+        <button [ngStyle]="{'background-color': iconColorMap[e.ParentCatName]}" ion-button (click)="closeModal()" icon-end>
+            Share
             <ion-icon name="logo-facebook"></ion-icon>
         </button>
-        <button ion-button (click)="closeModal()" icon-end>
-            Add to Calendar
+        <button [ngStyle]="{'background-color': iconColorMap[e.ParentCatName]}" ion-button (click)="closeModal()" icon-end>
+            Add
             <ion-icon name="calendar"></ion-icon>
         </button>
     </ion-buttons>
