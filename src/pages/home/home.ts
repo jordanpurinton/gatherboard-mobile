@@ -32,11 +32,11 @@ export class HomePage {
         this.initLoad();
         this.diagnostic.isLocationAvailable().then(
             data => {
-                if(!data) {
+                if (!data) {
                     this.geolocation.getCurrentPosition();
                     this.showLocationModal();
                 }
-        });
+            });
         this.loading.present();
     }
 
@@ -75,64 +75,36 @@ export class HomePage {
     // when search term character is added or deleted
     onSearchInput(event) {
         this.searchLoading = true;
-
-        // adding text
-        if (event.inputType == 'insertText') {
-            this.events = this.events.filter(
-                e => {
-                    let secCatName = '';
-                    if (e.SecCatName) { // make this check because there may not always be a sec cat name
-                        secCatName = e.SecCatName.toLowerCase();
-                    }
-                    return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
-                        e.Venue.toLowerCase().includes(this.searchTerms) ||
-                        e.ParentCatName.toLowerCase().includes(this.searchTerms) ||
-                        secCatName.includes(this.searchTerms);
-                });
-
-            for (let i = 0; i < this.events.length; i++) {
-                if (i != 0) {
-                    this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
-                }
-            }
-            this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
-            this.searchLoading = false;
-        }
-
-        // removing text
-        else {
-            this.dataProvider.getEvents()
-                .subscribe(
-                    data => {
-                        this.events = data;
-                        this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
-
-                        this.events = this.events.filter(
-                            e => {
-                                let secCatName = '';
-                                if (e.SecCatName) { // make this check because there may not always be a sec cat name
-                                    secCatName = e.SecCatName.toLowerCase();
-                                }
-                                return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
-                                    e.Venue.toLowerCase().includes(this.searchTerms) ||
-                                    e.ParentCatName.toLowerCase().includes(this.searchTerms) ||
-                                    secCatName.includes(this.searchTerms);
-                            });
-
-                        for (let i = 0; i < this.events.length; i++) {
-                            if (i != 0) {
-                                this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
+        this.dataProvider.getEvents()
+            .subscribe(
+                data => {
+                    this.events = data;
+                    this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
+                    this.events = this.events.filter(
+                        e => {
+                            let secCatName = '';
+                            if (e.SecCatName) { // make this check because there may not always be a sec cat name
+                                secCatName = e.SecCatName.toLowerCase();
                             }
+                            return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
+                                e.Venue.toLowerCase().includes(this.searchTerms) ||
+                                e.ParentCatName.toLowerCase().includes(this.searchTerms) ||
+                                secCatName.includes(this.searchTerms);
+                        });
+
+                    for (let i = 0; i < this.events.length; i++) {
+                        if (i != 0) {
+                            this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
                         }
-                        this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
-                        this.searchLoading = false;
-                    },
-                    err => {
-                        console.log(err);
-                        this.searchLoading = false;
                     }
-                )
-        }
+                    this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
+                    this.searchLoading = false;
+                },
+                err => {
+                    console.log(err);
+                    this.dismissLoading();
+                }
+            )
     }
 
     // when full search term string is cleared

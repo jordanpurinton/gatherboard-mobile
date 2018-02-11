@@ -5,7 +5,7 @@
         <ion-row>
             <ion-col>
                 <ion-searchbar [(ngModel)]="searchTerms" (ionInput)="onSearchInput($event)"
-                               (ionClear)="onSearchClear()"></ion-searchbar>
+                               [animated]="true" (ionClear)="onSearchClear()"></ion-searchbar>
             </ion-col>
             <!--<ion-col text-center no-padding col-1>-->
                 <!--<ion-icon class="calendar-icon" name="calendar"></ion-icon>-->
