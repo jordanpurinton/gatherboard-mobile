@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import * as _ from 'he';
 import {IonicPage, NavParams, ViewController, ModalController, Platform} from 'ionic-angular';
 import moment from "moment";
+import {DataProvider} from "../../providers/data-provider";
 
 @IonicPage()
 @Component({
@@ -22,6 +23,7 @@ export class EventModalPage {
     constructor(public viewController: ViewController,
                 public platform: Platform,
                 public navParams: NavParams) {
+        console.log(this.e)
     }
 
     ionViewWillLoad() {

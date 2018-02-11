@@ -13,6 +13,7 @@ import {MapPage} from "../pages/map/map";
 import {SettingsPage} from "../pages/settings/settings";
 import {EventModalPage} from "../pages/event-modal/event-modal";
 import {GoogleMaps} from '@ionic-native/google-maps';
+import {NativeGeocoder} from '@ionic-native/native-geocoder';
 import {IonicStorageModule} from "@ionic/storage";
 import {SocialMediaPage} from "../pages/social-media/social-media";
 import {Geolocation} from "@ionic-native/geolocation";
@@ -65,7 +66,7 @@ let classSelector = new ClassSelector();
         DataProvider,
         Geolocation,
         GoogleMaps,
-
+        NativeGeocoder,
         // enable these when trying to test out device functionality
         // StatusBar,
         // SplashScreen,

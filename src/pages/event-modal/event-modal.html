@@ -35,23 +35,23 @@
         </ion-item>
     </ion-list>
 
-    <ion-list id="event-detail-list" text-wrap>
+    <ion-list id="event-detail-list" text-center text-wrap>
 
         <ion-item *ngIf="e.Description">
             <ion-label *ngIf="!isExpandedText" style="margin-top: 0">
                 {{escapeEntity(e.Description).substr(0, 400)}}...
                 <ion-label [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" class="expand-text"
                            (click)="expandDescription()">
-                    <span *ngIf="platform.is('ios')">Show more</span>
-                    <span *ngIf="platform.is('android')">SHOW MORE</span>
+                    <b *ngIf="platform.is('ios')">Read more</b>
+                    <b *ngIf="platform.is('android')">READ MORE</b>
                 </ion-label>
             </ion-label>
             <ion-label *ngIf="isExpandedText" style="margin-top: 0">
                 {{escapeEntity(e.Description)}}
                 <ion-label [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" class="expand-text"
                            (click)="collapseDescription()">
-                    <span *ngIf="platform.is('ios')">Hide</span>
-                    <span *ngIf="platform.is('android')">HIDE</span>
+                    <b *ngIf="platform.is('ios')">Hide</b>
+                    <b *ngIf="platform.is('android')">HIDE</b>
                 </ion-label>
             </ion-label>
         </ion-item>

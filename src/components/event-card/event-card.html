@@ -14,7 +14,7 @@
             <ion-col class="second-col" no-padding text-wrap col-9>
                 <p class="event-category" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}">
                     <span class="parent-cat">{{e.ParentCatName}}</span>
-                    <span *ngIf="e.SecCatName"> > </span>
+                    <span *ngIf="e.SecCatName"> | </span>
                     <span class="secondary-cat">{{e.SecCatName}}</span>
                 </p>
                 <p class="event-title">{{escapeEntity(e.EventTitle)}}</p>

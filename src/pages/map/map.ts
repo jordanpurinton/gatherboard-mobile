@@ -5,9 +5,10 @@ import {
     GoogleMap,
     GoogleMapsEvent,
     Marker,
-    GoogleMapsAnimation
+    GoogleMapsAnimation, ILatLng, LatLng
 } from '@ionic-native/google-maps';
 import {Geolocation} from "@ionic-native/geolocation";
+import {NativeGeocoder, NativeGeocoderForwardResult} from "@ionic-native/native-geocoder";
 
 @Component({
     selector: 'page-map',
@@ -19,6 +20,7 @@ export class MapPage {
     map: GoogleMap;
 
     constructor(public toastController: ToastController,
+                public geocoder: NativeGeocoder,
                 public geolocation: Geolocation) {
     }
 
@@ -37,16 +39,27 @@ export class MapPage {
                             lat: data.coords.latitude,
                             lng: data.coords.longitude
                         },
-                        zoom: 18,
+                        zoom: 14,
                         tilt: 30
                     }
                 });
 
                 this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
                     this.mapReady = true;
+                    this.geocoder.forwardGeocode('32 Campus Dr, Missoula, MT')
+                        .then((data: NativeGeocoderForwardResult) => {
+                            let latLng = new LatLng(data[0].latitude, data[0].longitude);
+                            console.log(latLng)
+                            this.map.addMarker({
+                                title: 'UM',
+                                snippet: 'I found UM based on the coordinates you sent me',
+                                position: latLng,
+                                animation: GoogleMapsAnimation.BOUNCE
+                            })
+                            this.map.setCameraTarget(latLng);
+                        })
                 });
-            }
-        )
+            })
     }
 
     // gets current location again and shows pop up
