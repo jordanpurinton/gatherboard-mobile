@@ -95,13 +95,21 @@ export class MapPage {
             .then((data: NativeGeocoderForwardResult) => {
                 let latLng = new LatLng(data[0].latitude, data[0].longitude);
                 console.log(latLng)
-                this.map.addMarker({
-                    title: 'UM',
-                    snippet: 'I found UM based on the coordinates you sent me',
-                    position: latLng,
-                    animation: GoogleMapsAnimation.BOUNCE
-                });
-                this.map.setCameraTarget(latLng);
+
+                return this.map.animateCamera({
+                    target: latLng,
+                    zoom: 17,
+                    tilt: 30
+                }).then(
+                    () => {
+                        this.map.addMarker({
+                            title: 'UM',
+                            snippet: 'I found UM based on the coordinates you sent me',
+                            position: latLng,
+                            animation: GoogleMapsAnimation.BOUNCE
+                        });
+                        this.map.setCameraTarget(latLng);
+                    })
             })
     }
 
