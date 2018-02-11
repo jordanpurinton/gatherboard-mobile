@@ -46,24 +46,12 @@ export class MapPage {
 
                 this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
                     this.mapReady = true;
-                    this.geocoder.forwardGeocode('32 Campus Dr, Missoula, MT')
-                        .then((data: NativeGeocoderForwardResult) => {
-                            let latLng = new LatLng(data[0].latitude, data[0].longitude);
-                            console.log(latLng)
-                            this.map.addMarker({
-                                title: 'UM',
-                                snippet: 'I found UM based on the coordinates you sent me',
-                                position: latLng,
-                                animation: GoogleMapsAnimation.BOUNCE
-                            })
-                            this.map.setCameraTarget(latLng);
-                        })
-                });
+                })
             })
     }
 
-    // gets current location again and shows pop up
-    onButtonClick() {
+    // pin your location
+    pinMyLocation() {
         if (!this.mapReady) {
             this.showToast('Whoops try again, or make sure you are running on an actual device ;)');
             return;
@@ -72,8 +60,6 @@ export class MapPage {
 
         this.map.getMyLocation()
             .then((location) => {
-                console.log(JSON.stringify(location, null, 2));
-
                 return this.map.animateCamera({
                     target: location.latLng,
                     zoom: 17,
@@ -81,8 +67,8 @@ export class MapPage {
                 }).then(() => {
                     // add a marker
                     return this.map.addMarker({
-                        title: '@ionic-native/google-maps plugin!',
-                        snippet: 'Here is a message!',
+                        title: 'My location',
+                        snippet: 'Got your location based on the coordinates you sent me',
                         position: location.latLng,
                         animation: GoogleMapsAnimation.BOUNCE
                     });
@@ -95,6 +81,28 @@ export class MapPage {
                 this.showToast('clicked!');
             });
         });
+    }
+
+    // pin location at UM
+    pinUM() {
+        if (!this.mapReady) {
+            this.showToast('Whoops try again, or make sure you are running on an actual device ;)');
+            return;
+        }
+        this.map.clear();
+
+        this.geocoder.forwardGeocode('32 Campus Dr, Missoula, MT')
+            .then((data: NativeGeocoderForwardResult) => {
+                let latLng = new LatLng(data[0].latitude, data[0].longitude);
+                console.log(latLng)
+                this.map.addMarker({
+                    title: 'UM',
+                    snippet: 'I found UM based on the coordinates you sent me',
+                    position: latLng,
+                    animation: GoogleMapsAnimation.BOUNCE
+                });
+                this.map.setCameraTarget(latLng);
+            })
     }
 
     // show err message if map not ready
