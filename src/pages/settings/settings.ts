@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import { Storage } from "@ionic/storage";
+import {DataProvider} from "../../providers/data-provider";
 
 @IonicPage()
 @Component({
@@ -9,35 +10,63 @@ import { Storage } from "@ionic/storage";
 })
 export class SettingsPage {
 	
-	tags: any;
+	tags: Array<string>;
 	categories: Array<string>;
+	selectedCategories: Array<string>;
+	categorySelect: any;
 	knobValues: any = {
 		upper: 50,
 		lower: 0
 	};
-	constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
-		this.storage.get('tags').then((data) => {
+	constructor(public dataProvider: DataProvider, public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
+/* 		this.storage.get('tags').then((data) => {
 			this.tags = data;
+		}); */
+		
+		this.tags = new Array<string>();
+		/*this.dataProvider.getTags()
+			 .subscribe(
+				  data => {
+						for (let i = 0; i < data.length; i++) {
+								
+							this.tags.push(data[i].TagName);
+						}
+				  },
+				  err => console.log(err)
+			 );
+			 */
+		this.categories = new Array<string>();        
+		
+ 		this.dataProvider.getCategories()
+                .subscribe(
+                    data => {
+
+                        for (let i = 0; i < data.length; i++) {
+									console.log(data[i]);
+                           this.categories.push(data[i].CatName);
+									this.tags.push(data[i].CatName);
+                        }
+
+                    },
+                    err => console.log(err)
+                );
+ 
+		this.selectedCategories = [];
+		
+		this.storage.get('categories').then((data)  => {
+			this.selectedCategories = data;
+			console.log(this.selectedCategories);
 		});
-		this.categories = new Array<string>();
-		this.categories.push('Sports');
-		this.categories.push('Business');
-		this.categories.push('Education');
-		this.categories.push('Music');
+		
 	}
 	
 	ionViewDidLoad()
 	{
 		
-		var slider = document.getElementById("age-range-slider");
-		console.log(slider);
-		console.log(this.knobValues);
-
-		
 	}
 	
 	saveAgeRange(valLower, valUpper) {
-		console.log(valLower, valUpper);
+		console.log(valLower + " " + valUpper);
 		this.storage.get('ageUpper').then((data) => {
 
 				let array = [];
@@ -55,46 +84,44 @@ export class SettingsPage {
 	}
 	 
 	saveTag(val) {
-		let tags = val.split(",");
+		let newTags = val.split(",");
 		this.storage.get('tags').then((data) => {
 			if (data != null) {
-				for(let k = 0; k < tags.length; k++) {
-					console.log(tags[k]);
-					data.push (tags[k]);
+				for(let k = 0; k < newTags.length; k++) {
+					data.push (newTags[k]);
 				}
 				this.storage.set('tags', data);
 			}
 			else {
 				let array = [];
-				for(let k = 0; k < tags.length; k++) {
-					array.push (tags[k]);
+				for(let k = 0; k < newTags.length; k++) {
+					array.push (newTags[k]);
 				}
 				this.storage.set('tags', array);
 			}
 		});
 		
-		for(let k = 0; k < tags.length; k++){
-			this.tags.push(tags[k]);
+		for(let k = 0; k < newTags.length; k++){
+			this.tags.push(newTags[k]);
 		}
 	}
 	
 	saveCategories(vals) {
 			
 			this.storage.get('categories').then((data) => {
-			if (data != null) {
-				for(let k = 0; k < vals.length; k++) {
-					data.push (vals[k]);
-				}
-				this.storage.set('categories', data);
-			}
-			else {
+
 				let array = [];
 				for(let k = 0; k < vals.length; k++) {
 					array.push (vals[k]);
 				}
+				this.selectedCategories = array;
 				this.storage.set('categories', array);
-			}
+			
 		});
+	}
+	
+	clearMemory() {
+		this.storage.set('categories', null);
 	}
 
 }

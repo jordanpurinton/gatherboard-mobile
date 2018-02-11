@@ -1,23 +1,37 @@
 <ion-content padding>
 
-<ion-label fixed>Tags</ion-label>
-<p *ngFor="let tag of tags">
-{{tag}}
-</p>
-<ion-input type="text" name="tagInput" [(ngModel)]="tagInput"  placeholder="Enter a comma separated list of tags"></ion-input>
-<button ion-button (click)="saveTag(tagInput);">Add</button>
+
+<button ion-button (click) ="clearMemory()">Clear</button>
+<p *ngFor="let cat of selectedCategories">
+{{cat}}
+<p>
+
+
+
+<ion-item>
+	<ion-label fixed>Tags</ion-label>
+	<ion-select placeholder="Select" multiple="true" [(ngModel)]="tagSelect" (ionChange)="saveTags(tagSelect)" >
+		 <ion-option *ngFor="let item of tags" [value]="item">{{item}}</ion-option>
+	</ion-select>
+</ion-item>
 
 <ion-item>
 	<ion-label> Age Range </ion-label>
-	<ion-range id="age-range-slider" dualKnobs="true" pin="true" [(ngModel)]="knobValues"(ionChange)="saveAgeRange(knobValues.lower,knobValues.upper)" color="positive" step="5" snap="true">
+	<ion-range id="age-range-slider" dualKnobs="true" pin="true" [(ngModel)]="knobValues" color="positive" step="1" snap="true">
 	   <ion-label range-left>0</ion-label>
       <ion-label range-right>99+</ion-label>
 	</ion-range>
+	
 </ion-item>
 
+<button ion-button (click)="saveAgeRange(knobValues.lower,knobValues.upper)">Confirm</button>
+
+<ion-item>
 <ion-label fixed>Categories</ion-label>
+
 <ion-select placeholder="Select" multiple="true" [(ngModel)]="categorySelect" (ionChange)="saveCategories(categorySelect)" >
-    <ion-option *ngFor="let item of categories" [value]="item">{{item}}</ion-option>
+    <ion-option *ngFor="let item of categories" [value]="item" [attr.selected]="(form.name == name) ? true : null">{{item}}</ion-option>
 </ion-select>
+</ion-item>
 
 </ion-content>
