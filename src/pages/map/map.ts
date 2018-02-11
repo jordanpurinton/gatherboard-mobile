@@ -77,8 +77,6 @@ export class MapPage {
 
                         //TODO: Handle multiple events at same location by adding only one map marker with seperators/event descriptions
                         let marker = {
-                            title: event.EventTitle,
-                            snippet: event.Description.substr(0, 75) + '...',
                             position: latLng,
                             animation: GoogleMapsAnimation.DROP
                         };
@@ -162,7 +160,7 @@ export class MapPage {
             let toast = this.toastController.create({
                 message: event.EventTitle,
                 duration: 10000,
-                position: 'bottom',
+                position: 'top',
                 showCloseButton: true,
                 closeButtonText: message,
             });
