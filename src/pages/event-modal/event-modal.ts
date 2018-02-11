@@ -23,7 +23,7 @@ export class EventModalPage {
     constructor(public viewController: ViewController,
                 public platform: Platform,
                 public navParams: NavParams) {
-        console.log(this.e)
+        console.log(this.escapeEntity(this.e.Description).length)
     }
 
     ionViewWillLoad() {
