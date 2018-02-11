@@ -1,14 +1,17 @@
 import {Component} from '@angular/core';
-import {ToastController} from 'ionic-angular';
+import {ModalController, ToastController} from 'ionic-angular';
 import {
     GoogleMaps,
     GoogleMap,
     GoogleMapsEvent,
     Marker,
-    GoogleMapsAnimation, ILatLng, LatLng
+    GoogleMapsAnimation, LatLng
 } from '@ionic-native/google-maps';
 import {Geolocation} from "@ionic-native/geolocation";
 import {NativeGeocoder, NativeGeocoderForwardResult} from "@ionic-native/native-geocoder";
+import {Storage} from "@ionic/storage";
+import {EventModalPage} from "../event-modal/event-modal";
+import moment from 'moment';
 
 @Component({
     selector: 'page-map',
@@ -16,10 +19,13 @@ import {NativeGeocoder, NativeGeocoderForwardResult} from "@ionic-native/native-
 })
 export class MapPage {
 
-    mapReady: boolean = false;
+    mapReady = false;
     map: GoogleMap;
+    todayEvents;
 
     constructor(public toastController: ToastController,
+                public storage: Storage,
+                public modalController: ModalController,
                 public geocoder: NativeGeocoder,
                 public geolocation: Geolocation) {
     }
@@ -28,26 +34,64 @@ export class MapPage {
         this.loadMap();
     }
 
-    // initialize map on page load to your current location
-    loadMap() {
+    ionViewDidEnter() {
+        this.storage.get('TodayEvents').then(
+            data => {
+                this.todayEvents = data;
+                if (moment(this.todayEvents[0].EventStartDate).format('M/D') !=
+                    moment().format('M/D')) {
+                    this.map = null;
+                    this.loadMap();
+                }
+            });
+    }
 
+    // initialize map on page load to boise
+    loadMap() {
         this.geolocation.getCurrentPosition().then(
             data => {
                 this.map = GoogleMaps.create('map_canvas', {
                     camera: {
                         target: {
-                            lat: data.coords.latitude,
-                            lng: data.coords.longitude
+                            lat: 43.603600, // boise for now
+                            lng: -116.208710
                         },
                         zoom: 14,
                         tilt: 30
                     }
                 });
-
-                this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
-                    this.mapReady = true;
-                })
+                this.getNearbyEvents();
             })
+    }
+
+    getNearbyEvents() {
+        this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+            this.mapReady = true;
+            for (let i = 0; i < this.todayEvents.length; i++) {
+                let address = this.todayEvents[i].VenueAddress + ', ';
+                let cityState = this.todayEvents[i].VenueCity + ', ' + this.todayEvents.VenueState;
+                this.geocoder.forwardGeocode(address + cityState)
+                    .then((data: NativeGeocoderForwardResult) => {
+                        let event = this.todayEvents[i];
+                        let latLng = new LatLng(data[0].latitude, data[0].longitude);
+
+                        //TODO: Handle multiple events at same location by adding only one map marker with seperators/event descriptions
+                        let marker = {
+                            title: event.EventTitle,
+                            snippet: event.Description.substr(0, 75) + '...',
+                            position: latLng,
+                            animation: GoogleMapsAnimation.DROP
+                        };
+                        this.map.addMarker(marker).then(
+                            (marker: Marker) => {
+                                marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+                                    this.showToast('View Details', event);
+                                });
+                            }
+                        )
+                    })
+            }
+        })
     }
 
     // pin your location
@@ -70,20 +114,16 @@ export class MapPage {
                         title: 'My location',
                         snippet: 'Got your location based on the coordinates you sent me',
                         position: location.latLng,
-                        animation: GoogleMapsAnimation.BOUNCE
+                        animation: GoogleMapsAnimation.DROP
                     });
                 })
             }).then((marker: Marker) => {
             // show the infoWindow
             marker.showInfoWindow();
-
-            marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-                this.showToast('clicked!');
-            });
         });
     }
 
-    // pin location at UM
+    // pin location at Boise
     pinUM() {
         if (!this.mapReady) {
             this.showToast('Whoops try again, or make sure you are running on an actual device ;)');
@@ -91,36 +131,53 @@ export class MapPage {
         }
         this.map.clear();
 
-        this.geocoder.forwardGeocode('32 Campus Dr, Missoula, MT')
-            .then((data: NativeGeocoderForwardResult) => {
-                let latLng = new LatLng(data[0].latitude, data[0].longitude);
-                console.log(latLng)
-
-                return this.map.animateCamera({
-                    target: latLng,
-                    zoom: 17,
-                    tilt: 30
-                }).then(
-                    () => {
-                        this.map.addMarker({
-                            title: 'UM',
-                            snippet: 'I found UM based on the coordinates you sent me',
-                            position: latLng,
-                            animation: GoogleMapsAnimation.BOUNCE
-                        });
-                        this.map.setCameraTarget(latLng);
-                    })
+        let latLng = new LatLng(43.603600, -116.208710);
+        return this.map.animateCamera({
+            target: latLng,
+            zoom: 17,
+            tilt: 30
+        }).then(
+            () => {
+                this.map.addMarker({
+                    title: 'Boise',
+                    snippet: 'I found Boise based on the coordinates you sent me',
+                    position: latLng,
+                    animation: GoogleMapsAnimation.DROP
+                });
+                this.map.setCameraTarget(latLng);
             })
     }
 
     // show err message if map not ready
-    showToast(message) {
-        let toast = this.toastController.create({
-            message: message,
-            duration: 4000,
-            position: 'top'
-        });
+    showToast(message, event?) {
+        if (!event) {
+            let toast = this.toastController.create({
+                message: message,
+                duration: 4000,
+                position: 'top'
+            });
+            toast.present(toast);
+        }
+        else {
+            let toast = this.toastController.create({
+                message: event.EventTitle,
+                duration: 10000,
+                position: 'bottom',
+                showCloseButton: true,
+                closeButtonText: message,
+            });
+            toast.onDidDismiss((data, role) => {
+                if (role == 'close') {
+                    this.showEventModal(event);
+                }
+            });
+            toast.present();
+        }
 
-        toast.present(toast);
+    }
+
+    showEventModal(event) {
+        let modal = this.modalController.create(EventModalPage, {e: event});
+        modal.present();
     }
 }
