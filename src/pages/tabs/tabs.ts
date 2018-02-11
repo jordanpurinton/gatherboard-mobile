@@ -16,17 +16,14 @@ export class TabsPage {
     map = MapPage;
     settings = SettingsPage;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams)
-    {
+    constructor(public navCtrl: NavController, public navParams: NavParams) {
     }
 
-    ionViewDidEnter()
-    {
+    ionViewDidEnter() {
         this.tabs.select(0);
     }
 
-    ionViewDidLoad()
-    {
+    ionViewDidLoad() {
     }
 
 }

@@ -13,8 +13,18 @@ import {MapPage} from "../pages/map/map";
 import {SettingsPage} from "../pages/settings/settings";
 import {EventModalPage} from "../pages/event-modal/event-modal";
 import {GoogleMaps} from '@ionic-native/google-maps';
+import {NativeGeocoder} from '@ionic-native/native-geocoder';
 import {IonicStorageModule} from "@ionic/storage";
 import {SocialMediaPage} from "../pages/social-media/social-media";
+import {Geolocation} from "@ionic-native/geolocation";
+import {Diagnostic} from "@ionic-native/diagnostic";
+import {EnableLocationPage} from "../pages/enable-location/enable-location";
+import {DiagnosticMock} from '../mocks/diagnostic-mock';
+import {SplashScreenMock} from '../mocks/splashscreen-mock';
+import {StatusBarMock} from '../mocks/status-bar-mock';
+import {ClassSelector} from './class-selector';
+
+let classSelector = new ClassSelector();
 
 @NgModule({
     declarations: [
@@ -25,12 +35,13 @@ import {SocialMediaPage} from "../pages/social-media/social-media";
         SettingsPage,
         EventCardComponent,
         EventModalPage,
-        SocialMediaPage
+        SocialMediaPage,
+        EnableLocationPage
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
-		  IonicStorageModule.forRoot(),
+        IonicStorageModule.forRoot(),
         IonicModule.forRoot(MyApp, {
             platforms: {
                 ios: {
@@ -47,14 +58,24 @@ import {SocialMediaPage} from "../pages/social-media/social-media";
         MapPage,
         SettingsPage,
         EventModalPage,
-        SocialMediaPage
+        SocialMediaPage,
+        EnableLocationPage
     ],
     providers: [
-        StatusBar,
-        SplashScreen,
         {provide: ErrorHandler, useClass: IonicErrorHandler},
         DataProvider,
-        GoogleMaps
+        Geolocation,
+        GoogleMaps,
+        NativeGeocoder,
+        // enable these when trying to test out device functionality
+        // StatusBar,
+        // SplashScreen,
+        // Diagnostic,
+
+        // comment these out when you're trying to test out device functionality and enable the real ones above
+        classSelector.getProvider(Diagnostic, DiagnosticMock),
+        classSelector.getProvider(SplashScreen, SplashScreenMock),
+        classSelector.getProvider(StatusBar, StatusBarMock),
     ]
 })
 export class AppModule {

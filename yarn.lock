@@ -32,7 +32,7 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/core@^5.2.3":
+"@angular/core@^5.2.2":
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/@angular/core/-/core-5.2.3.tgz#157dcb437d085b325513689e0e4ae70182f3f708"
   dependencies:
@@ -61,6 +61,10 @@
   resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-5.2.2.tgz#3eedcbbcc8c0e6c91eba7ed2b32de7c6679d9b62"
   dependencies:
     tslib "^1.7.1"
+
+"@ionic-native/calendar@^4.5.3":
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/@ionic-native/calendar/-/calendar-4.5.3.tgz#430e355d1f900d700ae77b7681d3b0e6331d03bb"
 
 "@ionic-native/core@^4.5.3":
   version "4.5.3"
@@ -1227,6 +1231,10 @@ cordova-lib@8.0.0:
     valid-identifier "0.0.1"
     xcode "^1.0.0"
 
+cordova-plugin-calendar@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-calendar/-/cordova-plugin-calendar-5.0.0.tgz#e7ba65b427a82ed347d340a450f11d27a0bb17be"
+
 cordova-plugin-googlemaps@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-googlemaps/-/cordova-plugin-googlemaps-2.2.2.tgz#731a402aff681a660a73ef6b53f25225cfcad42b"
@@ -1244,6 +1252,16 @@ cordova-serve@^2.0.0:
     express "^4.13.3"
     open "0.0.5"
     shelljs "^0.5.3"
+
+cordova-sqlite-storage-dependencies@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/cordova-sqlite-storage-dependencies/-/cordova-sqlite-storage-dependencies-1.1.0.tgz#dda143d7f341a93cefa3333a5d1111fad86988a9"
+
+cordova-sqlite-storage@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/cordova-sqlite-storage/-/cordova-sqlite-storage-2.2.0.tgz#00b382af852d2e345c2c4aeea70b2bcd61db37f1"
+  dependencies:
+    cordova-sqlite-storage-dependencies "1.1.0"
 
 cordova@^8.0.0:
   version "8.0.0"
@@ -3015,10 +3033,6 @@ locate-path@^2.0.0:
   dependencies:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
-
-lock@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/lock/-/lock-1.1.0.tgz#53157499d1653b136ca66451071fca615703fa55"
 
 lodash._baseassign@^3.0.0:
   version "3.2.0"
