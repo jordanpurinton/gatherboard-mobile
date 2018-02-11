@@ -28,12 +28,9 @@ export class SettingsPage {
     }
 
     ionViewDidLoad() {
-
-        var slider = document.getElementById("age-range-slider");
+        let slider = document.getElementById("age-range-slider");
         console.log(slider);
         console.log(this.knobValues);
-
-
     }
 
     saveAgeRange(valLower, valUpper) {
@@ -80,19 +77,19 @@ export class SettingsPage {
 
     saveCategories(vals) {
 
-        this.storage.get('categories').then((data) => {
+        this.storage.get('Categories').then((data) => {
             if (data != null) {
                 for (let k = 0; k < vals.length; k++) {
                     data.push(vals[k]);
                 }
-                this.storage.set('categories', data);
+                this.storage.set('Categories', data);
             }
             else {
                 let array = [];
                 for (let k = 0; k < vals.length; k++) {
                     array.push(vals[k]);
                 }
-                this.storage.set('categories', array);
+                this.storage.set('Categories', array);
             }
         });
     }

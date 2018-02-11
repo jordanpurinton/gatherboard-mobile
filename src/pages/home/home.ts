@@ -5,6 +5,7 @@ import moment from 'moment';
 import {Diagnostic} from "@ionic-native/diagnostic";
 import {EnableLocationPage} from "../enable-location/enable-location";
 import {Geolocation} from "@ionic-native/geolocation";
+import {Storage} from "@ionic/storage";
 
 @Component({
     selector: 'page-home',
@@ -18,12 +19,13 @@ export class HomePage {
     searchTerms = '';
     selectedView = 'My Feed';
     loading: Loading;
-    platform = localStorage.getItem('Platform');
+    platform = this.storage.get('Platform');
 
     constructor(public dataProvider: DataProvider,
                 public diagnostic: Diagnostic,
                 public modalController: ModalController,
                 public geolocation: Geolocation,
+                public storage: Storage,
                 public loadingController: LoadingController) {
     }
 
@@ -47,12 +49,17 @@ export class HomePage {
                 data => {
                     this.events = data;
                     this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
-
+                    let todayEvents = [];
                     for (let i = 0; i < this.events.length; i++) {
+                        let isTodayEvent = this.isTodayEvent(this.events[i].EventStartDate);
                         if (i != 0) {
                             this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
                         }
+                        if(isTodayEvent) { // store todays events in order to show on map page later
+                            todayEvents.push(this.events[i]);
+                        }
                     }
+                    this.storage.set('TodayEvents', todayEvents);
                     this.dismissLoading();
                 },
                 err => {
