@@ -1,10 +1,43 @@
-<ion-content padding>
-
+<ion-header>
+    <ion-toolbar>
+        <ion-row>
+				<!--Categories view-->
+            <ion-label (click)="getCategoriesTab()"
+                       [ngClass]="{hiddenViewStyle: selectedTab != 'Categories',
+							  visibleViewStyle: selectedTab == 'Categories'}"
+							  ion-button clear class="header-label">
+					Categories
+            </ion-label>
+            <!--Tags view-->
+            <ion-label (click)="getTagsTab()"
+                       [ngClass]="{hiddenViewStyle: selectedTab != 'Tags',
+							  visibleViewStyle: selectedTab == 'Tags'}"
+							  ion-button clear class="header-label">
+					Tags
+            </ion-label>
+				<!--age range view-->
+				<ion-label (click)="getAgeRangeTab()"
+                       [ngClass]="{hiddenViewStyle: selectedTab != 'Age Range',
+							  visibleViewStyle: selectedTab == 'Age Range'}"
+							  ion-button clear class="header-label">
+					Age Range
+				</ion-label>
+				<ion-label (click)="getVenuesTab()"
+                       [ngClass]="{hiddenViewStyle: selectedTab != 'Venues',
+							  visibleViewStyle: selectedTab == 'Venues'}"
+							  ion-button clear class="header-label">
+					Venues
+				</ion-label>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+<!--<ion-content padding>
+Categories
 
 <button ion-button (click) ="clearMemory()">Clear</button>
 <p *ngFor="let cat of selectedCategories">
 {{cat}}
-<p>
+</p>
 
 
 
@@ -33,4 +66,51 @@
     <ion-option *ngFor="let item of categories" [value]="item" [attr.selected]="(form.name == name) ? true : null">{{item}}</ion-option>
 </ion-select>
 </ion-item>
+</ion-content>-->
+
+<ion-content [ngSwitch]="selectedTab">
+	
+	<div *ngSwitchCase="'Categories'">
+		
+		<ion-list *ngFor="let cat of categories; let i=index">
+			<div class="selection-div">
+			<ion-checkbox (ionChange)="categoryChange(cat)" 
+								[checked]="catDisplayValues[i]" 
+								class="chbox"></ion-checkbox>
+								
+			<ion-label class="selection-label">{{cat}}</ion-label>
+			</div>
+		</ion-list>
+		
+		<button ion-button (click)="saveCategories()">Save</button>
+		
+		<div *ngIf="selectedCategories.length == 0">You don't have any saved categories, select ones that interest you from this list</div>
+		
+	</div>
+	<div *ngSwitchCase="'Tags'">
+		<ion-list *ngFor="let tag of tags; let i=index">
+			<div class="selection-div">
+			<ion-checkbox (ionChange)="categoryChange(tag)" 
+								[checked]="tagDisplayValues[i]" 
+								class="chbox"></ion-checkbox>
+								
+			<ion-label class="selection-label">{{tag}}</ion-label>
+			</div>
+		</ion-list>
+		
+		<button ion-button (click)="saveTags()">Save</button>
+		<div *ngIf="selectedTags.length == 0">You don't have any saved Tags, select ones that interest you from this list</div>
+	</div>
+	<div *ngSwitchCase="'Age Range'">
+	<ion-item>
+		<ion-range id="age-range-slider" dualKnobs="true" pin="true" [(ngModel)]="knobValues" color="positive" step="1" snap="true">
+			<ion-label range-left>0</ion-label>
+			<ion-label range-right>99+</ion-label>
+		</ion-range>
+		
+	</ion-item>
+	
+	<button ion-button (click)="saveAgeRange(knobValues.lower,knobValues.upper)">Confirm</button>
+	</div>
+	<div *ngSwitchCase="'Venues'">Venues</div>
 </ion-content>

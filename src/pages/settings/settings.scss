@@ -1,3 +1,35 @@
 page-settings {
+  
+  .header-label {
+    text-align: center;
+    color: white;
+    width: 50%;
+    margin: 0;
+    font-weight: 400 !important;
+  }
+  
+  .hiddenViewStyle {
+    color: #a2a2a2;
+  }
 
+  .visibleViewStyle {
+    font-weight: 800;
+  }
+  
+  
+  .chbox {
+	float: left;	
+	}
+  
+  .selection-label {
+		padding-left: 10px;
+  }
+  
+  .selection-div {
+	height: 15px;
+  }
+  
+  .selection-div:hover {
+	color: grey;
+  }
 }
