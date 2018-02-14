@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import * as _ from 'he';
 import {ModalController} from "ionic-angular";
 import {EventModalPage} from "../../pages/event-modal/event-modal";
+import {Global} from "../../providers/global";
 import moment from "moment";
 
 @Component({
@@ -13,58 +14,16 @@ export class EventCardComponent {
     @Input() e: any;
     category: string;
     iconName: string;
-
-    // color strings
-    backgroundColorMap = {
-        'Education': '#FFF5E3', 'Food': '#F3E5E1', 'Art': '#E1ECF5', 'Music': '#E1F0EC',
-        'Sports': '#ffe6d1', 'Business': '#cacfd4', 'Government': '#EFD9FF'
-    };
-    iconColorMap = {
-        'Education': '#f1a007', 'Food': '#9F2200', 'Art': '#0C5FAF', 'Music': '#00845E',
-        'Sports': '#ff8514', 'Business': '#708090', 'Government': '#70005D'
-    };
+    backgroundColorMap = Global.backgroundColorMap;
+    iconColorMap = Global.iconColorMap;
+    iconNames = Global.iconNames;
 
     constructor(public modalController: ModalController) {
     }
 
     ngOnInit() {
-
         this.category = this.e.ParentCatName;
-
-        // sorry this is bad, couldn't get switch cases to work
-        // so this will have to do
-        if (this.category == 'Education') {
-            this.iconName = 'school';
-        }
-
-        else if (this.category == 'Food') {
-            this.iconName = 'restaurant';
-        }
-
-        else if (this.category == 'Art') {
-            this.iconName = 'color-palette';
-        }
-
-        else if (this.category == 'Music') {
-            this.iconName = 'musical-notes';
-        }
-
-        else if (this.category == 'Sports') {
-            this.iconName = 'american-football';
-        }
-
-        else if (this.category == 'Business') {
-            this.iconName = 'briefcase';
-        }
-
-        else if (this.category == 'Government') {
-            this.iconName = 'megaphone';
-        }
-
-        else {
-            this.backgroundColorMap[this.category] = '#cacfd4';
-            this.iconName = 'star';
-        }
+        this.iconName = this.iconNames[this.category];
     }
 
 

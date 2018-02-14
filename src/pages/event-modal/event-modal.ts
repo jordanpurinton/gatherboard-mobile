@@ -6,6 +6,7 @@ import {
 } from 'ionic-angular';
 import moment from "moment";
 import {LocalNotifications} from '@ionic-native/local-notifications';
+import {Global} from "../../providers/global";
 
 @IonicPage()
 @Component({
@@ -21,10 +22,7 @@ export class EventModalPage {
     notificationId = this.getNotificationId(this.e.UID);
     hasNotification = false;
     iconName = '';
-    iconColorMap = {
-        'Education': '#f1a007', 'Food': '#9F2200', 'Art': '#0C5FAF', 'Music': '#00845E',
-        'Sports': '#ff8514', 'Business': '#708090', 'Government': '#70005D'
-    };
+    iconColorMap = Global.iconColorMap;
 
     constructor(public viewController: ViewController,
                 public platform: Platform,
@@ -42,75 +40,7 @@ export class EventModalPage {
                     if (data) {
                         this.hasNotification = true;
                     }
-                }).then(
-                () => {
-                    if (this.category == 'Education') {
-                        this.iconName = 'school';
-                    }
-
-                    else if (this.category == 'Food') {
-                        this.iconName = 'restaurant';
-                    }
-
-                    else if (this.category == 'Art') {
-                        this.iconName = 'color-palette';
-                    }
-
-                    else if (this.category == 'Music') {
-                        this.iconName = 'musical-notes';
-                    }
-
-                    else if (this.category == 'Sports') {
-                        this.iconName = 'american-football';
-                    }
-
-                    else if (this.category == 'Business') {
-                        this.iconName = 'briefcase';
-                    }
-
-                    else if (this.category == 'Government') {
-                        this.iconName = 'megaphone';
-                    }
-
-                    else {
-                        this.iconColorMap[this.category] = '#cacfd4';
-                        this.iconName = 'star';
-                    }
                 })
-        }
-        else {
-            if (this.category == 'Education') {
-                this.iconName = 'school';
-            }
-
-            else if (this.category == 'Food') {
-                this.iconName = 'restaurant';
-            }
-
-            else if (this.category == 'Art') {
-                this.iconName = 'color-palette';
-            }
-
-            else if (this.category == 'Music') {
-                this.iconName = 'musical-notes';
-            }
-
-            else if (this.category == 'Sports') {
-                this.iconName = 'american-football';
-            }
-
-            else if (this.category == 'Business') {
-                this.iconName = 'briefcase';
-            }
-
-            else if (this.category == 'Government') {
-                this.iconName = 'megaphone';
-            }
-
-            else {
-                this.iconColorMap[this.category] = '#cacfd4';
-                this.iconName = 'star';
-            }
         }
     }
 
