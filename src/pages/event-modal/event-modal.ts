@@ -17,7 +17,8 @@ export class EventModalPage {
     e = this.navParams.get('e');
     isExpandedText = false;
     category = this.e.ParentCatName.replace(' ', '');
-    notificationId = parseInt(this.e.UID.replace(/\D/g, '')); // TODO: make this better
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+    notificationId = this.getNotificationId(this.e.UID);
     hasNotification = false;
     iconName = '';
     iconColorMap = {
@@ -35,47 +36,82 @@ export class EventModalPage {
     }
 
     ionViewWillLoad() {
-        this.localNotifications.isPresent(this.notificationId).then(
-            data => {
-                if (data) {
-                    this.hasNotification = true;
-                }
-            }).then(
-            () => {
-                if (this.category == 'Education') {
-                    this.iconName = 'school';
-                }
+        if (this.platform.is('cordova')) {
+            this.localNotifications.isPresent(this.notificationId).then(
+                data => {
+                    if (data) {
+                        this.hasNotification = true;
+                    }
+                }).then(
+                () => {
+                    if (this.category == 'Education') {
+                        this.iconName = 'school';
+                    }
 
-                else if (this.category == 'Food') {
-                    this.iconName = 'restaurant';
-                }
+                    else if (this.category == 'Food') {
+                        this.iconName = 'restaurant';
+                    }
 
-                else if (this.category == 'Art') {
-                    this.iconName = 'color-palette';
-                }
+                    else if (this.category == 'Art') {
+                        this.iconName = 'color-palette';
+                    }
 
-                else if (this.category == 'Music') {
-                    this.iconName = 'musical-notes';
-                }
+                    else if (this.category == 'Music') {
+                        this.iconName = 'musical-notes';
+                    }
 
-                else if (this.category == 'Sports') {
-                    this.iconName = 'american-football';
-                }
+                    else if (this.category == 'Sports') {
+                        this.iconName = 'american-football';
+                    }
 
-                else if (this.category == 'Business') {
-                    this.iconName = 'briefcase';
-                }
+                    else if (this.category == 'Business') {
+                        this.iconName = 'briefcase';
+                    }
 
-                else if (this.category == 'Government') {
-                    this.iconName = 'megaphone';
-                }
+                    else if (this.category == 'Government') {
+                        this.iconName = 'megaphone';
+                    }
 
-                else {
-                    this.iconColorMap[this.category] = '#cacfd4';
-                    this.iconName = 'star';
-                }
+                    else {
+                        this.iconColorMap[this.category] = '#cacfd4';
+                        this.iconName = 'star';
+                    }
+                })
+        }
+        else {
+            if (this.category == 'Education') {
+                this.iconName = 'school';
             }
-        );
+
+            else if (this.category == 'Food') {
+                this.iconName = 'restaurant';
+            }
+
+            else if (this.category == 'Art') {
+                this.iconName = 'color-palette';
+            }
+
+            else if (this.category == 'Music') {
+                this.iconName = 'musical-notes';
+            }
+
+            else if (this.category == 'Sports') {
+                this.iconName = 'american-football';
+            }
+
+            else if (this.category == 'Business') {
+                this.iconName = 'briefcase';
+            }
+
+            else if (this.category == 'Government') {
+                this.iconName = 'megaphone';
+            }
+
+            else {
+                this.iconColorMap[this.category] = '#cacfd4';
+                this.iconName = 'star';
+            }
+        }
     }
 
     closeModal() {
@@ -129,7 +165,7 @@ export class EventModalPage {
                                         });
                                         toast.present();
                                         this.viewController.dismiss();
-                                }
+                                    }
                                 )
                             }
                         }]
@@ -144,6 +180,21 @@ export class EventModalPage {
 
     collapseDescription() {
         this.isExpandedText = false;
+    }
+
+    getNotificationId(string) {
+        let newId = '';
+        for (let i = 0; i < string.length - 1; i++) {
+            let nextChar = '';
+            if (isNaN(string[i])) {
+                nextChar = this.alphabet.indexOf(string[i].toLowerCase()).toString();
+            }
+            else {
+                nextChar = string[i];
+            }
+            newId += nextChar;
+        }
+        return parseInt(newId);
     }
 
     formatStartTime(startTime) {
