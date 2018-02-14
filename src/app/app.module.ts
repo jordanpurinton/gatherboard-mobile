@@ -23,6 +23,7 @@ import {DiagnosticMock} from '../mocks/diagnostic-mock';
 import {SplashScreenMock} from '../mocks/splashscreen-mock';
 import {StatusBarMock} from '../mocks/status-bar-mock';
 import {ClassSelector} from './class-selector';
+import {LocalNotifications} from "@ionic-native/local-notifications";
 
 let classSelector = new ClassSelector();
 
@@ -67,6 +68,7 @@ let classSelector = new ClassSelector();
         Geolocation,
         GoogleMaps,
         NativeGeocoder,
+        LocalNotifications,
         // enable these when trying to test out device functionality
         // StatusBar,
         // SplashScreen,

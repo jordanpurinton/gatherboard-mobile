@@ -32,6 +32,11 @@ page-event-modal {
     font-weight: lighter;
   }
 
+  ion-icon[name~="notifications"] {
+    font-size: 24px;
+    padding-top: 12px;
+  }
+
   // TIME
   #event-time-list {
     margin-bottom: 0;

@@ -38,7 +38,6 @@
     <!--event list-->
     <ion-list *ngIf="hasEvents" text-wrap>
         <div *ngFor="let e of events; let i = index">
-            <br *ngIf="i != 0 && e.PrevStartDate != e.EventStartDate">
 
             <!--date header-->
             <ion-card-header *ngIf="(isTodayEvent(e.EventStartDate) && i == 0) || (!isTodayEvent(e.EventStartDate) && e.PrevStartDate != e.EventStartDate)" class="date-header">

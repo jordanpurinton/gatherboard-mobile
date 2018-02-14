@@ -1,8 +1,11 @@
 import {Component} from '@angular/core';
 import * as _ from 'he';
-import {IonicPage, NavParams, ViewController, ModalController, Platform} from 'ionic-angular';
+import {
+    IonicPage, NavParams, ViewController, ModalController, Platform, AlertController,
+    ToastController
+} from 'ionic-angular';
 import moment from "moment";
-import {DataProvider} from "../../providers/data-provider";
+import {LocalNotifications} from '@ionic-native/local-notifications';
 
 @IonicPage()
 @Component({
@@ -14,6 +17,8 @@ export class EventModalPage {
     e = this.navParams.get('e');
     isExpandedText = false;
     category = this.e.ParentCatName.replace(' ', '');
+    notificationId = parseInt(this.e.UID.replace(/\D/g, '')); // TODO: make this better
+    hasNotification = false;
     iconName = '';
     iconColorMap = {
         'Education': '#f1a007', 'Food': '#9F2200', 'Art': '#0C5FAF', 'Music': '#00845E',
@@ -22,47 +27,115 @@ export class EventModalPage {
 
     constructor(public viewController: ViewController,
                 public platform: Platform,
+                public toastController: ToastController,
+                public localNotifications: LocalNotifications,
+                public alertController: AlertController,
                 public navParams: NavParams) {
         console.log(this.e);
     }
 
     ionViewWillLoad() {
-        if (this.category == 'Education') {
-            this.iconName = 'school';
-        }
+        this.localNotifications.isPresent(this.notificationId).then(
+            data => {
+                if (data) {
+                    this.hasNotification = true;
+                }
+            }).then(
+            () => {
+                if (this.category == 'Education') {
+                    this.iconName = 'school';
+                }
 
-        else if (this.category == 'Food') {
-            this.iconName = 'restaurant';
-        }
+                else if (this.category == 'Food') {
+                    this.iconName = 'restaurant';
+                }
 
-        else if (this.category == 'Art') {
-            this.iconName = 'color-palette';
-        }
+                else if (this.category == 'Art') {
+                    this.iconName = 'color-palette';
+                }
 
-        else if (this.category == 'Music') {
-            this.iconName = 'musical-notes';
-        }
+                else if (this.category == 'Music') {
+                    this.iconName = 'musical-notes';
+                }
 
-        else if (this.category == 'Sports') {
-            this.iconName = 'american-football';
-        }
+                else if (this.category == 'Sports') {
+                    this.iconName = 'american-football';
+                }
 
-        else if (this.category == 'Business') {
-            this.iconName = 'briefcase';
-        }
+                else if (this.category == 'Business') {
+                    this.iconName = 'briefcase';
+                }
 
-        else if (this.category == 'Government') {
-            this.iconName = 'megaphone';
-        }
+                else if (this.category == 'Government') {
+                    this.iconName = 'megaphone';
+                }
 
-        else {
-            this.iconColorMap[this.category] = '#cacfd4';
-            this.iconName = 'star';
-        }
+                else {
+                    this.iconColorMap[this.category] = '#cacfd4';
+                    this.iconName = 'star';
+                }
+            }
+        );
     }
 
     closeModal() {
         this.viewController.dismiss();
+    }
+
+    onBellIconClick() {
+        if (!this.hasNotification) {
+            let alert = this.alertController.create({
+                title: 'Set Reminder',
+                message: 'Would you like to set a reminder for this event?',
+                buttons:
+                    [{text: 'Cancel'},
+                        {
+                            text: 'Yes',
+                            handler: () => {
+                                this.localNotifications.schedule({
+                                    id: this.notificationId,
+                                    title: 'Reminder',
+                                    text: this.e.EventTitle + ' begins in x time.',
+                                    at: new Date(new Date().getTime() + 3600) // arbitrary time
+                                });
+                                let toast = this.toastController.create({
+                                    message: 'Reminder added',
+                                    duration: 3000,
+                                    position: 'top'
+                                });
+                                toast.present();
+                                this.viewController.dismiss();
+                            }
+                        }]
+            });
+            alert.present();
+        }
+        else {
+            let alert = this.alertController.create({
+                title: 'Cancel Reminder',
+                message: 'Would you like to cancel the reminder for this event?',
+                buttons:
+                    [{text: 'Cancel'},
+                        {
+                            text: 'Yes',
+                            handler: () => {
+                                this.localNotifications.clear(this.notificationId).then(
+                                    data => {
+                                        console.log(data);
+                                        let toast = this.toastController.create({
+                                            message: 'Reminder deleted',
+                                            duration: 3000,
+                                            position: 'top'
+                                        });
+                                        toast.present();
+                                        this.viewController.dismiss();
+                                }
+                                )
+                            }
+                        }]
+            });
+            alert.present();
+        }
     }
 
     expandDescription() {

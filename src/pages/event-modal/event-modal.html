@@ -18,7 +18,9 @@
                 <p class="event-category" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}">
                     {{e.ParentCatName}}
                     <span *ngIf="e.SecCatName"> | </span>
-                    <span>{{e.SecCatName}}</span>
+                    <span>{{e.SecCatName}}</span><br>
+                    <ion-icon *ngIf="hasNotification" name="notifications" (click)="onBellIconClick()"></ion-icon>
+                    <ion-icon *ngIf="!hasNotification" style="color: lightgray" name="notifications" (click)="onBellIconClick()"></ion-icon>
                 </p>
             </ion-card-header>
             <!--<ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="{{iconName}}" class="category-icon"></ion-icon>-->
@@ -94,11 +96,13 @@
 
 
     <ion-buttons text-center>
-        <button [ngStyle]="{'background-color': iconColorMap[e.ParentCatName]}" ion-button (click)="closeModal()" icon-end>
+        <button [ngStyle]="{'background-color': iconColorMap[e.ParentCatName]}" ion-button (click)="closeModal()"
+                icon-end>
             Share
             <ion-icon name="logo-facebook"></ion-icon>
         </button>
-        <button [ngStyle]="{'background-color': iconColorMap[e.ParentCatName]}" ion-button (click)="closeModal()" icon-end>
+        <button [ngStyle]="{'background-color': iconColorMap[e.ParentCatName]}" ion-button (click)="closeModal()"
+                icon-end>
             Add
             <ion-icon name="calendar"></ion-icon>
         </button>
