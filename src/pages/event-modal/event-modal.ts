@@ -95,7 +95,7 @@ export class EventModalPage {
                                 this.localNotifications.schedule({
                                     id: this.notificationId,
                                     title: 'Reminder',
-                                    text: this.e.EventTitle + ' begins in x time.',
+                                    text: this.escapeEntity(this.e.EventTitle) + ' begins in x time.',
                                     at: new Date(new Date().getTime() + 3600) // arbitrary time
                                 });
                                 let toast = this.toastController.create({
