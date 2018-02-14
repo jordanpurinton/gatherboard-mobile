@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import * as _ from 'he';
 import {ModalController} from "ionic-angular";
 import {EventModalPage} from "../../pages/event-modal/event-modal";
+import moment from "moment";
 
 @Component({
     selector: 'event-card',
@@ -103,6 +104,11 @@ export class EventCardComponent {
         else {
             return startTime.substring(0, startTime.length - 3) + 'a';
         }
+    }
+
+    // format string to M/D format
+    formatStartDate(startDate) {
+        return moment(startDate).format('M/D');
     }
 
     escapeEntity(string) {
