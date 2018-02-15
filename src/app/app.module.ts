@@ -25,7 +25,7 @@ import {StatusBarMock} from '../mocks/status-bar-mock';
 import {ClassSelector} from './class-selector';
 import {LocalNotifications} from "@ionic-native/local-notifications";
 
-let classSelector = new ClassSelector();
+// let classSelector = new ClassSelector();
 
 @NgModule({
     declarations: [
@@ -70,14 +70,14 @@ let classSelector = new ClassSelector();
         NativeGeocoder,
         LocalNotifications,
         // enable these when trying to test out device functionality
-        // StatusBar,
-        // SplashScreen,
-        // Diagnostic,
+        StatusBar,
+        SplashScreen,
+        Diagnostic,
 
         // comment these out when you're trying to test out device functionality and enable the real ones above
-        classSelector.getProvider(Diagnostic, DiagnosticMock),
-        classSelector.getProvider(SplashScreen, SplashScreenMock),
-        classSelector.getProvider(StatusBar, StatusBarMock),
+        // classSelector.getProvider(Diagnostic, DiagnosticMock),
+        // classSelector.getProvider(SplashScreen, SplashScreenMock),
+        // classSelector.getProvider(StatusBar, StatusBarMock),
     ]
 })
 export class AppModule {

@@ -53,7 +53,7 @@ export class EventModalPage {
             let alert = this.actionSheetController.create({
                 title: 'Set reminder',
                 buttons:
-                    [{text: 'Cancel'},
+                    [
                         {
                             text: '10 secs from now',
                             handler: () => {
@@ -125,7 +125,8 @@ export class EventModalPage {
                                 toast.present();
                                 this.viewController.dismiss();
                             }
-                        }
+                        },
+                        {text: 'Cancel'}
                     ]
             });
             alert.present();

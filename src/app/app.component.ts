@@ -20,7 +20,6 @@ export class MyApp {
                 public dataProvider: DataProvider) {
         platform.ready().then(() => {
             statusBar.styleDefault();
-            splashScreen.hide();
 
             if (platform.is('ios')) {
                 this.storage.set('Platform', 'Ios');
@@ -40,6 +39,7 @@ export class MyApp {
                         }
 
                         this.storage.set('Categories', JSON.stringify(categories));
+                        splashScreen.hide();
                         this.rootPage = TabsPage;
                     },
                     err => console.log(err)

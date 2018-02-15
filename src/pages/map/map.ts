@@ -46,17 +46,17 @@ export class MapPage {
             });
     }
 
-    // initialize map on page load to boise
+    // initialize map on page load to your location
     loadMap() {
         this.geolocation.getCurrentPosition().then(
             data => {
                 this.map = GoogleMaps.create('map_canvas', {
                     camera: {
                         target: {
-                            lat: 43.603600, // boise for now
-                            lng: -116.208710
+                            lat: data.coords.latitude,
+                            lng: data.coords.longitude
                         },
-                        zoom: 14,
+                        zoom: 12,
                         tilt: 30
                     }
                 });
@@ -65,8 +65,9 @@ export class MapPage {
     }
 
     getNearbyEvents() {
-        this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+        this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
             this.mapReady = true;
+            console.log(this.todayEvents)
             for (let i = 0; i < this.todayEvents.length; i++) {
                 let address = this.todayEvents[i].VenueAddress + ', ';
                 let cityState = this.todayEvents[i].VenueCity + ', ' + this.todayEvents.VenueState;
@@ -119,31 +120,6 @@ export class MapPage {
             // show the infoWindow
             marker.showInfoWindow();
         });
-    }
-
-    // pin location at Boise
-    pinUM() {
-        if (!this.mapReady) {
-            this.showToast('Whoops try again, or make sure you are running on an actual device ;)');
-            return;
-        }
-        this.map.clear();
-
-        let latLng = new LatLng(43.603600, -116.208710);
-        return this.map.animateCamera({
-            target: latLng,
-            zoom: 17,
-            tilt: 30
-        }).then(
-            () => {
-                this.map.addMarker({
-                    title: 'Boise',
-                    snippet: 'I found Boise based on the coordinates you sent me',
-                    position: latLng,
-                    animation: GoogleMapsAnimation.DROP
-                });
-                this.map.setCameraTarget(latLng);
-            })
     }
 
     // show err message if map not ready

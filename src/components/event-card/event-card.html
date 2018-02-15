@@ -4,10 +4,10 @@
             <ion-col class="first-col" align-self-stretch
                      [ngStyle]="{'background-color': backgroundColorMap[e.ParentCatName]}"
                      no-padding text-center text-wrap col-3>
-        <span class="start-time" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}">
-            {{formatStartTime(e.EventTime).substr(0, formatStartTime(e.EventTime).length - 1)}}<span>{{formatStartTime(e.EventTime).substr(-1)}}</span>
-        </span>
-                <div class="icon-div">
+                <div class="start-time" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}">
+                    {{formatStartTime(e.EventTime).substr(0, formatStartTime(e.EventTime).length - 1)}}<span>{{formatStartTime(e.EventTime).substr(-1)}}</span>
+                </div>
+                <div>
                     <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="{{iconName}}"></ion-icon>
                 </div>
                 <div [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" class="start-date">

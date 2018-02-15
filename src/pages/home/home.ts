@@ -55,7 +55,7 @@ export class HomePage {
                         if (i != 0) {
                             this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
                         }
-                        if(isTodayEvent) { // store todays events in order to show on map page later
+                        if (isTodayEvent) { // store todays events in order to show on map page later
                             todayEvents.push(this.events[i]);
                         }
                     }
@@ -80,25 +80,12 @@ export class HomePage {
     }
 
     // when search term character is added or deleted
-    onSearchInput(event) {
+    onSearchInput() {
         this.searchLoading = true;
         this.dataProvider.getEvents()
             .subscribe(
                 data => {
-                    this.events = data;
-                    this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
-                    this.events = this.events.filter(
-                        e => {
-                            let secCatName = '';
-                            if (e.SecCatName) { // make this check because there may not always be a sec cat name
-                                secCatName = e.SecCatName.toLowerCase();
-                            }
-                            return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
-                                e.Venue.toLowerCase().includes(this.searchTerms) ||
-                                e.ParentCatName.toLowerCase().includes(this.searchTerms) ||
-                                secCatName.includes(this.searchTerms);
-                        });
-
+                    this.events = this.filterEvents(data);
                     for (let i = 0; i < this.events.length; i++) {
                         if (i != 0) {
                             this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
@@ -123,19 +110,6 @@ export class HomePage {
                 data => {
                     this.events = data;
                     this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
-
-                    this.events = this.events.filter(
-                        e => {
-                            let secCatName = '';
-                            if (e.SecCatName) { // make this check because there may not always be a sec cat name
-                                secCatName = e.SecCatName.toLowerCase();
-                            }
-                            return e.EventTitle.toLowerCase().includes(this.searchTerms) ||
-                                e.Venue.toLowerCase().includes(this.searchTerms) ||
-                                e.ParentCatName.toLowerCase().includes(this.searchTerms) ||
-                                secCatName.includes(this.searchTerms);
-                        });
-
                     for (let i = 0; i < this.events.length; i++) {
                         if (i != 0) {
                             this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
@@ -149,6 +123,27 @@ export class HomePage {
                     this.searchLoading = false;
                 }
             )
+    }
+
+    filterEvents(data) {
+        let newEvents = [];
+        for (let e of data) {
+            let eventTitle = e.EventTitle.toLowerCase().includes(this.searchTerms);
+            let venue = e.Venue.toLowerCase().includes(this.searchTerms);
+            let parentCatName = e.ParentCatName.toLowerCase().includes(this.searchTerms);
+            let secCatName;
+            if(e.SecCatName) {
+                secCatName = e.SecCatName.toLowerCase().includes(this.searchTerms);
+            }
+            else {
+                secCatName = false;
+            }
+
+            if(eventTitle || venue || parentCatName || secCatName) {
+                newEvents.push(e);
+            }
+        }
+        return newEvents;
     }
 
     // format string to M/D format
