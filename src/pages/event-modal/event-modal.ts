@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import * as _ from 'he';
 import {
     IonicPage, NavParams, ViewController, ModalController, Platform, AlertController,
-    ToastController
+    ToastController, ActionSheetController
 } from 'ionic-angular';
 import moment from "moment";
 import {LocalNotifications} from '@ionic-native/local-notifications';
@@ -21,13 +21,13 @@ export class EventModalPage {
     alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
     notificationId = this.getNotificationId(this.e.UID);
     hasNotification = false;
-    iconName = '';
     iconColorMap = Global.iconColorMap;
 
     constructor(public viewController: ViewController,
                 public platform: Platform,
                 public toastController: ToastController,
                 public localNotifications: LocalNotifications,
+                public actionSheetController: ActionSheetController,
                 public alertController: AlertController,
                 public navParams: NavParams) {
         console.log(this.e);
@@ -50,19 +50,18 @@ export class EventModalPage {
 
     onBellIconClick() {
         if (!this.hasNotification) {
-            let alert = this.alertController.create({
-                title: 'Set Reminder',
-                message: 'Would you like to set a reminder for this event?',
+            let alert = this.actionSheetController.create({
+                title: 'Set reminder',
                 buttons:
                     [{text: 'Cancel'},
                         {
-                            text: 'Yes',
+                            text: '10 secs from now',
                             handler: () => {
                                 this.localNotifications.schedule({
                                     id: this.notificationId,
                                     title: 'Reminder',
                                     text: this.escapeEntity(this.e.EventTitle) + ' begins in x time.',
-                                    at: new Date(new Date().getTime() + 3600) // arbitrary time
+                                    at: moment().add(10, 'seconds').toDate() // arbitrary time
                                 });
                                 let toast = this.toastController.create({
                                     message: 'Reminder added',
@@ -72,7 +71,62 @@ export class EventModalPage {
                                 toast.present();
                                 this.viewController.dismiss();
                             }
-                        }]
+                        },
+                        {
+                            text: '15 mins before',
+                            handler: () => {
+                                this.localNotifications.schedule({
+                                    id: this.notificationId,
+                                    title: 'Reminder',
+                                    text: this.escapeEntity(this.e.EventTitle) + ' begins in 15 minutes.',
+                                    at: moment(this.e.EventStartDate + 'T' + this.e.EventTime).add(-15, 'minutes').toDate()
+                                });
+                                let toast = this.toastController.create({
+                                    message: 'Reminder added',
+                                    duration: 3000,
+                                    position: 'top'
+                                });
+                                toast.present();
+                                this.viewController.dismiss();
+                            }
+                        },
+                        {
+                            text: '30 mins before',
+                            handler: () => {
+                                this.localNotifications.schedule({
+                                    id: this.notificationId,
+                                    title: 'Reminder',
+                                    text: this.escapeEntity(this.e.EventTitle) + ' begins in 30 minutes.',
+                                    at: moment(this.e.EventStartDate + 'T' + this.e.EventTime).add(-30, 'minutes').toDate()
+                                });
+                                let toast = this.toastController.create({
+                                    message: 'Reminder added',
+                                    duration: 3000,
+                                    position: 'top'
+                                });
+                                toast.present();
+                                this.viewController.dismiss();
+                            }
+                        },
+                        {
+                            text: '1 hour before',
+                            handler: () => {
+                                this.localNotifications.schedule({
+                                    id: this.notificationId,
+                                    title: 'Reminder',
+                                    text: this.escapeEntity(this.e.EventTitle) + ' begins in 1 hour.',
+                                    at: moment(this.e.EventStartDate + 'T' + this.e.EventTime).add(-1, 'hours').toDate()
+                                });
+                                let toast = this.toastController.create({
+                                    message: 'Reminder added',
+                                    duration: 3000,
+                                    position: 'top'
+                                });
+                                toast.present();
+                                this.viewController.dismiss();
+                            }
+                        }
+                    ]
             });
             alert.present();
         }
