@@ -50,5 +50,9 @@
 
         </div>
     </ion-list>
-    <ion-label *ngIf="!hasEvents && loading == null && !searchLoading" text-center>No events found</ion-label>
+    <ion-card-header *ngIf="!hasEvents && loading == null && !searchLoading" text-center>
+        <ion-icon name="calendar"></ion-icon>
+        <br>
+        No events found
+    </ion-card-header>
 </ion-content>
