@@ -49,16 +49,22 @@ export class HomePage {
                 data => {
                     this.events = data;
                     this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
-                    let todayEvents = [];
+                    let todayEvents = {};
                     for (let i = 0; i < this.events.length; i++) {
                         let isTodayEvent = this.isTodayEvent(this.events[i].EventStartDate);
                         if (i != 0) {
                             this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
                         }
                         if (isTodayEvent) { // store todays events in order to show on map page later
-                            todayEvents.push(this.events[i]);
+                            if (!todayEvents[this.events[i].Venue]) {
+                                todayEvents[this.events[i].Venue] = [this.events[i]];
+                            }
+                            else {
+                                todayEvents[this.events[i].Venue].push(this.events[i]);
+                            }
                         }
                     }
+                    console.log(todayEvents)
                     this.storage.set('TodayEvents', todayEvents);
                     this.dismissLoading();
                 },
@@ -132,14 +138,14 @@ export class HomePage {
             let venue = e.Venue.toLowerCase().includes(this.searchTerms);
             let parentCatName = e.ParentCatName.toLowerCase().includes(this.searchTerms);
             let secCatName;
-            if(e.SecCatName) {
+            if (e.SecCatName) {
                 secCatName = e.SecCatName.toLowerCase().includes(this.searchTerms);
             }
             else {
                 secCatName = false;
             }
 
-            if(eventTitle || venue || parentCatName || secCatName) {
+            if (eventTitle || venue || parentCatName || secCatName) {
                 newEvents.push(e);
             }
         }
