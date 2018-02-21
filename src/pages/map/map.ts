@@ -21,6 +21,7 @@ export class MapPage {
 
     mapReady = false;
     map: GoogleMap;
+    markers = [];
     todayEvents;
 
     constructor(public toastController: ToastController,
@@ -38,12 +39,8 @@ export class MapPage {
         this.storage.get('TodayEvents').then(
             data => {
                 this.todayEvents = data;
-                if (moment(this.todayEvents[0].EventStartDate).format('M/D') !=
-                    moment().format('M/D')) {
-                    this.map = null;
-                    this.loadMap();
-                }
-            });
+                this.loadMap();
+            })
     }
 
     // initialize map on page load to your location
@@ -64,33 +61,50 @@ export class MapPage {
             })
     }
 
-    getNearbyEvents() {
-        this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
-            this.mapReady = true;
-            console.log(this.todayEvents)
-            for (let i = 0; i < this.todayEvents.length; i++) {
-                let address = this.todayEvents[i].VenueAddress + ', ';
-                let cityState = this.todayEvents[i].VenueCity + ', ' + this.todayEvents.VenueState;
+    getNearbyEvents(isRefresh?) {
+        if (isRefresh) {
+            this.map.clear().then(
+                () => {
+                    for (const [key, value] of Object.entries(this.todayEvents)) {
+                        console.log(key, value);
+                        let address = value[0].Venue + ', ';
+                        let cityState = value[0].VenueCity + ', ' + value[0].VenueState;
+                        this.geocoder.forwardGeocode(address + cityState)
+                            .then((data: NativeGeocoderForwardResult) => {
+                                let latLng = new LatLng(data[0].latitude, data[0].longitude);
+                                let marker = {position: latLng, animation: GoogleMapsAnimation.BOUNCE};
+
+                                this.map.addMarker(marker).then(
+                                    (marker: Marker) => {
+                                        marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+                                            this.showToast('View Details', value);
+                                        });
+                                    }
+                                )
+                            })
+                    }
+                })
+        }
+        else {
+            for (const [key, value] of Object.entries(this.todayEvents)) {
+                console.log(key, value);
+                let address = value[0].Venue + ', ';
+                let cityState = value[0].VenueCity + ', ' + value[0].VenueState;
                 this.geocoder.forwardGeocode(address + cityState)
                     .then((data: NativeGeocoderForwardResult) => {
-                        let event = this.todayEvents[i];
                         let latLng = new LatLng(data[0].latitude, data[0].longitude);
+                        let marker = {position: latLng, animation: GoogleMapsAnimation.BOUNCE};
 
-                        //TODO: Handle multiple events at same location by adding only one map marker with seperators/event descriptions
-                        let marker = {
-                            position: latLng,
-                            animation: GoogleMapsAnimation.DROP
-                        };
                         this.map.addMarker(marker).then(
                             (marker: Marker) => {
                                 marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-                                    this.showToast('View Details', event);
+                                    this.showToast('View Details', value);
                                 });
                             }
                         )
                     })
             }
-        })
+        }
     }
 
     // pin your location
@@ -122,8 +136,8 @@ export class MapPage {
         });
     }
 
-    // show err message if map not ready
-    showToast(message, event?) {
+// show err message if map not ready
+    showToast(message, events ?) {
         if (!event) {
             let toast = this.toastController.create({
                 message: message,
@@ -134,7 +148,7 @@ export class MapPage {
         }
         else {
             let toast = this.toastController.create({
-                message: event.EventTitle,
+                message: events.length + ' events at ' + events[0].Venue + ' today',
                 duration: 10000,
                 position: 'top',
                 showCloseButton: true,
@@ -142,7 +156,7 @@ export class MapPage {
             });
             toast.onDidDismiss((data, role) => {
                 if (role == 'close') {
-                    this.showEventModal(event);
+                    this.showEventModal(events[0].UID);
                 }
             });
             toast.present();

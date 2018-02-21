@@ -97,5 +97,5 @@
     <engine name="browser" spec="^5.0.3" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="~4.5.4" />
-    <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.2dev" />
+    <allow-navigation href="http://192.168.1.23:8100" />
 </widget>
