@@ -23,6 +23,7 @@ import {StatusBarMock} from "../mocks/status-bar-mock";
 import {SplashScreenMock} from "../mocks/splashscreen-mock";
 import {DiagnosticMock} from "../mocks/diagnostic-mock";
 import {ClassSelector} from "./class-selector";
+import {PlannerPageModule} from "../pages/planner/planner.module";
 
 let classSelector = new ClassSelector();
 
@@ -34,6 +35,7 @@ let classSelector = new ClassSelector();
         BrowserModule,
         TabsPageModule,
         HomePageModule,
+        PlannerPageModule,
         MapPageModule,
         SettingsPageModule,
         EventModalPageModule,

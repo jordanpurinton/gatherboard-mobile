@@ -1,8 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams, Tabs} from 'ionic-angular';
 import {HomePage} from "../home/home";
-import {MapPage} from "../map/map";
 import {SettingsPage} from "../settings/settings";
+import {PlannerPage} from "../planner/planner";
 
 @IonicPage()
 @Component({
@@ -13,7 +13,7 @@ export class TabsPage {
 
     @ViewChild('gatherboardTabs') tabs: Tabs;
     home = HomePage;
-    map = MapPage;
+    planner = PlannerPage;
     settings = SettingsPage;
 
     constructor(public navCtrl: NavController, public navParams: NavParams) {
