@@ -73,18 +73,36 @@ Categories
 	<div *ngSwitchCase="'Categories'">
 		
 		<ion-list *ngFor="let cat of categories; let i=index">
+			
 			<div class="selection-div">
+			
+			<ion-item style="display:block;">
+			
 			<ion-checkbox (ionChange)="categoryChange(cat)" 
 								[checked]="catDisplayValues[i]" 
 								class="chbox"></ion-checkbox>
 								
 			<ion-label class="selection-label">{{cat}}</ion-label>
+			</ion-item>
+			
+			<button id="{{cat}}-open" class="open-btn" ion-button (click)="expandCat(cat);">Open</button>
+			
+			</div>
+			<div id="{{cat}}" style="display:none;">
+				<button ion-button (click)="retractCat(cat);">Close</button>
+				<ion-list class="sub-category-list" *ngFor="let subC of subCats[i]">
+				<ion-item >
+				<ion-checkbox (ionChange)="categoryChange(cat)" 
+									[checked]="catDisplayValues[i]" 
+									class="chbox"></ion-checkbox>
+									
+				<ion-label class="selection-label">{{subC}}</ion-label>
+				</ion-item>
+				</ion-list>
 			</div>
 		</ion-list>
 		
-		<button ion-button (click)="saveCategories()">Save</button>
-		
-		<div *ngIf="selectedCategories.length == 0">You don't have any saved categories, select ones that interest you from this list</div>
+		<button style="position:relative;"ion-button (click)="saveCategories()">Save</button>
 		
 	</div>
 	<div *ngSwitchCase="'Tags'">
@@ -112,5 +130,14 @@ Categories
 	
 	<button ion-button (click)="saveAgeRange(knobValues.lower,knobValues.upper)">Confirm</button>
 	</div>
-	<div *ngSwitchCase="'Venues'">Venues</div>
+	<div *ngSwitchCase="'Venues'">
+				 <ion-searchbar [(ngModel)]="searchTerms" (ionInput)="onVenueSearchInput($event)"
+									 (ionClear)="onVenueSearchClear()" debounce="500"></ion-searchbar>
+		
+		<div *ngFor="let v of searchedVenues; let i=index">
+			<ion-label>{{v}}</ion-label>
+			<ion-checkbox (ionChange)="saveVenue(v)"
+								class="chbox"></ion-checkbox>
+		</div>
+	</div>
 </ion-content>

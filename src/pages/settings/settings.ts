@@ -21,43 +21,22 @@ export class SettingsPage {
 	selectedCategories: Array<string>;
 	catDisplayValues: Array<boolean>;
 	categorySelect: any;
+	subCats: any;
+	
+	ageRanges: any;
+	selectedAgeRanges: any;
 	knobValues: any = {
 		upper: 50,
 		lower: 0
 	};
+	
+	searchTerms = '';
+	searchedVenues: Array<string>;
+	venues: Array<string>;
+	selectedVenues: Array<string>;
+	
 	constructor(public dataProvider: DataProvider, public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
  		
-		this.selectedTags = new Array<string>();
-		this.storage.get('tags').then((data) => {
-			if (data != null) {
-				this.selectedTags = data;
-			} else {
-				this.selectedTags = [];
-			}
-		}); 
-		
-		this.tags = new Array<string>();
-		this.tagDisplayValues = new Array<boolean>();
-		this.dataProvider.getTags()
-			 .subscribe(
-				  data => {
-						for (let i = 0; i < data.length; i++) {
-								
-							this.tags.push(data[i].TagName);
-							
-							for (let k = 0; k < this.tags.length; k++) {
-									if (this.selectedTags.includes(this.tags[k])) {
-										this.tagDisplayValues.push(true);
-									} else {
-										this.tagDisplayValues.push(false);
-									}
-								}
-						}
-				  },
-				  err => console.log(err)
-			 );
-			 
-			 
 		this.selectedCategories = [];
 		
 		this.storage.get('categories').then((data)  => {
@@ -68,20 +47,34 @@ export class SettingsPage {
 			}			
 		});
 		this.categories = new Array<string>();
-		this.catDisplayValues = new Array<boolean>();        
+		this.catDisplayValues = new Array<boolean>();
+		
+		this.subCats = [];
 		
  		this.dataProvider.getCategories()
                 .subscribe(
                     data => {
 
                         for (let i = 0; i < data.length; i++) {
-									console.log(data[i]);
                            this.categories.push(data[i].CatName);
 									//this.tags.push(data[i].CatName);
+									this.subCats.push([]);
+									this.dataProvider.getSubcategories(data[i].UID).subscribe(
+										data1 => {
+											for (let k = 0; k < data1.length; k++) {
+												this.subCats[i].push(data1[k].CatName);
+											}
+										}
+									);
+									
                         }
+										
+								if (this.selectedCategories.length == 0) {
+									this.selectedCategories = this.categories + this.subCats;
+								}
 								
 								for (let k = 0; k < this.categories.length; k++) {
-									if (this.selectedCategories.includes(this.categories[k])) {
+									if (this.selectedCategories.indexOf(this.categories[k]) >= 0) {
 										this.catDisplayValues.push(true);
 									} else {
 										this.catDisplayValues.push(false);
@@ -93,12 +86,101 @@ export class SettingsPage {
                     err => console.log(err)
                 );
 		
+
+		
+		this.selectedTags = new Array<string>();
+		this.storage.get('tags').then((data) => {
+			if (data != null) {
+				this.selectedTags = data;
+			} else {
+				this.selectedTags = [];
+			}
+		}); 
+		
+		this.tags = new Array<string>();
+		this.tagDisplayValues = new Array<boolean>();
+		
+		this.venues = new Array<string>();
+		
+		this.ageRanges = [];
+		
+
+		
+		this.dataProvider.getEvents()
+			 .subscribe(
+				  data => {
+						for (let i = 0; i < data.length; i++) {
+							
+							// get categories and subcategories
+/* 							for (let j = 0; j < this.categories.length; j++) {
+								if (data[i].ParentCatName == this.categories[j]) {
+									if (data[i].SecCatName != null) {
+										if (this.subCats[j] == null) {
+											this.subCats[j] = []
+										}
+									
+										this.subCats[j].push(data[i].SecCatName);
+									}
+								}
+									
+							} */
+							
+							
+							// get age ranges
+							
+								
+/* 							this.tags.push(data[i].UID);
+							if (this.venues.indexOf(data[i].Venue) == -1) {
+								this.venues.push(data[i].Venue);
+							} */
+							
+							for (let k = 0; k < this.tags.length; k++) {
+									if (this.selectedTags.indexOf(this.tags[k]) > -1) {
+										this.tagDisplayValues.push(true);
+									} else {
+										this.tagDisplayValues.push(false);
+									}
+								}
+						}
+				  },
+				  err => console.log(err)
+			 );
+			 
+		this.searchedVenues = this.venues;
+		
+		this.storage.get('venues').then((data) => {
+			if (data != null) {
+				this.selectedVenues = data;
+			} else {
+				this.selectedVenues = [];
+			}
+		});
+
+
+		
+ 		this.storage.get('ageUpper').then((data) => {
+			if (data != null) {
+				
+				this.knobValues.upper = data;
+			} else {
+				this.knobValues.upper = 99;
+			}
+		});
+		
+		this.storage.get('ageLower').then((data) => {
+			if (data != null) {
+				this.knobValues.lower = data;
+			} else {
+				this.knobValues.lower = 0;
+			}
+		});
+		
+		
 		
 	}
 	
 	ionViewDidLoad()
 	{
-
 
 	}
 	
@@ -119,6 +201,33 @@ export class SettingsPage {
 		this.selectedTab = "Age Range";
 	}
 	
+	onVenueSearchInput(event) {
+		this.searchedVenues = this.venues.filter(sv => { return sv.toLowerCase().includes(this.searchTerms);});
+				
+		console.log(this.searchedVenues);
+	}
+	
+	// when full search term string is cleared
+    onVenueSearchClear() {
+		this.searchTerms = "";
+		this.searchedVenues = this.venues;
+    }
+	
+	expandCat(categoryName) {
+		
+		document.getElementById(categoryName).style.display = "block";
+		document.getElementById(categoryName + "-open").style.display = "none";
+		
+		
+	}
+	
+	retractCat(categoryName) {
+		
+		document.getElementById(categoryName).style.display = "none";
+		document.getElementById(categoryName + "-open").style.display = "block";
+		
+	}
+	
 	categoryChange(value) {
 		let index = this.selectedCategories.indexOf(value)
 		if (index > -1) {
@@ -126,8 +235,6 @@ export class SettingsPage {
 		} else {
 			this.selectedCategories.push(value);
 		}
-		
-		console.log(this.selectedCategories);
 	}
 	
 	saveCategories() {
@@ -144,7 +251,6 @@ export class SettingsPage {
 			this.selectedTags.push(value);
 		}
 		
-		console.log(this.selectedTags);
 	}
 	
 	saveTags() {
@@ -153,11 +259,20 @@ export class SettingsPage {
 		});
 	}
 	
+	saveVenue(value) {
+		this.storage.get('venues').then((data) => {
+			if (data != null && data.indexOf(value)  == -1) {
+				data.push(value);
+			} else {
+				data = [value];
+			}
+		}	);	
+	}
+	
 	clearMemory() {
 		this.storage.set('categories', null);
 	}
     saveAgeRange(valLower, valUpper) {
-        console.log(valLower, valUpper);
         this.storage.get('ageUpper').then((data) => {
 
             let array = [];

@@ -22,14 +22,26 @@ page-settings {
 	}
   
   .selection-label {
-		padding-left: 10px;
+	padding-left: 10px;
   }
   
   .selection-div {
-	height: 15px;
+	width: 100%;
+	display: block;
   }
   
-  .selection-div:hover {
-	color: grey;
+  .open-btn {
+	float: right;
+	position: relative;
+	margin:0px;
+	display:block;
   }
+  
+  .sub-category-list {
+	width: 75%;
+	float: right;
+  }
+
+  
+  
 }
