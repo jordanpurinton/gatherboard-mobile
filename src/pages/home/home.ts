@@ -136,12 +136,12 @@ export class HomePage {
         let newEvents = [];
         let st = this.searchTerms.toLowerCase();
         for (let e of data) {
-            let eventTitle = e.EventTitle.includes(st);
-            let venue = e.Venue.includes(st);
-            let parentCatName = e.ParentCatName.includes(st);
+            let eventTitle = e.EventTitle.toLowerCase().includes(st);
+            let venue = e.Venue.toLowerCase().includes(st);
+            let parentCatName = e.ParentCatName.toLowerCase().includes(st);
             let secCatName;
             if (e.SecCatName) {
-                secCatName = e.SecCatName.includes(st);
+                secCatName = e.SecCatName.toLowerCase().includes(st);
             }
             else {
                 secCatName = false;
