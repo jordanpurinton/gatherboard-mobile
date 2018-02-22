@@ -6,6 +6,7 @@ import {Diagnostic} from "@ionic-native/diagnostic";
 import {EnableLocationPage} from "../enable-location/enable-location";
 import {Geolocation} from "@ionic-native/geolocation";
 import {Storage} from "@ionic/storage";
+import {EventModalPage} from "../event-modal/event-modal";
 
 @Component({
     selector: 'page-home',
@@ -44,6 +45,7 @@ export class HomePage {
 
     // when page becomes in focus, get events
     ionViewDidEnter() {
+        if (!this.searchTerms)
         this.dataProvider.getEvents()
             .subscribe(
                 data => {
@@ -64,7 +66,6 @@ export class HomePage {
                             }
                         }
                     }
-                    console.log(todayEvents)
                     this.storage.set('TodayEvents', todayEvents);
                     this.dismissLoading();
                 },
@@ -133,13 +134,14 @@ export class HomePage {
 
     filterEvents(data) {
         let newEvents = [];
+        let st = this.searchTerms.toLowerCase();
         for (let e of data) {
-            let eventTitle = e.EventTitle.toLowerCase().includes(this.searchTerms);
-            let venue = e.Venue.toLowerCase().includes(this.searchTerms);
-            let parentCatName = e.ParentCatName.toLowerCase().includes(this.searchTerms);
+            let eventTitle = e.EventTitle.includes(st);
+            let venue = e.Venue.includes(st);
+            let parentCatName = e.ParentCatName.includes(st);
             let secCatName;
             if (e.SecCatName) {
-                secCatName = e.SecCatName.toLowerCase().includes(this.searchTerms);
+                secCatName = e.SecCatName.includes(st);
             }
             else {
                 secCatName = false;
@@ -164,6 +166,11 @@ export class HomePage {
 
     showLocationModal() {
         let modal = this.modalController.create(EnableLocationPage, {enableBackdropDismiss: false});
+        modal.present();
+    }
+
+    openModal(e) {
+        let modal = this.modalController.create(EventModalPage, {'e': e});
         modal.present();
     }
 

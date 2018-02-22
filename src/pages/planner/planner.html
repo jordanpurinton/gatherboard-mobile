@@ -1,12 +1,20 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Planner</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Planner</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <span *ngIf="hasScheduledEvents">
+     <ion-card-header class="date-header"><b>Planned Events</b></ion-card-header>
+      <event-card *ngFor="let e of scheduledEvents" [e]="e" (click)="openModal(e)"></event-card>
+  </span>
+    <ion-card-header *ngIf="!hasScheduledEvents" text-center>
+        <ion-icon name="calendar"></ion-icon>
+        <br>
+        No planned events found
+    </ion-card-header>
 </ion-content>

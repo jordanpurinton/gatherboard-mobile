@@ -61,7 +61,8 @@ export class EventModalPage {
                                     id: this.notificationId,
                                     title: 'Reminder',
                                     text: this.escapeEntity(this.e.EventTitle) + ' begins in x time.',
-                                    at: moment().add(10, 'seconds').toDate() // arbitrary time
+                                    at: moment().add(10, 'seconds').toDate(), // arbitrary time
+                                    data: this.e
                                 });
                                 let toast = this.toastController.create({
                                     message: 'Reminder added',
@@ -79,7 +80,8 @@ export class EventModalPage {
                                     id: this.notificationId,
                                     title: 'Reminder',
                                     text: this.escapeEntity(this.e.EventTitle) + ' begins in 15 minutes.',
-                                    at: moment(this.e.EventStartDate + 'T' + this.e.EventTime).add(-15, 'minutes').toDate()
+                                    at: moment(this.e.EventStartDate + 'T' + this.e.EventTime).add(-15, 'minutes').toDate(),
+                                    data: this.e
                                 });
                                 let toast = this.toastController.create({
                                     message: 'Reminder added',
@@ -97,7 +99,8 @@ export class EventModalPage {
                                     id: this.notificationId,
                                     title: 'Reminder',
                                     text: this.escapeEntity(this.e.EventTitle) + ' begins in 30 minutes.',
-                                    at: moment(this.e.EventStartDate + 'T' + this.e.EventTime).add(-30, 'minutes').toDate()
+                                    at: moment(this.e.EventStartDate + 'T' + this.e.EventTime).add(-30, 'minutes').toDate(),
+                                    data: this.e
                                 });
                                 let toast = this.toastController.create({
                                     message: 'Reminder added',
@@ -115,7 +118,8 @@ export class EventModalPage {
                                     id: this.notificationId,
                                     title: 'Reminder',
                                     text: this.escapeEntity(this.e.EventTitle) + ' begins in 1 hour.',
-                                    at: moment(this.e.EventStartDate + 'T' + this.e.EventTime).add(-1, 'hours').toDate()
+                                    at: moment(this.e.EventStartDate + 'T' + this.e.EventTime).add(-1, 'hours').toDate(),
+                                    data: this.e
                                 });
                                 let toast = this.toastController.create({
                                     message: 'Reminder added',

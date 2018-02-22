@@ -26,13 +26,6 @@ export class EventCardComponent {
         this.iconName = this.iconNames[this.category];
     }
 
-
-    openModal() {
-        let modal = this.modalController.create(EventModalPage, {'e': this.e});
-        modal.present();
-    }
-
-
     /**
      * Hacky method for formatting plain time string sent back from API
      * @param startTime

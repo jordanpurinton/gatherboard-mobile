@@ -24,6 +24,7 @@ import {SplashScreenMock} from "../mocks/splashscreen-mock";
 import {DiagnosticMock} from "../mocks/diagnostic-mock";
 import {ClassSelector} from "./class-selector";
 import {PlannerPageModule} from "../pages/planner/planner.module";
+import {Global} from "../providers/global";
 
 let classSelector = new ClassSelector();
 

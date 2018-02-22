@@ -46,7 +46,7 @@
             </ion-card-header>
 
             <!--event-->
-            <event-card [e]="e"></event-card>
+            <event-card [e]="e" (click)="openModal(e)"></event-card>
 
         </div>
     </ion-list>
