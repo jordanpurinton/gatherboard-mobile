@@ -55,7 +55,7 @@ export class EventModalPage {
                 buttons:
                     [
                         {
-                            text: '10 secs from now',
+                            text: '10 secs from now (FOR TESTING)',
                             handler: () => {
                                 this.localNotifications.schedule({
                                     id: this.notificationId,
@@ -211,6 +211,12 @@ export class EventModalPage {
         else {
             return startTime.substring(0, startTime.length - 3) + 'a';
         }
+    }
+
+    // shows/hides event notification icon if is a past event
+    isPastEvent() {
+        let formatted = this.e.EventStartDate + 'T' + this.e.EventTime;
+        return moment(formatted).isBefore(moment());
     }
 
     // format string to M/D format

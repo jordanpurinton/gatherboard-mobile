@@ -29,12 +29,15 @@ page-event-modal {
 
   .event-category {
     font-size: 18px;
-    font-weight: lighter;
+    font-weight: 300;
   }
 
   ion-icon[name~="notifications"] {
     font-size: 24px;
     padding-top: 12px;
+  }
+  hr {
+    margin: 0;
   }
 
   // TIME
@@ -42,7 +45,6 @@ page-event-modal {
     margin-bottom: 0;
     .event-time-info {
       height: 100%;
-      zoom: 130%;
       text-align: center;
       border-bottom: none;
       [icon-left] ion-icon, [icon-start] ion-icon {
@@ -50,6 +52,12 @@ page-event-modal {
       }
       ion-label {
         margin-right: 0;
+        font-size: 28px !important;
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+      div.item-inner {
+        padding-right: 0;
       }
     }
   }

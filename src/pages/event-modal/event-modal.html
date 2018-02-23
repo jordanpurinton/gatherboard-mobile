@@ -13,19 +13,19 @@
 <ion-content padding>
 
     <ion-list id="event-time-list" text-wrap>
-        <ion-item text-center>
+        <ion-item text-center no-lines>
             <ion-card-header class="event-title" text-wrap><b>{{escapeEntity(e.EventTitle)}}</b>
                 <p class="event-category" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}">
                     {{e.ParentCatName}}
                     <span *ngIf="e.SecCatName"> | </span>
                     <span>{{e.SecCatName}}</span><br>
-                    <ion-icon *ngIf="hasNotification" name="notifications" (click)="onBellIconClick()"></ion-icon>
-                    <ion-icon *ngIf="!hasNotification" style="color: lightgray" name="notifications" (click)="onBellIconClick()"></ion-icon>
+                    <ion-icon *ngIf="hasNotification && !isPastEvent()" name="notifications" (click)="onBellIconClick()"></ion-icon>
+                    <ion-icon *ngIf="!hasNotification && !isPastEvent()" style="color: lightgray" name="notifications" (click)="onBellIconClick()"></ion-icon>
                 </p>
             </ion-card-header>
-            <!--<ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="{{iconName}}" class="category-icon"></ion-icon>-->
         </ion-item>
-        <ion-item no-lines class="event-time-info">
+        <hr>
+        <ion-item no-lines no-padding class="event-time-info">
             <ion-label text-center icon-left>
                 <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="calendar"></ion-icon>
                 <b>{{formatStartDate(e.EventStartDate)}}</b>
