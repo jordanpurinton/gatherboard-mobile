@@ -4,44 +4,45 @@ import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 import {MyApp} from './app.component';
+import {HomePage} from '../pages/home/home';
 import {DataProvider} from '../providers/data-provider';
 import {HttpClientModule} from "@angular/common/http";
+import {EventCardComponent} from "../components/event-card/event-card";
+import {TabsPage} from "../pages/tabs/tabs";
+import {MapPage} from "../pages/map/map";
+import {SettingsPage} from "../pages/settings/settings";
+import {EventModalPage} from "../pages/event-modal/event-modal";
 import {GoogleMaps} from '@ionic-native/google-maps';
 import {NativeGeocoder} from '@ionic-native/native-geocoder';
 import {IonicStorageModule} from "@ionic/storage";
+import {SocialMediaPage} from "../pages/social-media/social-media";
 import {Geolocation} from "@ionic-native/geolocation";
 import {Diagnostic} from "@ionic-native/diagnostic";
+import {EnableLocationPage} from "../pages/enable-location/enable-location";
+import {DiagnosticMock} from '../mocks/diagnostic-mock';
+import {SplashScreenMock} from '../mocks/splashscreen-mock';
+import {StatusBarMock} from '../mocks/status-bar-mock';
+import {ClassSelector} from './class-selector';
 import {LocalNotifications} from "@ionic-native/local-notifications";
-import {TabsPageModule} from "../pages/tabs/tabs.module";
-import {HomePageModule} from "../pages/home/home.module";
-import {MapPageModule} from "../pages/map/map.module";
-import {SettingsPageModule} from "../pages/settings/settings.module";
-import {EventModalPageModule} from "../pages/event-modal/event-modal.module";
-import {SocialMediaPageModule} from "../pages/social-media/social-media.module";
-import {EnableLocationPageModule} from "../pages/enable-location/enable-location.module";
-import {StatusBarMock} from "../mocks/status-bar-mock";
-import {SplashScreenMock} from "../mocks/splashscreen-mock";
-import {DiagnosticMock} from "../mocks/diagnostic-mock";
-import {ClassSelector} from "./class-selector";
-import {PlannerPageModule} from "../pages/planner/planner.module";
-import {Global} from "../providers/global";
+import {SocialSharing} from '@ionic-native/social-sharing';
+import {HttpModule} from '@angular/http';
 
 let classSelector = new ClassSelector();
 
 @NgModule({
     declarations: [
         MyApp,
+        TabsPage,
+        HomePage,
+        MapPage,
+        SettingsPage,
+        EventCardComponent,
+        EventModalPage,
+        SocialMediaPage,
+        EnableLocationPage
     ],
     imports: [
         BrowserModule,
-        TabsPageModule,
-        HomePageModule,
-        PlannerPageModule,
-        MapPageModule,
-        SettingsPageModule,
-        EventModalPageModule,
-        SocialMediaPageModule,
-        EnableLocationPageModule,
         HttpClientModule,
         IonicStorageModule.forRoot(),
         IonicModule.forRoot(MyApp, {
@@ -50,11 +51,19 @@ let classSelector = new ClassSelector();
                     statusbarPadding: true
                 }
             }
-        })
+        }),
+        HttpModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
-        MyApp
+        MyApp,
+        TabsPage,
+        HomePage,
+        MapPage,
+        SettingsPage,
+        EventModalPage,
+        SocialMediaPage,
+        EnableLocationPage
     ],
     providers: [
         {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -72,6 +81,7 @@ let classSelector = new ClassSelector();
         classSelector.getProvider(Diagnostic, DiagnosticMock),
         classSelector.getProvider(SplashScreen, SplashScreenMock),
         classSelector.getProvider(StatusBar, StatusBarMock),
+        SocialSharing,
     ]
 })
 export class AppModule {

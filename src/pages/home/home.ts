@@ -27,7 +27,7 @@ export class HomePage {
                 public modalController: ModalController,
                 public geolocation: Geolocation,
                 public storage: Storage,
-                public loadingController: LoadingController) {
+                public loadingController: LoadingController,) {
     }
 
     // first page load
@@ -186,5 +186,4 @@ export class HomePage {
             this.loading = null;
         }
     }
-
 }

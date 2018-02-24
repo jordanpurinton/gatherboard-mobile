@@ -2,11 +2,15 @@ import {Component} from '@angular/core';
 import * as _ from 'he';
 import {
     IonicPage, NavParams, ViewController, ModalController, Platform, AlertController,
-    ToastController, ActionSheetController
+    ToastController, ActionSheetController, NavController
 } from 'ionic-angular';
 import moment from "moment";
 import {LocalNotifications} from '@ionic-native/local-notifications';
 import {Global} from "../../providers/global";
+import {Http} from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+import {SocialSharing} from '@ionic-native/social-sharing';
 
 @IonicPage()
 @Component({
@@ -23,14 +27,25 @@ export class EventModalPage {
     hasNotification = false;
     iconColorMap = Global.iconColorMap;
 
+    quotes :any;
+    private apiUrl :string = "http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1";
+
     constructor(public viewController: ViewController,
                 public platform: Platform,
                 public toastController: ToastController,
                 public localNotifications: LocalNotifications,
                 public actionSheetController: ActionSheetController,
                 public alertController: AlertController,
-                public navParams: NavParams) {
+                public navParams: NavParams,
+                private http: Http,
+                private socialSharing: SocialSharing,
+                public navCtrl: NavController) {
         console.log(this.e);
+        this.getQuotes();
+    }
+
+    async getQuotes() {
+      this.quotes = await this.http.get(this.apiUrl).map(res => res.json()).toPromise();;
     }
 
     ionViewWillLoad() {
@@ -226,5 +241,32 @@ export class EventModalPage {
 
     escapeEntity(string) {
         return _.decode(string);
+    }
+
+    compilemsg(index):string {
+      var msg = this.quotes[index].content + "-" + this.quotes[index].title;
+      return msg.concat(" \n Sent from my Awsome App!");
+    }
+    regularShare(index) {
+      var msg = this.compilemsg(index);
+      this.socialSharing.share(msg, null, null, null);
+    }
+    whatsappShare(index) {
+      var msg = this.compilemsg(index);
+      this.socialSharing.shareViaWhatsApp(msg, null, null);
+    }
+    twitterShare(index) {
+      var msg = this.compilemsg(index);
+      this.socialSharing.shareViaTwitter(msg, null, null);
+    }
+    facebookShare(index) {
+      var msg = this.compilemsg(index);
+      this.socialSharing.shareViaFacebook(msg, null, null);
+    }
+    doRefresh(refresher) {
+      this.getQuotes();
+      setTimeout(() => {
+        refresher.complete();
+      }, 2000);
     }
 }
