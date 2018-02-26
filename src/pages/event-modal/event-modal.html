@@ -93,32 +93,28 @@
     </ion-item>
   </ion-list>
 
-      <ion-grid *ngFor="let quote of quotes; let i = index;">
+      <ion-grid>
         <ion-row>
           <ion-col>
-            <button ion-button icon-only clear (click)="regularShare(i)" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" icon-end>
+            <button ion-button icon-only clear (click)="regularShare()" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" icon-end>
               <ion-icon class="share-icon" name="share"></ion-icon>
             </button>
           </ion-col>
           <ion-col>
-            <button ion-button icon-only clear (click)="whatsappShare(i)" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" icon-end>
+            <button ion-button icon-only clear (click)="whatsappShare()" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" icon-end>
               <ion-icon class="share-icon" name="logo-whatsapp"></ion-icon>
             </button>
           </ion-col>
           <ion-col>
-            <button ion-button icon-only clear (click)="facebookShare(i)" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" icon-end>
+            <button ion-button icon-only clear (click)="facebookShare()" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" icon-end>
               <ion-icon class="share-icon" name="logo-facebook"></ion-icon>
             </button>
           </ion-col>
           <ion-col>
-            <button ion-button icon-only clear (click)="twitterShare(i)" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" icon-end>
+            <button ion-button icon-only clear (click)="twitterShare()" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" icon-end>
               <ion-icon class="share-icon" name="logo-twitter"></ion-icon>
             </button>
           </ion-col>
         </ion-row>
       </ion-grid>
-    <ion-refresher (ionRefresh)="deRefresh($event)">
-      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="bubbles" refreshingText="Refreshing...">
-      </ion-refresher-content>
-    </ion-refresher>
 </ion-content>

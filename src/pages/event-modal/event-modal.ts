@@ -27,9 +27,6 @@ export class EventModalPage {
     hasNotification = false;
     iconColorMap = Global.iconColorMap;
 
-    quotes :any;
-    private apiUrl :string = "http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1";
-
     constructor(public viewController: ViewController,
                 public platform: Platform,
                 public toastController: ToastController,
@@ -41,11 +38,6 @@ export class EventModalPage {
                 private socialSharing: SocialSharing,
                 public navCtrl: NavController) {
         console.log(this.e);
-        this.getQuotes();
-    }
-
-    async getQuotes() {
-      this.quotes = await this.http.get(this.apiUrl).map(res => res.json()).toPromise();;
     }
 
     ionViewWillLoad() {
@@ -243,30 +235,17 @@ export class EventModalPage {
         return _.decode(string);
     }
 
-    compilemsg(index):string {
-      var msg = this.quotes[index].content + "-" + this.quotes[index].title;
-      return msg.concat(" \n Sent from my Awsome App!");
+
+    regularShare() {
+      this.socialSharing.share(null, null, null, window.location.href);
     }
-    regularShare(index) {
-      var msg = this.compilemsg(index);
-      this.socialSharing.share(msg, null, null, null);
+    whatsappShare() {
+      this.socialSharing.shareViaWhatsApp(null, null, window.location.href);
     }
-    whatsappShare(index) {
-      var msg = this.compilemsg(index);
-      this.socialSharing.shareViaWhatsApp(msg, null, null);
+    twitterShare() {
+      this.socialSharing.shareViaTwitter(null, null, window.location.href);
     }
-    twitterShare(index) {
-      var msg = this.compilemsg(index);
-      this.socialSharing.shareViaTwitter(msg, null, null);
-    }
-    facebookShare(index) {
-      var msg = this.compilemsg(index);
-      this.socialSharing.shareViaFacebook(msg, null, null);
-    }
-    doRefresh(refresher) {
-      this.getQuotes();
-      setTimeout(() => {
-        refresher.complete();
-      }, 2000);
+    facebookShare() {
+      this.socialSharing.shareViaFacebook(null, null, window.location.href);
     }
 }
