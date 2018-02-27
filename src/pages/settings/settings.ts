@@ -23,20 +23,18 @@ export class SettingsPage {
 	categorySelect: any;
 	subCats: any;
 	
-	ageRanges: any;
-	selectedAgeRanges: any;
-	knobValues: any = {
-		upper: 50,
-		lower: 0
-	};
-	
-	searchTerms = '';
+	ageRanges: Array<string>;
+	selectedAgeRanges: Array<string>;
+	ageRangeDisplayValues: Array<boolean>;
+
+	searchTerms:string = '';
 	searchedVenues: Array<string>;
 	venues: Array<string>;
 	selectedVenues: Array<string>;
 	
 	constructor(public dataProvider: DataProvider, public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
  		
+		
 		this.selectedCategories = [];
 		
 		this.storage.get('categories').then((data)  => {
@@ -100,12 +98,6 @@ export class SettingsPage {
 		this.tags = new Array<string>();
 		this.tagDisplayValues = new Array<boolean>();
 		
-		this.venues = new Array<string>();
-		
-		this.ageRanges = [];
-		
-
-		
 		this.dataProvider.getEvents()
 			 .subscribe(
 				  data => {
@@ -123,12 +115,7 @@ export class SettingsPage {
 									}
 								}
 									
-							} */
-							
-							
-							// get age ranges
-							
-								
+							} */								
 /* 							this.tags.push(data[i].UID);
 							if (this.venues.indexOf(data[i].Venue) == -1) {
 								this.venues.push(data[i].Venue);
@@ -146,17 +133,19 @@ export class SettingsPage {
 				  err => console.log(err)
 			 );
 			 
-			 
+		// setup venues list
+		this.venues = new Array<string>();
 		this.dataProvider.getVenues()
 			 .subscribe(
 				  data => {
 						for (let i = 0; i < data.length; i++) {
-							this.venues.push(data[i].Venue);
+							this.venues.push(data[i].VenueName);
 						}
+						this.searchedVenues = this.venues;
 				  }
 			 );
 			 
-		this.searchedVenues = this.venues;
+		
 		
 		this.storage.get('venues').then((data) => {
 			if (data != null) {
@@ -166,27 +155,27 @@ export class SettingsPage {
 			}
 		});
 
-
+		// setup age ranges, I can't find these in the events so I'm just using a preset list of the ones molly told us
+		this.ageRanges = ["Kids", "Teen", "Family", "Adult"];
+		this.selectedAgeRanges = [];
+		this.ageRangeDisplayValues = [];
 		
- 		this.storage.get('ageUpper').then((data) => {
+ 		this.storage.get('ageRanges').then((data) => {
 			if (data != null) {
-				
-				this.knobValues.upper = data;
+				this.selectedAgeRanges = data;
 			} else {
-				this.knobValues.upper = 99;
+				this.ageRanges.map (x => {this.selectedAgeRanges.push(x)});
 			}
-		});
-		
-		this.storage.get('ageLower').then((data) => {
-			if (data != null) {
-				this.knobValues.lower = data;
-			} else {
-				this.knobValues.lower = 0;
+			
+			for (let k = 0; k < this.ageRanges.length; k++) {
+				if(this.selectedAgeRanges.indexOf(this.ageRanges[k]) >= 0) {
+					this.ageRangeDisplayValues.push(true);
+				} else {
+					this.ageRangeDisplayValues.push(false);
+				}
 			}
+			
 		});
-		
-		
-		
 	}
 	
 	ionViewDidLoad()
@@ -211,10 +200,18 @@ export class SettingsPage {
 		this.selectedTab = "Age Range";
 	}
 	
-	onVenueSearchInput(event) {
-		this.searchedVenues = this.venues.filter(sv => { return sv.toLowerCase().includes(this.searchTerms);});
-				
-		console.log(this.searchedVenues);
+	onVenueSearchInput() {
+		console.log(this.searchTerms);
+		this.dataProvider.getVenues()
+		.subscribe(
+			 data => {
+				  this.venues = this.filterVenues(data);
+			 },
+			 err => {
+				  console.log(err);
+			 }
+		)
+		
 	}
 	
 	// when full search term string is cleared
@@ -222,6 +219,19 @@ export class SettingsPage {
 		this.searchTerms = "";
 		this.searchedVenues = this.venues;
     }
+	 
+	filterVenues(data) {
+	  let newVenues = [];
+	  let st = this.searchTerms.toLowerCase();
+	  for (let e of data) {
+			let venue = e.VenueName.toLowerCase().includes(st);
+
+			if (venue) {
+				 newVenues.push(e.VenueName);
+			}
+	  }
+	  return newVenues;
+	}
 	
 	expandCat = function(categoryName) {
 		let exp = document.getElementById(categoryName + "-open").dataset.expanded;
@@ -236,16 +246,42 @@ export class SettingsPage {
 		
 	}
 	
-	categoryChange(value) {
-		let index = this.selectedCategories.indexOf(value)
-		if (index > -1) {
-			this.selectedCategories.splice(index, 1);
+	mainCatChange(value) {
+		let sIndex = this.selectedCategories.indexOf(value);
+		let aIndex = this.categories.indexOf(value);
+		if (sIndex >= 0) {
+			this.selectedCategories.splice(sIndex, 1);
+			for (let i = 0; i < this.subCats[aIndex].length; i++) {
+				let subIndex = this.selectedCategories.indexOf(this.subCats[aIndex][i]);
+				if (subIndex >= 0) {
+					this.selectedCategories.splice(subIndex, 1);
+					//this.catDisplayValues[subIndex] = false;
+				}
+			}
+			
 		} else {
 			this.selectedCategories.push(value);
+			for (let i = 0; i < this.subCats[aIndex].length; i++) {
+				let subIndex = this.selectedCategories.indexOf(this.subCats[aIndex][i]);
+				let dispIndex = this.categories.indexOf (this.subCats[aIndex][i]);
+				if (subIndex < 0) {
+					//this.selectedCategories.push(this.subCats[aIndex][i]);
+					//this.catDisplayValues[dispIndex] = true;
+				}
+			}
+			
+			
+			
 		}
-		
-		if (this.categories.indexOf(value) > -1) {
-			this.catDisplayValues[index..(index + this.subCats.map(x => this.subCats.indexOf(x) < index ? this.subCats[x].length : 0).length)]
+		console.log(this.selectedCategories);
+	}
+	
+	subCatChange(value) {
+  		let index = this.selectedCategories.indexOf(value);
+		if (index < 0) {
+			this.selectedCategories.push(value);
+		} else {
+			this.selectedCategories.splice(index, 1);
 		}
 	}
 	
@@ -284,19 +320,22 @@ export class SettingsPage {
 	clearMemory() {
 		this.storage.set('categories', null);
 	}
-    saveAgeRange(valLower, valUpper) {
-        this.storage.get('ageUpper').then((data) => {
+	
+	ageRangeChange(value) {
+		let index = this.selectedAgeRanges.indexOf(value)
+		if (index > -1) {
+			this.selectedAgeRanges.splice(index, 1);
+		} else {
+			this.selectedAgeRanges.push(value);
+		}
+	}
+	
+   saveAgeRange() {
+        this.storage.get('ageRanges').then((data) => {
 
             let array = [];
-            array.push(valUpper);
-            this.storage.set('ageUpper', array);
-
-        });
-        this.storage.get('ageLower').then((data) => {
-
-            let array = [];
-            array.push(valLower);
-            this.storage.set('ageLower', array);
+				this.selectedAgeRanges.map( a => { array.push(a); });
+            this.storage.set('ageRanges', array);
 
         });
     }

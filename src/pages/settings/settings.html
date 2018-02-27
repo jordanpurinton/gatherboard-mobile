@@ -77,7 +77,7 @@ Categories
 			<ion-row *ngFor="let cat of categories; let i=index">
 				<ion-col text-left>
 					<ion-item no-lines>	
-						<ion-checkbox (ionChange)="categoryChange(cat)" 
+						<ion-checkbox (ionChange)="mainCatChange(cat)" 
 										[checked]="catDisplayValues[i]" 
 										class="chbox"></ion-checkbox>
 										
@@ -94,8 +94,8 @@ Categories
 				
 					<ion-list class="sub-category-list" *ngFor="let subC of subCats[i]">
 						<ion-item >
-							<ion-checkbox (ionChange)="categoryChange(cat)" 
-												[checked]="catDisplayValues[i]" 
+							<ion-checkbox (ionChange)="subCatChange(subC)"
+												[checked]="selectedCategories.indexOf(subC) >= 0" 
 												class="chbox"></ion-checkbox>
 												
 							<ion-label class="selection-label">{{subC}}</ion-label>
@@ -108,42 +108,11 @@ Categories
 		</ion-grid>
 		
 	</div>
-		
-		<!--<ion-list *ngFor="let cat of categories; let i=index">
-			
-			<ion-checkbox (ionChange)="categoryChange(cat)" 
-					[checked]="catDisplayValues[i]" 
-					class="chbox"></ion-checkbox>
-			<ion-item style="display:block;" detail-push >
-			
-
-								
-			<ion-label class="selection-label">{{cat}}</ion-label>
-			</ion-item>
-			
-			<button id="{{cat}}-open" class="open-btn" ion-button (click)="expandCat(cat);">Open</button>
-		
-			<div id="{{cat}}" style="display:none;">
-				
-				<ion-list class="sub-category-list" *ngFor="let subC of subCats[i]">
-				<ion-item >
-				<ion-checkbox (ionChange)="categoryChange(cat)" 
-									[checked]="catDisplayValues[i]" 
-									class="chbox"></ion-checkbox>
-									
-				<ion-label class="selection-label">{{subC}}</ion-label>
-				</ion-item>
-				</ion-list>
-			</div>
-		</ion-list>
-		
-		<button style="position:relative;"ion-button (click)="saveCategories()">Save</button>
-		
-	</div>-->
+	
 	<div *ngSwitchCase="'Tags'">
 		<ion-list *ngFor="let tag of tags; let i=index">
 			<div class="selection-div">
-			<ion-checkbox (ionChange)="categoryChange(tag)" 
+			<ion-checkbox (ionChange)="tagChange(tag)" 
 								[checked]="tagDisplayValues[i]" 
 								class="chbox"></ion-checkbox>
 								
@@ -154,25 +123,27 @@ Categories
 		<button ion-button (click)="saveTags()">Save</button>
 		<div *ngIf="selectedTags.length == 0">You don't have any saved Tags, select ones that interest you from this list</div>
 	</div>
-	<div *ngSwitchCase="'Age Range'">
-	<ion-item>
-		<ion-range id="age-range-slider" dualKnobs="true" pin="true" [(ngModel)]="knobValues" color="positive" step="1" snap="true">
-			<ion-label range-left>0</ion-label>
-			<ion-label range-right>99+</ion-label>
-		</ion-range>
-		
-	</ion-item>
 	
-	<button ion-button (click)="saveAgeRange(knobValues.lower,knobValues.upper)">Confirm</button>
+	<div *ngSwitchCase="'Age Range'">
+	
+		<ion-list *ngFor="let ar of ageRanges; let i=index">
+			<div class="selection-div">
+				<ion-checkbox (ionChange)="ageRangeChange(ar)" 
+									[checked]="ageRangeDisplayValues[i]" 
+									class="chbox"></ion-checkbox>
+									
+				<ion-label class="selection-label">{{ar}}</ion-label>
+			</div>
+		</ion-list>
+	
+	<button ion-button (click)="saveAgeRange()">Save</button>
 	</div>
 	<div *ngSwitchCase="'Venues'">
 				 <ion-searchbar [(ngModel)]="searchTerms" (ionInput)="onVenueSearchInput($event)"
 									 (ionClear)="onVenueSearchClear()" debounce="500"></ion-searchbar>
 		
-		<div *ngFor="let v of searchedVenues; let i=index">
+		<div *ngFor="let v of venues; let i=index">
 			<ion-label>{{v}}</ion-label>
-			<ion-checkbox (ionChange)="saveVenue(v)"
-								class="chbox"></ion-checkbox>
 		</div>
 	</div>
 </ion-content>
