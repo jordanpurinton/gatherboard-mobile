@@ -2,11 +2,16 @@ import {Component} from '@angular/core';
 import * as _ from 'he';
 import {
     IonicPage, NavParams, ViewController, ModalController, Platform, AlertController,
-    ToastController, ActionSheetController
+    ToastController, ActionSheetController, NavController
 } from 'ionic-angular';
 import moment from "moment";
 import {LocalNotifications} from '@ionic-native/local-notifications';
 import {Global} from "../../providers/global";
+import {Http} from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+import {SocialSharing} from '@ionic-native/social-sharing';
+import {Calendar} from "@ionic-native/calendar";
 
 @IonicPage()
 @Component({
@@ -29,7 +34,10 @@ export class EventModalPage {
                 public localNotifications: LocalNotifications,
                 public actionSheetController: ActionSheetController,
                 public alertController: AlertController,
-                public navParams: NavParams) {
+                public navParams: NavParams,
+                private http: Http,
+                private socialSharing: SocialSharing,
+                public calendar: Calendar) {
         console.log(this.e);
     }
 
@@ -40,6 +48,19 @@ export class EventModalPage {
                     if (data) {
                         this.hasNotification = true;
                     }
+                }).then(
+                () => {
+                    this.calendar.hasReadWritePermission().then(
+                        data => {
+                            if (!data) {
+                                this.calendar.requestReadWritePermission().then(
+                                    data => {
+                                        console.log(data);
+                                    }
+                                )
+                            }
+                        }
+                    )
                 })
         }
     }
@@ -55,7 +76,7 @@ export class EventModalPage {
                 buttons:
                     [
                         {
-                            text: '10 secs from now',
+                            text: '10 secs from now (FOR TESTING)',
                             handler: () => {
                                 this.localNotifications.schedule({
                                     id: this.notificationId,
@@ -163,6 +184,33 @@ export class EventModalPage {
         }
     }
 
+    onCalendarIconClick() {
+        let formatted = moment(this.e.EventStartDate + 'T' + this.e.EventTime).toDate();
+        this.calendar.createEventInteractively(this.e.EventTitle + ' @ ' + this.formatStartTime(this.e.EventTime),
+            this.e.Venue, '', formatted, formatted).then(
+            () => {
+                let toast = this.toastController.create({
+                    message: 'Event successfully added to the calendar.',
+                    showCloseButton: true,
+                    closeButtonText: 'Dismiss',
+                    duration: 4000,
+                    position: 'top'
+                });
+                toast.present();
+                this.calendar.openCalendar(formatted).then();
+            },
+            err => {
+                let alert = this.alertController.create({
+                    title: 'Oops!',
+                    message: 'Something went wrong when trying to add the event to the calendar.',
+                    buttons: [{text: 'Dismiss'}]
+                });
+                alert.present();
+                console.log(err);
+            }
+        )
+    }
+
     expandDescription() {
         this.isExpandedText = true;
     }
@@ -213,6 +261,12 @@ export class EventModalPage {
         }
     }
 
+    // shows/hides event notification icon if is a past event
+    isPastEvent() {
+        let formatted = this.e.EventStartDate + 'T' + this.e.EventTime;
+        return moment(formatted).isBefore(moment());
+    }
+
     // format string to M/D format
     formatStartDate(startDate) {
         return moment(startDate).format('M/D');
@@ -220,5 +274,22 @@ export class EventModalPage {
 
     escapeEntity(string) {
         return _.decode(string);
+    }
+
+
+    regularShare() {
+        this.socialSharing.share(null, null, null, window.location.href);
+    }
+
+    whatsappShare() {
+        this.socialSharing.shareViaWhatsApp(null, null, window.location.href);
+    }
+
+    twitterShare() {
+        this.socialSharing.shareViaTwitter(null, null, window.location.href);
+    }
+
+    facebookShare() {
+        this.socialSharing.shareViaFacebook(null, null, window.location.href);
     }
 }

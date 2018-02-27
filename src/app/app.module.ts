@@ -11,29 +11,32 @@ import {NativeGeocoder} from '@ionic-native/native-geocoder';
 import {IonicStorageModule} from "@ionic/storage";
 import {Geolocation} from "@ionic-native/geolocation";
 import {Diagnostic} from "@ionic-native/diagnostic";
+import {DiagnosticMock} from '../mocks/diagnostic-mock';
+import {SplashScreenMock} from '../mocks/splashscreen-mock';
+import {StatusBarMock} from '../mocks/status-bar-mock';
+import {ClassSelector} from './class-selector';
 import {LocalNotifications} from "@ionic-native/local-notifications";
-import {TabsPageModule} from "../pages/tabs/tabs.module";
-import {HomePageModule} from "../pages/home/home.module";
-import {MapPageModule} from "../pages/map/map.module";
-import {SettingsPageModule} from "../pages/settings/settings.module";
-import {EventModalPageModule} from "../pages/event-modal/event-modal.module";
-import {SocialMediaPageModule} from "../pages/social-media/social-media.module";
+import {SocialSharing} from '@ionic-native/social-sharing';
+import {HttpModule} from '@angular/http';
 import {EnableLocationPageModule} from "../pages/enable-location/enable-location.module";
-import {StatusBarMock} from "../mocks/status-bar-mock";
-import {SplashScreenMock} from "../mocks/splashscreen-mock";
-import {DiagnosticMock} from "../mocks/diagnostic-mock";
-import {ClassSelector} from "./class-selector";
+import {SocialMediaPageModule} from "../pages/social-media/social-media.module";
+import {EventModalPageModule} from "../pages/event-modal/event-modal.module";
+import {SettingsPageModule} from "../pages/settings/settings.module";
+import {MapPageModule} from "../pages/map/map.module";
 import {PlannerPageModule} from "../pages/planner/planner.module";
-import {Global} from "../providers/global";
+import {HomePageModule} from "../pages/home/home.module";
+import {TabsPageModule} from "../pages/tabs/tabs.module";
+import {Calendar} from "@ionic-native/calendar";
 
 let classSelector = new ClassSelector();
 
 @NgModule({
     declarations: [
-        MyApp,
+        MyApp
     ],
     imports: [
         BrowserModule,
+        HttpClientModule,
         TabsPageModule,
         HomePageModule,
         PlannerPageModule,
@@ -42,7 +45,6 @@ let classSelector = new ClassSelector();
         EventModalPageModule,
         SocialMediaPageModule,
         EnableLocationPageModule,
-        HttpClientModule,
         IonicStorageModule.forRoot(),
         IonicModule.forRoot(MyApp, {
             platforms: {
@@ -50,7 +52,8 @@ let classSelector = new ClassSelector();
                     statusbarPadding: true
                 }
             }
-        })
+        }),
+        HttpModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -63,6 +66,8 @@ let classSelector = new ClassSelector();
         GoogleMaps,
         NativeGeocoder,
         LocalNotifications,
+        SocialSharing,
+        Calendar,
         // enable these when trying to test out device functionality
         // StatusBar,
         // SplashScreen,
