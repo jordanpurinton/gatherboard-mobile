@@ -11,6 +11,7 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {SocialSharing} from '@ionic-native/social-sharing';
+import {Calendar} from "@ionic-native/calendar";
 
 @IonicPage()
 @Component({
@@ -36,7 +37,7 @@ export class EventModalPage {
                 public navParams: NavParams,
                 private http: Http,
                 private socialSharing: SocialSharing,
-                public navCtrl: NavController) {
+                public calendar: Calendar) {
         console.log(this.e);
     }
 
@@ -47,6 +48,19 @@ export class EventModalPage {
                     if (data) {
                         this.hasNotification = true;
                     }
+                }).then(
+                () => {
+                    this.calendar.hasReadWritePermission().then(
+                        data => {
+                            if (!data) {
+                                this.calendar.requestReadWritePermission().then(
+                                    data => {
+                                        console.log(data);
+                                    }
+                                )
+                            }
+                        }
+                    )
                 })
         }
     }
@@ -170,6 +184,33 @@ export class EventModalPage {
         }
     }
 
+    onCalendarIconClick() {
+        let formatted = moment(this.e.EventStartDate + 'T' + this.e.EventTime).toDate();
+        this.calendar.createEventInteractively(this.e.EventTitle + ' @ ' + this.formatStartTime(this.e.EventTime),
+            this.e.Venue, '', formatted, formatted).then(
+            () => {
+                let toast = this.toastController.create({
+                    message: 'Event successfully added to the calendar.',
+                    showCloseButton: true,
+                    closeButtonText: 'Dismiss',
+                    duration: 4000,
+                    position: 'top'
+                });
+                toast.present();
+                this.calendar.openCalendar(formatted).then();
+            },
+            err => {
+                let alert = this.alertController.create({
+                    title: 'Oops!',
+                    message: 'Something went wrong when trying to add the event to the calendar.',
+                    buttons: [{text: 'Dismiss'}]
+                });
+                alert.present();
+                console.log(err);
+            }
+        )
+    }
+
     expandDescription() {
         this.isExpandedText = true;
     }
@@ -237,15 +278,18 @@ export class EventModalPage {
 
 
     regularShare() {
-      this.socialSharing.share(null, null, null, window.location.href);
+        this.socialSharing.share(null, null, null, window.location.href);
     }
+
     whatsappShare() {
-      this.socialSharing.shareViaWhatsApp(null, null, window.location.href);
+        this.socialSharing.shareViaWhatsApp(null, null, window.location.href);
     }
+
     twitterShare() {
-      this.socialSharing.shareViaTwitter(null, null, window.location.href);
+        this.socialSharing.shareViaTwitter(null, null, window.location.href);
     }
+
     facebookShare() {
-      this.socialSharing.shareViaFacebook(null, null, window.location.href);
+        this.socialSharing.shareViaFacebook(null, null, window.location.href);
     }
 }

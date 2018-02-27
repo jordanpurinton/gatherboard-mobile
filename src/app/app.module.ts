@@ -26,6 +26,7 @@ import {MapPageModule} from "../pages/map/map.module";
 import {PlannerPageModule} from "../pages/planner/planner.module";
 import {HomePageModule} from "../pages/home/home.module";
 import {TabsPageModule} from "../pages/tabs/tabs.module";
+import {Calendar} from "@ionic-native/calendar";
 
 let classSelector = new ClassSelector();
 
@@ -65,6 +66,8 @@ let classSelector = new ClassSelector();
         GoogleMaps,
         NativeGeocoder,
         LocalNotifications,
+        SocialSharing,
+        Calendar,
         // enable these when trying to test out device functionality
         // StatusBar,
         // SplashScreen,
@@ -74,7 +77,6 @@ let classSelector = new ClassSelector();
         classSelector.getProvider(Diagnostic, DiagnosticMock),
         classSelector.getProvider(SplashScreen, SplashScreenMock),
         classSelector.getProvider(StatusBar, StatusBarMock),
-        SocialSharing,
     ]
 })
 export class AppModule {

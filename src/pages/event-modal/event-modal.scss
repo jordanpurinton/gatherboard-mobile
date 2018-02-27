@@ -1,5 +1,18 @@
 page-event-modal {
 
+  ion-item{
+    padding-right: 8px !important;
+    padding-left: 8px !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  ion-icon {
+    font-size: 24px;
+    line-height: 1.5;
+    padding-left: 8px;
+  }
+
   // HEADER
   .modal-close {
     color: #424242;
@@ -17,27 +30,25 @@ page-event-modal {
     font-size: 16px;
   }
 
+  hr {
+    color: #f4f4f4;
+  }
+
   // TITLE
   .category-icon {
     font-size: 50px;
   }
 
   .event-title {
-    padding: 4px;
-    font-size: 22px;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 18px;
   }
 
   .event-category {
     font-size: 18px;
     font-weight: 300;
-  }
-
-  ion-icon[name~="notifications"] {
-    font-size: 32px;
-    padding-top: 12px;
-  }
-  hr {
-    margin: 0;
   }
 
   // TIME
@@ -47,17 +58,25 @@ page-event-modal {
       height: 100%;
       text-align: center;
       border-bottom: none;
-      [icon-left] ion-icon, [icon-start] ion-icon {
-        line-height: 1.5;
-      }
+
       ion-label {
         margin-right: 0;
-        font-size: 22px !important;
-        margin-top: 8px;
-        margin-bottom: 8px;
+        #start-time {
+          font-size: 24px;
+          font-weight: bold;
+          padding-top: 2px;
+        }
       }
       div.item-inner {
         padding-right: 0;
+      }
+      .reminder-button {
+        font-size: 14px;
+        margin: 10px 8px 2px 8px;
+      }
+      .calendar-button {
+        font-size: 14px;
+        margin: 10px 8px 2px 8px;
       }
     }
   }
