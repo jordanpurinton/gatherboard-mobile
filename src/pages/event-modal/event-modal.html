@@ -29,26 +29,26 @@
             <ion-label text-center icon-left>
                 <b id="start-time">{{formatStartDate(e.EventStartDate)}} | {{formatStartTime(e.EventTime)}}</b>
                 <div *ngIf="!isPastEvent()">
-                    <ion-label ion-button outline round class="reminder-button"
+                    <button ion-button outline round class="reminder-button"
                                [ngStyle]="{'border-color': iconColorMap[e.ParentCatName], 'color': iconColorMap[e.ParentCatName]}"
                                *ngIf="hasNotification"
                                (click)="onBellIconClick()">
                         Cancel
                         <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="notifications"></ion-icon>
-                    </ion-label>
-                    <ion-label ion-button outline round class="reminder-button"
+                    </button>
+                    <button ion-button outline round class="reminder-button"
                                [ngStyle]="{'border-color': iconColorMap[e.ParentCatName], 'color': iconColorMap[e.ParentCatName]}"
                                *ngIf="!hasNotification" (click)="onBellIconClick()">
                         Remind
                         <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="notifications"></ion-icon>
-                    </ion-label>
-                    <ion-label ion-button outline round class="calendar-button"
+                    </button>
+                    <button ion-button outline round class="calendar-button"
                                [ngStyle]="{'border-color': iconColorMap[e.ParentCatName], 'color': iconColorMap[e.ParentCatName]}"
                                (click)="onCalendarIconClick()">
                         Add
                         <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}"
                                   name="calendar"></ion-icon>
-                    </ion-label>
+                    </button>
                 </div>
             </ion-label>
         </ion-item>
