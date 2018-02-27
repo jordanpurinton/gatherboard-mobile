@@ -72,24 +72,59 @@ Categories
 	
 	<div *ngSwitchCase="'Categories'">
 		
-		<ion-list *ngFor="let cat of categories; let i=index">
-			
-			<div class="selection-div">
-			
-			<ion-item style="display:block;">
+		<ion-grid>
+		
+			<ion-row *ngFor="let cat of categories; let i=index">
+				<ion-col text-left>
+					<ion-item no-lines>	
+						<ion-checkbox (ionChange)="categoryChange(cat)" 
+										[checked]="catDisplayValues[i]" 
+										class="chbox"></ion-checkbox>
+										
+															
+						<ion-label class="selection-label">{{cat}}</ion-label>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item detail-push no-lines id="{{cat}}-open" data-expanded="false" (click)="expandCat(cat);">
+						
+					</ion-item>
+				</ion-col>
+				<div id="{{cat}}" style="display:none;">
+				
+					<ion-list class="sub-category-list" *ngFor="let subC of subCats[i]">
+						<ion-item >
+							<ion-checkbox (ionChange)="categoryChange(cat)" 
+												[checked]="catDisplayValues[i]" 
+												class="chbox"></ion-checkbox>
+												
+							<ion-label class="selection-label">{{subC}}</ion-label>
+						</ion-item>
+					</ion-list>
+				</div>
+				
+			</ion-row>
+		
+		</ion-grid>
+		
+	</div>
+		
+		<!--<ion-list *ngFor="let cat of categories; let i=index">
 			
 			<ion-checkbox (ionChange)="categoryChange(cat)" 
-								[checked]="catDisplayValues[i]" 
-								class="chbox"></ion-checkbox>
+					[checked]="catDisplayValues[i]" 
+					class="chbox"></ion-checkbox>
+			<ion-item style="display:block;" detail-push >
+			
+
 								
 			<ion-label class="selection-label">{{cat}}</ion-label>
 			</ion-item>
 			
 			<button id="{{cat}}-open" class="open-btn" ion-button (click)="expandCat(cat);">Open</button>
-			
-			</div>
+		
 			<div id="{{cat}}" style="display:none;">
-				<button ion-button (click)="retractCat(cat);">Close</button>
+				
 				<ion-list class="sub-category-list" *ngFor="let subC of subCats[i]">
 				<ion-item >
 				<ion-checkbox (ionChange)="categoryChange(cat)" 
@@ -104,7 +139,7 @@ Categories
 		
 		<button style="position:relative;"ion-button (click)="saveCategories()">Save</button>
 		
-	</div>
+	</div>-->
 	<div *ngSwitchCase="'Tags'">
 		<ion-list *ngFor="let tag of tags; let i=index">
 			<div class="selection-div">

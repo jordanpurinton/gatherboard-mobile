@@ -146,6 +146,16 @@ export class SettingsPage {
 				  err => console.log(err)
 			 );
 			 
+			 
+		this.dataProvider.getVenues()
+			 .subscribe(
+				  data => {
+						for (let i = 0; i < data.length; i++) {
+							this.venues.push(data[i].Venue);
+						}
+				  }
+			 );
+			 
 		this.searchedVenues = this.venues;
 		
 		this.storage.get('venues').then((data) => {
@@ -213,18 +223,16 @@ export class SettingsPage {
 		this.searchedVenues = this.venues;
     }
 	
-	expandCat(categoryName) {
-		
-		document.getElementById(categoryName).style.display = "block";
-		document.getElementById(categoryName + "-open").style.display = "none";
-		
-		
-	}
-	
-	retractCat(categoryName) {
-		
-		document.getElementById(categoryName).style.display = "none";
-		document.getElementById(categoryName + "-open").style.display = "block";
+	expandCat = function(categoryName) {
+		let exp = document.getElementById(categoryName + "-open").dataset.expanded;
+		if(exp == "false") {
+			document.getElementById(categoryName).style.display = "block";
+			document.getElementById(categoryName + "-open").dataset.expanded = "true";
+		} else {
+			document.getElementById(categoryName).style.display = "none";
+			document.getElementById(categoryName + "-open").dataset.expanded = "false";
+		}
+
 		
 	}
 	
@@ -234,6 +242,10 @@ export class SettingsPage {
 			this.selectedCategories.splice(index, 1);
 		} else {
 			this.selectedCategories.push(value);
+		}
+		
+		if (this.categories.indexOf(value) > -1) {
+			this.catDisplayValues[index..(index + this.subCats.map(x => this.subCats.indexOf(x) < index ? this.subCats[x].length : 0).length)]
 		}
 	}
 	
