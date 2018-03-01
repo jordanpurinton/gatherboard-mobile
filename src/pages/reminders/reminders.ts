@@ -5,10 +5,10 @@ import {EventModalPage} from "../event-modal/event-modal";
 
 @IonicPage()
 @Component({
-    selector: 'page-planner',
-    templateUrl: 'planner.html',
+    selector: 'page-reminders',
+    templateUrl: 'reminders.html',
 })
-export class PlannerPage {
+export class RemindersPage {
 
     scheduledEvents = [];
     hasScheduledEvents: boolean;

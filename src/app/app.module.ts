@@ -23,7 +23,7 @@ import {SocialMediaPageModule} from "../pages/social-media/social-media.module";
 import {EventModalPageModule} from "../pages/event-modal/event-modal.module";
 import {SettingsPageModule} from "../pages/settings/settings.module";
 import {MapPageModule} from "../pages/map/map.module";
-import {PlannerPageModule} from "../pages/planner/planner.module";
+import {RemindersPageModule} from "../pages/reminders/reminders.module";
 import {HomePageModule} from "../pages/home/home.module";
 import {TabsPageModule} from "../pages/tabs/tabs.module";
 import {Calendar} from "@ionic-native/calendar";
@@ -41,7 +41,7 @@ let classSelector = new ClassSelector();
         HttpClientModule,
         TabsPageModule,
         HomePageModule,
-        PlannerPageModule,
+        RemindersPageModule,
         MapPageModule,
         SettingsPageModule,
         NgCalendarModule,
