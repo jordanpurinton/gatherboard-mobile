@@ -27,6 +27,8 @@ import {PlannerPageModule} from "../pages/planner/planner.module";
 import {HomePageModule} from "../pages/home/home.module";
 import {TabsPageModule} from "../pages/tabs/tabs.module";
 import {Calendar} from "@ionic-native/calendar";
+import {CalendarPageModule} from "../pages/calendar/calendar.module";
+import {NgCalendarModule} from "ionic2-calendar";
 
 let classSelector = new ClassSelector();
 
@@ -42,6 +44,8 @@ let classSelector = new ClassSelector();
         PlannerPageModule,
         MapPageModule,
         SettingsPageModule,
+        NgCalendarModule,
+        CalendarPageModule,
         EventModalPageModule,
         SocialMediaPageModule,
         EnableLocationPageModule,
