@@ -19,7 +19,7 @@ export class SettingsPage {
 	
 	categories: Array<string>;
 	selectedCategories: Array<string>;
-	catDisplayValues: Array<boolean>;
+	catDisplayValues: any;
 	categorySelect: any;
 	subCats: any;
 	
@@ -258,30 +258,28 @@ export class SettingsPage {
 		let aIndex = this.categories.indexOf(value);
 		if (sIndex >= 0) {
 			this.selectedCategories.splice(sIndex, 1);
- 			for (let i = 0; i < this.subCats[aIndex].length; i++) {
+ 			for (let i = 0; i <= this.subCats[aIndex].length; i++) {
 				let subIndex = this.selectedCategories.indexOf(this.subCats[aIndex][i]);
-			
+				console.log("unchecked: " + this.subCats[aIndex][i] + subIndex);
+				console.log(this.selectedCategories);
 				if (subIndex >= 0) {
 					this.selectedCategories.splice(subIndex, 1);
 					this.catDisplayValues[aIndex][i] = false;
 				}
-			} 
+		 	} 
 			
 		} else {
 			this.selectedCategories.push(value);
-/* 			for (let i = 0; i < this.subCats[aIndex].length; i++) {
+ 			for (let i = 0; i <= this.subCats[aIndex].length; i++) {
 				let subIndex = this.selectedCategories.indexOf(this.subCats[aIndex][i]);
-				let dispIndex = this.categories.indexOf (this.subCats[aIndex][i]);
+				console.log("checked: " + this.subCats[aIndex][i] + subIndex);
+				console.log(this.selectedCategories);
 				if (subIndex < 0) {
-					//this.selectedCategories.push(this.subCats[aIndex][i]);
-					//this.catDisplayValues[dispIndex] = true;
+					this.selectedCategories.push(this.subCats[aIndex][i]);
+					this.catDisplayValues[aIndex][i] = true;
 				}
-			} */
-			
-			
-			
+		 	} 	
 		}
-		console.log(this.selectedCategories);
 	}
 	
 	subCatChange(value) {

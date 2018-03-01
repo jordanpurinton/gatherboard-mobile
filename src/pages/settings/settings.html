@@ -132,7 +132,7 @@ Categories
 									[checked]="ageRangeDisplayValues[i]" 
 									class="chbox"></ion-checkbox>
 									
-				<ion-label class="selection-label">{{ar}}</ion-label>
+				<ion-label class="selection-label"> {{ar}}</ion-label>
 			</div>
 		</ion-list>
 	
@@ -143,6 +143,9 @@ Categories
 									 (ionClear)="onVenueSearchClear()" debounce="500"></ion-searchbar>
 		
 		<div *ngFor="let v of venues; let i=index">
+			<ion-checkbox (ionChange)="ageRangeChange(ar)"
+					[checked]="selectedVenues.indexOf(v) >= 0"
+					class="chbox"></ion-checkbox>
 			<ion-label>{{v}}</ion-label>
 		</div>
 	</div>
