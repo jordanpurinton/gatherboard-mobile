@@ -185,9 +185,10 @@ export class EventModalPage {
     }
 
     onCalendarIconClick() {
-        let formatted = moment(this.e.EventStartDate + 'T' + this.e.EventTime).toDate();
+        let start = moment(this.e.EventStartDate + 'T' + this.e.EventTime).toDate();
+        let end = moment(this.e.EventStartDate + 'T' + this.e.EventTime).add(1, 'hours').toDate();
         this.calendar.createEventInteractively(this.e.EventTitle + ' @ ' + this.formatStartTime(this.e.EventTime),
-            this.e.Venue, '', formatted, formatted).then(
+            this.e.Venue, '', start, end).then(
             () => {
                 let toast = this.toastController.create({
                     message: 'Event successfully added to the calendar.',
@@ -197,7 +198,7 @@ export class EventModalPage {
                     position: 'top'
                 });
                 toast.present();
-                this.calendar.openCalendar(formatted).then();
+                this.calendar.openCalendar(start).then();
             },
             err => {
                 let alert = this.alertController.create({
