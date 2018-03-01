@@ -78,7 +78,7 @@ Categories
 				<ion-col text-left>
 					<ion-item no-lines>	
 						<ion-checkbox (ionChange)="mainCatChange(cat)" 
-										[checked]="catDisplayValues[i]" 
+										[checked]="catDisplayValues[i][0]" 
 										class="chbox"></ion-checkbox>
 										
 															
@@ -92,10 +92,10 @@ Categories
 				</ion-col>
 				<div id="{{cat}}" style="display:none;">
 				
-					<ion-list class="sub-category-list" *ngFor="let subC of subCats[i]">
+					<ion-list class="sub-category-list" *ngFor="let subC of subCats[i]; let j=index">
 						<ion-item >
 							<ion-checkbox (ionChange)="subCatChange(subC)"
-												[checked]="selectedCategories.indexOf(subC) >= 0" 
+												[checked]="catDisplayValues[i][j + 1]" 
 												class="chbox"></ion-checkbox>
 												
 							<ion-label class="selection-label">{{subC}}</ion-label>

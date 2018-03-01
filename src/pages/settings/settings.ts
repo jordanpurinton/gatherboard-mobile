@@ -73,9 +73,16 @@ export class SettingsPage {
 								
 								for (let k = 0; k < this.categories.length; k++) {
 									if (this.selectedCategories.indexOf(this.categories[k]) >= 0) {
-										this.catDisplayValues.push(true);
+										this.catDisplayValues.push([true]);
 									} else {
-										this.catDisplayValues.push(false);
+										this.catDisplayValues.push([false]);
+									}
+									for (let j = 0; j < this.subCats[k].length; j++) {
+										if (this.selectedCategories.indexOf(this.subCats[k][j]) >= 0) {
+											this.catDisplayValues[k].push(true);
+										} else {
+											this.catDisplayValues[k].push(false);
+										}
 									}
 								}
 								
@@ -251,24 +258,25 @@ export class SettingsPage {
 		let aIndex = this.categories.indexOf(value);
 		if (sIndex >= 0) {
 			this.selectedCategories.splice(sIndex, 1);
-			for (let i = 0; i < this.subCats[aIndex].length; i++) {
+ 			for (let i = 0; i < this.subCats[aIndex].length; i++) {
 				let subIndex = this.selectedCategories.indexOf(this.subCats[aIndex][i]);
+			
 				if (subIndex >= 0) {
 					this.selectedCategories.splice(subIndex, 1);
-					//this.catDisplayValues[subIndex] = false;
+					this.catDisplayValues[aIndex][i] = false;
 				}
-			}
+			} 
 			
 		} else {
 			this.selectedCategories.push(value);
-			for (let i = 0; i < this.subCats[aIndex].length; i++) {
+/* 			for (let i = 0; i < this.subCats[aIndex].length; i++) {
 				let subIndex = this.selectedCategories.indexOf(this.subCats[aIndex][i]);
 				let dispIndex = this.categories.indexOf (this.subCats[aIndex][i]);
 				if (subIndex < 0) {
 					//this.selectedCategories.push(this.subCats[aIndex][i]);
 					//this.catDisplayValues[dispIndex] = true;
 				}
-			}
+			} */
 			
 			
 			
