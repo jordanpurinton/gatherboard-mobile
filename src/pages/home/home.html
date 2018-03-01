@@ -7,9 +7,9 @@
                 <ion-searchbar [(ngModel)]="searchTerms" (ionInput)="onSearchInput($event)"
                                (ionClear)="onSearchClear()" debounce="500"></ion-searchbar>
             </ion-col>
-            <!--<ion-col text-center no-padding col-1>-->
-                <!--<ion-icon class="calendar-icon" name="calendar"></ion-icon>-->
-            <!--</ion-col>-->
+            <<ion-col text-center no-padding col-1>
+                <ion-icon class="calendar-icon" name="calendar" (click)="openCalendar()"></ion-icon>
+            <</ion-col>
         </ion-row>
         <ion-row>
 

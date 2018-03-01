@@ -7,6 +7,7 @@ import {EnableLocationPage} from "../enable-location/enable-location";
 import {Geolocation} from "@ionic-native/geolocation";
 import {Storage} from "@ionic/storage";
 import {EventModalPage} from "../event-modal/event-modal";
+import {CalendarPage} from "../calendar/calendar";
 
 @Component({
     selector: 'page-home',
@@ -171,6 +172,11 @@ export class HomePage {
 
     openModal(e) {
         let modal = this.modalController.create(EventModalPage, {'e': e});
+        modal.present();
+    }
+
+    openCalendar() {
+        let modal = this.modalController.create(CalendarPage);
         modal.present();
     }
 
