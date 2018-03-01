@@ -187,7 +187,7 @@ export class EventModalPage {
     onCalendarIconClick() {
         let start = moment(this.e.EventStartDate + 'T' + this.e.EventTime).toDate();
         let end = moment(this.e.EventStartDate + 'T' + this.e.EventTime).add(1, 'hours').toDate();
-        this.calendar.createEventInteractively(this.e.EventTitle + ' @ ' + this.formatStartTime(this.e.EventTime),
+        this.calendar.createEventInteractively(this.escapeEntity(this.e.EventTitle),
             this.e.Venue, '', start, end).then(
             () => {
                 let toast = this.toastController.create({
