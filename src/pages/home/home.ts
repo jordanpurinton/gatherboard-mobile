@@ -138,6 +138,8 @@ export class HomePage {
         let st = this.searchTerms.toLowerCase();
         for (let e of data) {
             let eventTitle = e.EventTitle.toLowerCase().includes(st);
+            let city = e.VenueCity.toLowerCase().includes(st);
+            let state = e.VenueState.toLowerCase().includes(st);
             let venue = e.Venue.toLowerCase().includes(st);
             let parentCatName = e.ParentCatName.toLowerCase().includes(st);
             let secCatName;
@@ -148,7 +150,7 @@ export class HomePage {
                 secCatName = false;
             }
 
-            if (eventTitle || venue || parentCatName || secCatName) {
+            if (eventTitle || city || state || venue || parentCatName || secCatName) {
                 newEvents.push(e);
             }
         }

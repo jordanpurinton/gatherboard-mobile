@@ -108,7 +108,7 @@
         <ion-item *ngIf="e.VenuePhone" icon-left>
             <ion-label>
                 <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="call"></ion-icon>
-                <a href="tel:{{e.VenuePhone}}">{{e.VenuePhone}}</a>
+                <a [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" href="tel:{{e.VenuePhone}}">{{e.VenuePhone}}</a>
             </ion-label>
         </ion-item>
 
