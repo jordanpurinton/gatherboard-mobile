@@ -189,17 +189,7 @@ export class EventModalPage {
         let end = moment(this.e.EventStartDate + 'T' + this.e.EventTime).add(1, 'hours').toDate();
         this.calendar.createEventInteractively(this.escapeEntity(this.e.EventTitle),
             this.e.Venue, '', start, end).then(
-            () => {
-                let toast = this.toastController.create({
-                    message: 'Event successfully added to the calendar.',
-                    showCloseButton: true,
-                    closeButtonText: 'Dismiss',
-                    duration: 4000,
-                    position: 'top'
-                });
-                toast.present();
-                this.calendar.openCalendar(start).then();
-            },
+            () => {},
             err => {
                 let alert = this.alertController.create({
                     title: 'Oops!',
