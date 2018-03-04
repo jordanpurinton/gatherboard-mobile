@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core';
 import * as _ from 'he';
 import {ModalController} from "ionic-angular";
-import {EventModalPage} from "../../pages/event-modal/event-modal";
 import {Global} from "../../providers/global";
 import moment from "moment";
 
@@ -18,7 +17,7 @@ export class EventCardComponent {
     iconColorMap = Global.iconColorMap;
     iconNames = Global.iconNames;
 
-    constructor(public modalController: ModalController) {
+    constructor() {
     }
 
     ngOnInit() {

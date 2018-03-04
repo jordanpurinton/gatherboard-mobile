@@ -1,5 +1,9 @@
 page-settings {
-  
+
+  .scroll-content {
+    margin-top: 52px !important;
+  }
+
   .header-label {
     text-align: center;
     color: white;
@@ -7,7 +11,7 @@ page-settings {
     margin: 0;
     font-weight: 400 !important;
   }
-  
+
   .hiddenViewStyle {
     color: #a2a2a2;
   }
@@ -15,33 +19,37 @@ page-settings {
   .visibleViewStyle {
     font-weight: 800;
   }
-  
-  
+
   .chbox {
-	float: left;	
-	}
-  
-  .selection-label {
-	padding-left: 10px;
-  }
-  
-  .selection-div {
-	width: 100%;
-	display: block;
-  }
-  
-  .open-btn {
-	float: right;
-	position: relative;
-	margin:0px;
-	display:block;
-  }
-  
-  .sub-category-list {
-	width: 75%;
-	float: right;
+    float: left;
+    padding-right: 12px;
   }
 
-  
-  
+  .selection-label {
+    padding-left: 10px;
+  }
+
+  .selection-div {
+    width: 100%;
+    display: block;
+  }
+
+  .open-btn {
+    float: right;
+    position: relative;
+    margin: 0px;
+    display: block;
+  }
+
+  .sub-category-list {
+    width: 75%;
+    float: right;
+  }
+  .searchbar-ios {
+    background: none;
+  }
+  .searchbar-ios .searchbar-input {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
 }

@@ -1,7 +1,7 @@
 export class OpenNativeSettingsMock {
-  open(str) {
-    return new Promise((resolve, reject) => {
-      resolve(true);
-    });
-  }
+    open(str) {
+        return new Promise((resolve, reject) => {
+            resolve(true);
+        });
+    }
 }

@@ -44,7 +44,7 @@ export class RemindersPage {
     }
 
     ionViewDidEnter() {
-        if(!this.isFirstLoad) {
+        if (!this.isFirstLoad) {
             this.localNotifications.getAll().then(
                 data => {
                     if (data.length > 0) {
