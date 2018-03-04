@@ -26,7 +26,7 @@ export class EventModalPage {
     alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
     notificationId = this.getNotificationId(this.e.UID);
     hasNotification = false;
-    iconColorMap = Global.iconColorMap;
+    backgroundColorMap = Global.backgroundColorMap;
 
     constructor(public viewController: ViewController,
                 public platform: Platform,

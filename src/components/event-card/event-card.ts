@@ -61,6 +61,10 @@ export class EventCardComponent {
     formatStartDate(startDate) {
         return moment(startDate).format('M/D');
     }
+    // format string to day format
+    formatStartDay(startDate) {
+        return moment(startDate).format('ddd');
+    }
 
     escapeEntity(string) {
         return _.decode(string);

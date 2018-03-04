@@ -4,18 +4,21 @@
             <ion-col class="first-col" align-self-stretch
                      [ngStyle]="{'background-color': backgroundColorMap[e.ParentCatName]}"
                      no-padding text-center text-wrap col-3>
-                <div class="start-time" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}">
+                <div class="start-time">
                     {{formatStartTime(e.EventTime).substr(0, formatStartTime(e.EventTime).length - 1)}}<span>{{formatStartTime(e.EventTime).substr(-1)}}</span>
                 </div>
-                <div>
-                    <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="{{iconName}}"></ion-icon>
-                </div>
-                <div [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" class="start-date">
+                <div class="start-date">
                     {{formatStartDate(e.EventStartDate)}}
+                </div>
+                <!--<div>-->
+                    <!--<ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="{{iconName}}"></ion-icon>-->
+                <!--</div>-->
+                <div class="start-day">
+                    {{formatStartDay(e.EventStartDate)}}
                 </div>
             </ion-col>
             <ion-col class="second-col" no-padding text-wrap col-9>
-                <p class="event-category" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}">
+                <p class="event-category" [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}">
                     <span class="parent-cat">{{e.ParentCatName}}</span>
                     <span *ngIf="e.SecCatName"> | </span>
                     <span class="secondary-cat">{{e.SecCatName}}</span>

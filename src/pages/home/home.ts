@@ -157,6 +157,11 @@ export class HomePage {
         return newEvents;
     }
 
+    // format string to full format
+    formatStartDateFull(startDate) {
+        return moment(startDate).format('MMMM D, YYYY');
+    }
+
     // format string to M/D format
     formatStartDate(startDate) {
         return moment(startDate).format('M/D');

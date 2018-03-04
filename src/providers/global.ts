@@ -1,8 +1,8 @@
 export class Global {
     // color strings
     public static backgroundColorMap = {
-        'Education': '#FFF5E3', 'Food': '#F3E5E1', 'Art': '#E1ECF5', 'Music': '#E1F0EC',
-        'Sports': '#ffe6d1', 'Business': '#cacfd4', 'Government': '#EFD9FF', 'Special Events': 'lightgray'
+        'Education': 'rgb(110, 130, 68)', 'Food': '#053d52', 'Art': 'rgb(222, 171, 47)', 'Music': 'rgb(153, 62, 38)',
+        'Sports': 'rgb(127, 167, 190)', 'Business': 'rgb(175, 156, 144)', 'Government': 'rgb(110, 83, 41)', 'Special Events': 'rgb(115, 109, 100)'
     };
     public static iconColorMap = {
         'Education': '#f1a007', 'Food': '#9F2200', 'Art': '#0C5FAF', 'Music': '#00845E',
