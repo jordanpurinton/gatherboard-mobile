@@ -47,34 +47,34 @@ export class HomePage {
     // when page becomes in focus, get events
     ionViewDidEnter() {
         if (!this.searchTerms)
-        this.dataProvider.getEvents()
-            .subscribe(
-                data => {
-                    this.events = data;
-                    this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
-                    let todayEvents = {};
-                    for (let i = 0; i < this.events.length; i++) {
-                        let isTodayEvent = this.isTodayEvent(this.events[i].EventStartDate);
-                        if (i != 0) {
-                            this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
-                        }
-                        if (isTodayEvent) { // store todays events in order to show on map page later
-                            if (!todayEvents[this.events[i].Venue]) {
-                                todayEvents[this.events[i].Venue] = [this.events[i]];
+            this.dataProvider.getEvents()
+                .subscribe(
+                    data => {
+                        this.events = data;
+                        this.events.length > 0 ? this.hasEvents = true : this.hasEvents = false;
+                        let todayEvents = {};
+                        for (let i = 0; i < this.events.length; i++) {
+                            let isTodayEvent = this.isTodayEvent(this.events[i].EventStartDate);
+                            if (i != 0) {
+                                this.events[i].PrevStartDate = this.events[i - 1].EventStartDate;
                             }
-                            else {
-                                todayEvents[this.events[i].Venue].push(this.events[i]);
+                            if (isTodayEvent) { // store todays events in order to show on map page later
+                                if (!todayEvents[this.events[i].Venue]) {
+                                    todayEvents[this.events[i].Venue] = [this.events[i]];
+                                }
+                                else {
+                                    todayEvents[this.events[i].Venue].push(this.events[i]);
+                                }
                             }
                         }
+                        this.storage.set('TodayEvents', todayEvents);
+                        this.dismissLoading();
+                    },
+                    err => {
+                        console.log(err);
+                        this.dismissLoading();
                     }
-                    this.storage.set('TodayEvents', todayEvents);
-                    this.dismissLoading();
-                },
-                err => {
-                    console.log(err);
-                    this.dismissLoading();
-                }
-            )
+                )
     }
 
     // get events under my feed filter
@@ -155,6 +155,11 @@ export class HomePage {
             }
         }
         return newEvents;
+    }
+
+    // format string to full format
+    formatStartDateFull(startDate) {
+        return moment(startDate).format('MMMM D, YYYY');
     }
 
     // format string to M/D format

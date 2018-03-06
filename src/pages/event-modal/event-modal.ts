@@ -26,7 +26,7 @@ export class EventModalPage {
     alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
     notificationId = this.getNotificationId(this.e.UID);
     hasNotification = false;
-    iconColorMap = Global.iconColorMap;
+    backgroundColorMap = Global.backgroundColorMap;
 
     constructor(public viewController: ViewController,
                 public platform: Platform,
@@ -189,7 +189,8 @@ export class EventModalPage {
         let end = moment(this.e.EventStartDate + 'T' + this.e.EventTime).add(1, 'hours').toDate();
         this.calendar.createEventInteractively(this.escapeEntity(this.e.EventTitle),
             this.e.Venue, '', start, end).then(
-            () => {},
+            () => {
+            },
             err => {
                 let alert = this.alertController.create({
                     title: 'Oops!',

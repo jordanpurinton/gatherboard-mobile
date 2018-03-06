@@ -1,6 +1,6 @@
 event-card {
   ion-card {
-    margin:0 !important;
+    margin: 0 !important;
     width: 100% !important;
   }
   .card-md {
@@ -22,27 +22,32 @@ event-card {
     height: 100% !important;
   }
   .start-time {
-    font-size: 20px;
-    span {
-      font-size: 14px;
-    }
+    color: white;
+    font-size: 18px;
   }
   .start-date {
-    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 28px;
+  }
+  .start-day {
+    color: white;
+    font-size: 18px;
+    text-transform: uppercase;
   }
   .first-col {
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding-top: 4px;
+    padding-bottom: 4px;
   }
   .second-col {
-    padding: 6px 28px 6px 8px !important;
+    padding: 4px 28px 4px 8px !important;
   }
   ion-row {
     border-top: solid .5px #f4f4f4;
     border-bottom: solid .5px #f4f4f4;
   }
   .event-category {
-    font-size: 12px;
+    font-size: 16px;
   }
   .header-md::after, .tabs-md[tabsPlacement="top"] > .tabbar::after, .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
     height: 0;
@@ -54,9 +59,8 @@ event-card {
     color: black;
   }
   .event-venue {
-    font-size: 15px;
-    color: gray;
-    font-weight: lighter;
+    font-size: 16px;
+    color: rgba(0,0,0, .25);
   }
   ion-icon {
     font-size: 30px;

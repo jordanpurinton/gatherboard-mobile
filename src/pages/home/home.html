@@ -31,18 +31,16 @@
 </ion-header>
 
 <ion-content>
-    <div *ngIf="searchLoading" class="search-loading">
-        <ion-spinner></ion-spinner>
-    </div>
-
     <!--event list-->
     <ion-list *ngIf="hasEvents" text-wrap>
         <div *ngFor="let e of events; let i = index">
 
             <!--date header-->
-            <ion-card-header *ngIf="(isTodayEvent(e.EventStartDate) && i == 0) || (!isTodayEvent(e.EventStartDate) && e.PrevStartDate != e.EventStartDate)" class="date-header">
+            <ion-card-header
+                    *ngIf="(isTodayEvent(e.EventStartDate) && i == 0) || (!isTodayEvent(e.EventStartDate) && e.PrevStartDate != e.EventStartDate)"
+                    class="date-header">
                 <b *ngIf="isTodayEvent(e.EventStartDate) && i == 0">Today</b>
-                <b *ngIf="!isTodayEvent(e.EventStartDate) && e.PrevStartDate != e.EventStartDate">{{formatStartDate(e.EventStartDate)}}</b>
+                <b *ngIf="!isTodayEvent(e.EventStartDate) && e.PrevStartDate != e.EventStartDate">{{formatStartDateFull(e.EventStartDate)}}</b>
             </ion-card-header>
 
             <!--event-->

@@ -1,7 +1,7 @@
 export class DiagnosticMock {
-  isLocationAvailable() {
-    return new Promise((resolve, reject) => {
-      resolve(true);
-    });
-  }
+    isLocationAvailable() {
+        return new Promise((resolve, reject) => {
+            resolve(true);
+        });
+    }
 }

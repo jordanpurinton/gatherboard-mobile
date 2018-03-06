@@ -1,54 +1,54 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { CalendarComponent } from 'ionic2-calendar/calendar';
-import { MonthViewComponent } from 'ionic2-calendar/monthview';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {CalendarComponent} from 'ionic2-calendar/calendar';
+import {MonthViewComponent} from 'ionic2-calendar/monthview';
 
 @IonicPage()
 @Component({
-  selector: 'page-calendar',
-  templateUrl: 'calendar.html',
+    selector: 'page-calendar',
+    templateUrl: 'calendar.html',
 })
 export class CalendarPage {
 
-  constructor(public navCtrl: NavController, 
-    public navParams: NavParams,
-    public viewController: ViewController) {
-  }
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams,
+                public viewController: ViewController) {
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CalendarPage');
-  }
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad CalendarPage');
+    }
 
-  eventSource;
+    eventSource;
     viewTitle;
 
-    isToday:boolean;
+    isToday: boolean;
     calendar = {
         mode: 'month',
         currentDate: new Date(),
         dateFormatter: {
-            formatMonthViewDay: function(date:Date) {
+            formatMonthViewDay: function (date: Date) {
                 return date.getDate().toString();
             },
-            formatMonthViewDayHeader: function(date:Date) {
+            formatMonthViewDayHeader: function (date: Date) {
                 return 'MonMH';
             },
-            formatMonthViewTitle: function(date:Date) {
+            formatMonthViewTitle: function (date: Date) {
                 return 'testMT';
             },
-            formatWeekViewDayHeader: function(date:Date) {
+            formatWeekViewDayHeader: function (date: Date) {
                 return 'MonWH';
             },
-            formatWeekViewTitle: function(date:Date) {
+            formatWeekViewTitle: function (date: Date) {
                 return 'testWT';
             },
-            formatWeekViewHourColumn: function(date:Date) {
+            formatWeekViewHourColumn: function (date: Date) {
                 return 'testWH';
             },
-            formatDayViewHourColumn: function(date:Date) {
+            formatDayViewHourColumn: function (date: Date) {
                 return 'testDH';
             },
-            formatDayViewTitle: function(date:Date) {
+            formatDayViewTitle: function (date: Date) {
                 return 'testDT';
             }
         }
@@ -79,7 +79,7 @@ export class CalendarPage {
             (ev.events !== undefined && ev.events.length !== 0) + ', disabled: ' + ev.disabled);
     }
 
-    onCurrentDateChanged(event:Date) {
+    onCurrentDateChanged(event: Date) {
         var today = new Date();
         today.setHours(0, 0, 0, 0);
         event.setHours(0, 0, 0, 0);
@@ -127,7 +127,7 @@ export class CalendarPage {
         console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
     }
 
-    markDisabled = (date:Date) => {
+    markDisabled = (date: Date) => {
         var current = new Date();
         current.setHours(0, 0, 0);
         return date < current;

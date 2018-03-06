@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core';
 import * as _ from 'he';
 import {ModalController} from "ionic-angular";
-import {EventModalPage} from "../../pages/event-modal/event-modal";
 import {Global} from "../../providers/global";
 import moment from "moment";
 
@@ -18,7 +17,7 @@ export class EventCardComponent {
     iconColorMap = Global.iconColorMap;
     iconNames = Global.iconNames;
 
-    constructor(public modalController: ModalController) {
+    constructor() {
     }
 
     ngOnInit() {
@@ -61,6 +60,10 @@ export class EventCardComponent {
     // format string to M/D format
     formatStartDate(startDate) {
         return moment(startDate).format('M/D');
+    }
+    // format string to day format
+    formatStartDay(startDate) {
+        return moment(startDate).format('ddd');
     }
 
     escapeEntity(string) {

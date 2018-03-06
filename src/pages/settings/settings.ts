@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import { Storage } from "@ionic/storage";
+import {Storage} from "@ionic/storage";
 import {DataProvider} from "../../providers/data-provider";
 import { ViewChild } from '@angular/core';
 import { Slides } from 'ionic-angular';
@@ -12,6 +12,7 @@ import { Slides } from 'ionic-angular';
     templateUrl: 'settings.html',
 })
 export class SettingsPage {
+<<<<<<< HEAD
 	
 	@ViewChild(Slides) slides: Slides;
 	
@@ -196,10 +197,79 @@ export class SettingsPage {
 		
 	}
 	
-	// when full search term string is cleared
     onVenueSearchClear() {
-		this.searchTerms = "";
-		this.searchedVenues = this.venues;
+        this.searchTerms = "";
+        this.searchedVenues = this.venues;
+    }
+
+    filterVenues(data) {
+        let newVenues = [];
+        let st = this.searchTerms.toLowerCase();
+        for (let e of data) {
+            let venue = e.VenueName.toLowerCase().includes(st);
+
+            if (venue) {
+                newVenues.push(e.VenueName);
+            }
+        }
+        if (newVenues.length > 0) {
+            this.hasVenues = true;
+        }
+        else {
+            this.hasVenues = false;
+        }
+        return newVenues;
+    }
+
+    expandCat = function (categoryName) {
+        let exp = document.getElementById(categoryName + "-open").dataset.expanded;
+        if (exp == "false") {
+            document.getElementById(categoryName).style.display = "block";
+            document.getElementById(categoryName + "-open").dataset.expanded = "true";
+        } else {
+            document.getElementById(categoryName).style.display = "none";
+            document.getElementById(categoryName + "-open").dataset.expanded = "false";
+        }
+
+
+    }
+
+    mainCatChange(value) {
+        let sIndex = this.selectedCategories.indexOf(value);
+        let aIndex = this.categories.indexOf(value);
+        if (sIndex >= 0) {
+            this.selectedCategories.splice(sIndex, 1);
+            for (let i = 0; i <= this.subCats[aIndex].length; i++) {
+                let subIndex = this.selectedCategories.indexOf(this.subCats[aIndex][i]);
+                console.log("unchecked: " + this.subCats[aIndex][i] + subIndex);
+                console.log(this.selectedCategories);
+                if (subIndex >= 0) {
+                    this.selectedCategories.splice(subIndex, 1);
+                    this.catDisplayValues[aIndex][i] = false;
+                }
+            }
+
+        } else {
+            this.selectedCategories.push(value);
+            for (let i = 0; i <= this.subCats[aIndex].length; i++) {
+                let subIndex = this.selectedCategories.indexOf(this.subCats[aIndex][i]);
+                console.log("checked: " + this.subCats[aIndex][i] + subIndex);
+                console.log(this.selectedCategories);
+                if (subIndex < 0) {
+                    this.selectedCategories.push(this.subCats[aIndex][i]);
+                    this.catDisplayValues[aIndex][i] = true;
+                }
+            }
+        }
+    }
+
+    subCatChange(value) {
+        let index = this.selectedCategories.indexOf(value);
+        if (index < 0) {
+            this.selectedCategories.push(value);
+        } else {
+            this.selectedCategories.splice(index, 1);
+        }
     }
 	 
 	filterVenues(data) {
@@ -336,7 +406,9 @@ export class SettingsPage {
         this.storage.get('ageRanges').then((data) => {
 
             let array = [];
-				this.selectedAgeRanges.map( a => { array.push(a); });
+            this.selectedAgeRanges.map(a => {
+                array.push(a);
+            });
             this.storage.set('ageRanges', array);
 
         });

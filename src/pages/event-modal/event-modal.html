@@ -16,7 +16,7 @@
     <ion-list id="event-time-list" text-wrap>
         <ion-item text-center>
             <ion-card-header class="event-title" text-wrap><b>{{escapeEntity(e.EventTitle)}}</b>
-                <p class="event-category" [ngStyle]="{'color': iconColorMap[e.ParentCatName]}">
+                <p class="event-category" [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}">
                     {{e.ParentCatName}}
                     <span *ngIf="e.SecCatName"> | </span>
                     <span>{{e.SecCatName}}</span><br>
@@ -30,23 +30,23 @@
                 <b id="start-time">{{formatStartDate(e.EventStartDate)}} | {{formatStartTime(e.EventTime)}}</b>
                 <div *ngIf="!isPastEvent()">
                     <button ion-button outline round class="reminder-button"
-                               [ngStyle]="{'border-color': iconColorMap[e.ParentCatName], 'color': iconColorMap[e.ParentCatName]}"
-                               *ngIf="hasNotification"
-                               (click)="onBellIconClick()">
+                            [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
+                            *ngIf="hasNotification"
+                            (click)="onBellIconClick()">
                         Cancel
-                        <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="notifications"></ion-icon>
+                        <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="notifications"></ion-icon>
                     </button>
                     <button ion-button outline round class="reminder-button"
-                               [ngStyle]="{'border-color': iconColorMap[e.ParentCatName], 'color': iconColorMap[e.ParentCatName]}"
-                               *ngIf="!hasNotification" (click)="onBellIconClick()">
+                            [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
+                            *ngIf="!hasNotification" (click)="onBellIconClick()">
                         Remind
-                        <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="notifications"></ion-icon>
+                        <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="notifications"></ion-icon>
                     </button>
                     <button ion-button outline round class="calendar-button"
-                               [ngStyle]="{'border-color': iconColorMap[e.ParentCatName], 'color': iconColorMap[e.ParentCatName]}"
-                               (click)="onCalendarIconClick()">
+                            [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
+                            (click)="onCalendarIconClick()">
                         Add
-                        <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}"
+                        <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}"
                                   name="calendar"></ion-icon>
                     </button>
                 </div>
@@ -61,7 +61,7 @@
         <ion-item *ngIf="e.Description">
             <ion-label *ngIf="!isExpandedText && escapeEntity(e.Description).length > 400" style="margin-top: 0">
                 {{escapeEntity(e.Description).substr(0, 400)}}...
-                <ion-label [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" class="expand-text"
+                <ion-label [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" class="expand-text"
                            (click)="expandDescription()">
                     <b *ngIf="platform.is('ios')">Read more</b>
                     <b *ngIf="platform.is('android')">READ MORE</b>
@@ -72,7 +72,7 @@
             </ion-label>
             <ion-label *ngIf="isExpandedText" style="margin-top: 0">
                 {{escapeEntity(e.Description)}}
-                <ion-label [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" class="expand-text"
+                <ion-label [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" class="expand-text"
                            (click)="collapseDescription()">
                     <b *ngIf="platform.is('ios')">Hide</b>
                     <b *ngIf="platform.is('android')">HIDE</b>
@@ -83,7 +83,7 @@
         <!--venue-->
         <ion-item *ngIf="e.Venue" icon-left>
             <ion-label>
-                <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="home"></ion-icon>
+                <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="home"></ion-icon>
                 {{escapeEntity(e.Venue)}}
             </ion-label>
         </ion-item>
@@ -91,7 +91,7 @@
         <!--address-->
         <ion-item *ngIf="e.VenueStreetAddress" icon-left>
             <ion-label>
-                <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="locate"></ion-icon>
+                <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="locate"></ion-icon>
                 {{escapeEntity(e.VenueStreetAddress)}}
             </ion-label>
         </ion-item>
@@ -99,7 +99,7 @@
         <!--city-->
         <ion-item *ngIf="e.VenueCity || e.VenueState" icon-left>
             <ion-label>
-                <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="map"></ion-icon>
+                <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="map"></ion-icon>
                 {{escapeEntity(e.VenueCity)}}, {{escapeEntity(e.VenueState)}} {{escapeEntity(e.VenueZip)}}
             </ion-label>
         </ion-item>
@@ -107,17 +107,17 @@
         <!--phone-->
         <ion-item *ngIf="e.VenuePhone" icon-left>
             <ion-label>
-                <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="call"></ion-icon>
-                <a [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" href="tel:{{e.VenuePhone}}">{{e.VenuePhone}}</a>
+                <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="call"></ion-icon>
+                <a [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" href="tel:{{e.VenuePhone}}">{{e.VenuePhone}}</a>
             </ion-label>
         </ion-item>
 
         <!--websites-->
         <ion-item *ngIf="e.Websites" icon-left>
             <ion-label>
-                <ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="link"></ion-icon>
+                <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="link"></ion-icon>
                 <!--TODO, add fix for having multiple websites-->
-                <a [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" href="{{e.Websites}}">{{e.Websites}}</a>
+                <a [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" href="{{e.Websites}}">{{e.Websites}}</a>
             </ion-label>
         </ion-item>
     </ion-list>
@@ -127,25 +127,25 @@
         <ion-row>
             <ion-col>
                 <button ion-button icon-only clear (click)="regularShare()"
-                        [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" icon-end>
+                        [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" icon-end>
                     <ion-icon class="share-icon" name="share"></ion-icon>
                 </button>
             </ion-col>
             <ion-col>
                 <button ion-button icon-only clear (click)="whatsappShare()"
-                        [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" icon-end>
+                        [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" icon-end>
                     <ion-icon class="share-icon" name="logo-whatsapp"></ion-icon>
                 </button>
             </ion-col>
             <ion-col>
                 <button ion-button icon-only clear (click)="facebookShare()"
-                        [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" icon-end>
+                        [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" icon-end>
                     <ion-icon class="share-icon" name="logo-facebook"></ion-icon>
                 </button>
             </ion-col>
             <ion-col>
                 <button ion-button icon-only clear (click)="twitterShare()"
-                        [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" icon-end>
+                        [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" icon-end>
                     <ion-icon class="share-icon" name="logo-twitter"></ion-icon>
                 </button>
             </ion-col>

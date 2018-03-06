@@ -14,7 +14,8 @@
         event information. Please switch location settings on.
     </ion-card-header>
 
-    <button *ngIf="diagnostic.isLocationAvailable()" [color]="secondary" ion-button (click)="closeModal()">Go Back</button>
+    <button *ngIf="diagnostic.isLocationAvailable()" [color]="secondary" ion-button (click)="closeModal()">Go Back
+    </button>
     <button ion-button (click)="onToggleClick()">Toggle Location</button>
 
 </ion-content>
