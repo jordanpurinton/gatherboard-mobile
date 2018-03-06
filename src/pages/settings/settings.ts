@@ -266,7 +266,6 @@ export class SettingsPage {
 		this.hasChanged = true;
   		let index = this.selectedCategories.indexOf(value);
 		
-		console.log(value + " " + index);
 		if (index < 0) {
 			this.selectedCategories.push(value);
 		} else {
@@ -346,7 +345,12 @@ export class SettingsPage {
 	goToSlide(slideNum) {
 		this.slides.slideTo(slideNum, 300);
 		
-		switch (slideNum) {
+
+	}
+	
+	slideChanged() {
+    let currentIndex = this.slides.getActiveIndex();
+    		switch (currentIndex) {
 			case 0:
 				this.selectedTab = "Categories";
 				break;
@@ -360,7 +364,7 @@ export class SettingsPage {
 				this.selectedTab = "Venues";
 				break;
 		}
-	}
+  }
 
 }
 
