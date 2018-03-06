@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 import {DataProvider} from "../../providers/data-provider";
+import { ViewChild } from '@angular/core';
+import { Slides } from 'ionic-angular';
 
 
 @IonicPage()
@@ -11,14 +13,17 @@ import {DataProvider} from "../../providers/data-provider";
 })
 export class SettingsPage {
 	
+	@ViewChild(Slides) slides: Slides;
+	
 	selectedTab = "Categories"
+	hasChanged = false;
 	
 	tags: Array<string>;
 	selectedTags: Array<string>;
 	tagDisplayValues: Array<boolean>;
 	
 	categories: Array<string>;
-	selectedCategories: Array<string>;
+	selectedCategories: any;
 	catDisplayValues: any;
 	categorySelect: any;
 	subCats: any;
@@ -31,129 +36,14 @@ export class SettingsPage {
 	searchedVenues: Array<string>;
 	venues: Array<string>;
 	selectedVenues: Array<string>;
+	venueDisplayValues: Array<boolean>;
 	
 	constructor(public dataProvider: DataProvider, public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
- 		
-		
-		this.selectedCategories = [];
-		
-		this.storage.get('categories').then((data)  => {
-			if (data != null) {
-				this.selectedCategories = data;
-			} else {
-				this.selectedCategories = [];
-			}			
-		});
-		this.categories = new Array<string>();
-		this.catDisplayValues = new Array<boolean>();
-		
-		this.subCats = [];
-		
- 		this.dataProvider.getCategories()
-                .subscribe(
-                    data => {
 
-                        for (let i = 0; i < data.length; i++) {
-                           this.categories.push(data[i].CatName);
-									//this.tags.push(data[i].CatName);
-									this.subCats.push([]);
-									this.dataProvider.getSubcategories(data[i].UID).subscribe(
-										data1 => {
-											for (let k = 0; k < data1.length; k++) {
-												this.subCats[i].push(data1[k].CatName);
-											}
-										}
-									);
-									
-                        }
-										
-								if (this.selectedCategories.length == 0) {
-									this.selectedCategories = this.categories + this.subCats;
-								}
-								
-								for (let k = 0; k < this.categories.length; k++) {
-									if (this.selectedCategories.indexOf(this.categories[k]) >= 0) {
-										this.catDisplayValues.push([true]);
-									} else {
-										this.catDisplayValues.push([false]);
-									}
-									for (let j = 0; j < this.subCats[k].length; j++) {
-										if (this.selectedCategories.indexOf(this.subCats[k][j]) >= 0) {
-											this.catDisplayValues[k].push(true);
-										} else {
-											this.catDisplayValues[k].push(false);
-										}
-									}
-								}
-								
-
-                    },
-                    err => console.log(err)
-                );
-		
-
-		
-		this.selectedTags = new Array<string>();
-		this.storage.get('tags').then((data) => {
-			if (data != null) {
-				this.selectedTags = data;
-			} else {
-				this.selectedTags = [];
-			}
-		}); 
-		
-		this.tags = new Array<string>();
-		this.tagDisplayValues = new Array<boolean>();
-		
-		this.dataProvider.getEvents()
-			 .subscribe(
-				  data => {
-						for (let i = 0; i < data.length; i++) {
-							
-							// get categories and subcategories
-/* 							for (let j = 0; j < this.categories.length; j++) {
-								if (data[i].ParentCatName == this.categories[j]) {
-									if (data[i].SecCatName != null) {
-										if (this.subCats[j] == null) {
-											this.subCats[j] = []
-										}
-									
-										this.subCats[j].push(data[i].SecCatName);
-									}
-								}
-									
-							} */								
-/* 							this.tags.push(data[i].UID);
-							if (this.venues.indexOf(data[i].Venue) == -1) {
-								this.venues.push(data[i].Venue);
-							} */
-							
-							for (let k = 0; k < this.tags.length; k++) {
-									if (this.selectedTags.indexOf(this.tags[k]) > -1) {
-										this.tagDisplayValues.push(true);
-									} else {
-										this.tagDisplayValues.push(false);
-									}
-								}
-						}
-				  },
-				  err => console.log(err)
-			 );
-			 
-		// setup venues list
-		this.venues = new Array<string>();
-		this.dataProvider.getVenues()
-			 .subscribe(
-				  data => {
-						for (let i = 0; i < data.length; i++) {
-							this.venues.push(data[i].VenueName);
-						}
-						this.searchedVenues = this.venues;
-				  }
-			 );
-			 
-		
-		
+	}
+	
+	ionViewDidLoad()
+	{
 		this.storage.get('venues').then((data) => {
 			if (data != null) {
 				this.selectedVenues = data;
@@ -161,13 +51,12 @@ export class SettingsPage {
 				this.selectedVenues = [];
 			}
 		});
-
+		
 		// setup age ranges, I can't find these in the events so I'm just using a preset list of the ones molly told us
 		this.ageRanges = ["Kids", "Teen", "Family", "Adult"];
 		this.selectedAgeRanges = [];
 		this.ageRangeDisplayValues = [];
-		
- 		this.storage.get('ageRanges').then((data) => {
+		this.storage.get('ageRanges').then((data) => {
 			if (data != null) {
 				this.selectedAgeRanges = data;
 			} else {
@@ -183,30 +72,116 @@ export class SettingsPage {
 			}
 			
 		});
-	}
-	
-	ionViewDidLoad()
-	{
-
-	}
-	
-	getCategoriesTab() {
-		this.selectedTab = "Categories";
 		
+		this.selectedTags = new Array<string>();
+		this.storage.get('tags').then((data) => {
+			if (data != null) {
+				this.selectedTags = data;
+			} else {
+				this.selectedTags = [];
+			}
+		}); 
+		
+		this.selectedCategories = [];
+		this.storage.get('categories').then((data) => {
+			console.log(data);
+			if (data != null) {
+				
+				this.selectedCategories = data;
+			} else {
+				this.selectedCategories = [];
+			}
+		
+		this.categories = new Array<string>();
+		this.catDisplayValues = new Array<boolean>();
+		
+		this.subCats = [];
+		let selectAll = this.selectedCategories.length > 0 ? false : true;
+		
+		console.log(this.selectedCategories);
+		//let selectAll = true;
+ 		this.dataProvider.getCategories()
+			.subscribe(
+				data => {
+					for (let i = 0; i < data.length; i++) {
+						this.categories.push(data[i].CatName);
+						this.subCats.push([]);
+						
+						if (!selectAll) {
+							if (this.selectedCategories.indexOf(this.categories[i]) > -1) {
+								this.catDisplayValues.push([true]);
+							} else {
+								this.catDisplayValues.push([false]);
+							}
+						} else {
+							this.selectedCategories.push(this.categories[i]);
+							this.catDisplayValues.push([true]);
+						}
+						
+						this.dataProvider.getSubcategories(data[i].UID).subscribe(
+								data1 => {
+								for (let k = 0; k < data1.length; k++) {
+									//this.catDisplayValues[i].push(true);
+									//this.selectedCategories[i].push(data1[k].CatName);
+									this.subCats[i].push(data1[k].CatName);
+									
+									if (!selectAll) {
+										console.log("selecting subCats");
+										if (this.selectedCategories.indexOf(this.categories[i] + "_" + this.subCats[i][k]) > -1) {
+											this.catDisplayValues[i].push(true);
+										} else {
+											this.catDisplayValues[i].push(false);
+										}
+									} else {
+										this.selectedCategories.push(this.categories[i] + "_" + this.subCats[i][k]);
+										this.catDisplayValues[i].push(true);
+									}
+								}
+							}
+						);
+					}
+				},
+			err => console.log(err)
+		);
+		
+		}); 
+		
+		
+		// setup venues list
+		this.venues = new Array<string>();
+		this.dataProvider.getVenues()
+			 .subscribe(
+				  data => {
+						for (let i = 0; i < data.length; i++) {
+							this.venues.push(data[i].VenueName);
+						}
+						this.searchedVenues = this.venues;
+				  }
+			 );
+			 
+		this.tags = new Array<string>();
+		this.tagDisplayValues = new Array<boolean>();
+		
+		this.dataProvider.getTags()
+			.subscribe(
+				data => {
+					
+					data.map(x => this.tags.push(x.Tag));
+					
+					for (let k = 0; k < this.tags.length; k++) {
+						if (this.selectedTags.indexOf(this.tags[k]) > -1) {
+							this.tagDisplayValues.push(true);
+						} else {
+							this.tagDisplayValues.push(false);
+						}
+					}
+					
+				},
+				err => console.log(err)
+			);
 	}
 	
-	getTagsTab() {
-		this.selectedTab = "Tags";
-	}
-	
-	getVenuesTab() {
-		this.selectedTab = "Venues";
-	}
-	
-	getAgeRangeTab() {
-		this.selectedTab = "Age Range";
-	}
-	
+
 	onVenueSearchInput() {
 		console.log(this.searchTerms);
 		this.dataProvider.getVenues()
@@ -217,7 +192,7 @@ export class SettingsPage {
 			 err => {
 				  console.log(err);
 			 }
-		)
+		);
 		
 	}
 	
@@ -254,36 +229,45 @@ export class SettingsPage {
 	}
 	
 	mainCatChange(value) {
-		let sIndex = this.selectedCategories.indexOf(value);
+		//
+		this.hasChanged = true;
 		let aIndex = this.categories.indexOf(value);
-		if (sIndex >= 0) {
-			this.selectedCategories.splice(sIndex, 1);
- 			for (let i = 0; i <= this.subCats[aIndex].length; i++) {
-				let subIndex = this.selectedCategories.indexOf(this.subCats[aIndex][i]);
-				console.log("unchecked: " + this.subCats[aIndex][i] + subIndex);
-				console.log(this.selectedCategories);
-				if (subIndex >= 0) {
-					this.selectedCategories.splice(subIndex, 1);
-					this.catDisplayValues[aIndex][i] = false;
-				}
-		 	} 
-			
+		
+		console.log(this.catDisplayValues[aIndex][0]);
+		// deselect all
+		if (this.catDisplayValues[aIndex][0] == true) {
+			this.catDisplayValues[aIndex][0] = false;
+			let sIndex = this.selectedCategories.indexOf(value);
+			if (sIndex > -1) {
+				this.selectedCategories.splice(sIndex, 1);
+			}
+			for (let i = 0; i < this.subCats[aIndex].length; i++) {
+				
+				this.catDisplayValues[aIndex][i + 1] = false;
+				
+
+		 	}  
+		
+		// select all
 		} else {
+			this.catDisplayValues[aIndex][0] = true;
 			this.selectedCategories.push(value);
- 			for (let i = 0; i <= this.subCats[aIndex].length; i++) {
-				let subIndex = this.selectedCategories.indexOf(this.subCats[aIndex][i]);
-				console.log("checked: " + this.subCats[aIndex][i] + subIndex);
-				console.log(this.selectedCategories);
-				if (subIndex < 0) {
-					this.selectedCategories.push(this.subCats[aIndex][i]);
-					this.catDisplayValues[aIndex][i] = true;
+			for (let i = 0; i < this.subCats[aIndex].length; i++) {
+				if (this.catDisplayValues[aIndex][i + 1] == false) {
+					//console.log(value + "_" + this.subCats[aIndex][i]);
+					this.catDisplayValues[aIndex][i + 1] = true;
+/* 					this.selectedCategories.push(value + "_" + this.subCats[aIndex][i + 1]);
+					console.log(value + "_" + this.subCats[aIndex][i] + " added"); */
 				}
-		 	} 	
+		 	}  
 		}
 	}
 	
 	subCatChange(value) {
+		this.hasChanged = true;
   		let index = this.selectedCategories.indexOf(value);
+		
+		console.log(value + " " + index);
 		if (index < 0) {
 			this.selectedCategories.push(value);
 		} else {
@@ -291,40 +275,52 @@ export class SettingsPage {
 		}
 	}
 	
-	saveCategories() {
-		this.storage.get('categories').then((data) => {
-			this.storage.set('categories', this.selectedCategories);
-		});
-	}
-	
 	tagChange(value) {
+		this.hasChanged = true;
 		let index = this.selectedTags.indexOf(value)
+		
 		if (index > -1) {
 			this.selectedTags.splice(index, 1);
 		} else {
 			this.selectedTags.push(value);
 		}
+	}
+	
+	saveAll() {
+		
+		console.log(this.selectedCategories);
+		this.hasChanged = false;
+		
+		this.storage.set('tags', this.selectedTags);
+
+		this.storage.set ('categories', this.selectedCategories);
+		
+		this.storage.set('ageRanges', this.selectedAgeRanges);
+		
+		this.storage.set('venues', this.selectedVenues);
+		
+		
 		
 	}
 	
-	saveTags() {
-		this.storage.get('tags').then((data) => {
-			this.storage.set('tags', this.selectedTags);
-		});
-	}
-	
-	saveVenue(value) {
-		this.storage.get('venues').then((data) => {
-			if (data != null && data.indexOf(value)  == -1) {
-				data.push(value);
-			} else {
-				data = [value];
-			}
-		}	);	
+	venueChange(value) {
+		this.hasChanged = true;
+		let index = this.selectedVenues.indexOf(value);
+		if (index > -1) {
+			this.selectedVenues.splice(index, 1);
+		} else {
+			this.selectedVenues.push(value);			
+		}
 	}
 	
 	clearMemory() {
-		this.storage.set('categories', null);
+		this.storage.set('categories', []);
+		this.storage.set('tags', []);
+		this.storage.set('ageRanges', []);
+		this.storage.set('venues', []);
+		this.storage.get('categories').then((data) => {
+				console.log(data);
+		}); 
 	}
 	
 	ageRangeChange(value) {
@@ -344,5 +340,28 @@ export class SettingsPage {
             this.storage.set('ageRanges', array);
 
         });
-    }
+   }
+
+	goToSlide(slideNum) {
+		this.slides.slideTo(slideNum, 300);
+		
+		switch (slideNum) {
+			case 0:
+				this.selectedTab = "Categories";
+				break;
+			case 1:
+				this.selectedTab = "Tags";
+				break;
+			case 2:
+				this.selectedTab = "Age Range";
+				break;
+			case 3:
+				this.selectedTab = "Venues";
+				break;
+		}
+	}
+
 }
+
+
+	

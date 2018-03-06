@@ -16,7 +16,10 @@ page-settings {
     font-weight: 800;
   }
   
-  
+	.inner-scroll {
+		height: initial;
+	}
+		
   .chbox {
 	float: left;	
 	}
@@ -42,6 +45,8 @@ page-settings {
 	float: right;
   }
 
-  
+  #save-button {
+	
+  }
   
 }
