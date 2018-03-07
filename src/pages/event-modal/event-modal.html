@@ -34,13 +34,15 @@
                             *ngIf="hasNotification"
                             (click)="onBellIconClick()">
                         Cancel
-                        <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="notifications"></ion-icon>
+                        <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}"
+                                  name="notifications"></ion-icon>
                     </button>
                     <button ion-button outline round class="reminder-button"
                             [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
                             *ngIf="!hasNotification" (click)="onBellIconClick()">
                         Remind
-                        <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="notifications"></ion-icon>
+                        <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}"
+                                  name="notifications"></ion-icon>
                     </button>
                     <button ion-button outline round class="calendar-button"
                             [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
@@ -94,6 +96,10 @@
                 <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="locate"></ion-icon>
                 {{escapeEntity(e.VenueStreetAddress)}}
             </ion-label>
+            <button [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
+                    ion-button round outline item-right>
+                Directions
+            </button>
         </ion-item>
 
         <!--city-->
@@ -108,8 +114,13 @@
         <ion-item *ngIf="e.VenuePhone" icon-left>
             <ion-label>
                 <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="call"></ion-icon>
-                <a [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" href="tel:{{e.VenuePhone}}">{{e.VenuePhone}}</a>
+                {{e.VenuePhone}}
             </ion-label>
+            <button (click)="callNumber(e.VenuePhone)"
+                    [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
+                    ion-button round outline item-right>
+                Call
+            </button>
         </ion-item>
 
         <!--websites-->

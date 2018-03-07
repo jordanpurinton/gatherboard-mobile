@@ -226,6 +226,10 @@ export class EventModalPage {
         return parseInt(newId);
     }
 
+    callNumber(num) {
+        window.open('tel:' + num);
+    }
+
     formatStartTime(startTime) {
         let firstIndex = parseInt(startTime[0]);
         let secondIndex = parseInt(startTime[1]);
