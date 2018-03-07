@@ -12,6 +12,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {SocialSharing} from '@ionic-native/social-sharing';
 import {Calendar} from "@ionic-native/calendar";
+import {LaunchNavigator, LaunchNavigatorOptions} from "@ionic-native/launch-navigator";
+import {Geolocation} from "@ionic-native/geolocation";
 
 @IonicPage()
 @Component({
@@ -36,6 +38,7 @@ export class EventModalPage {
                 public alertController: AlertController,
                 public navParams: NavParams,
                 private http: Http,
+                private launchNavigator: LaunchNavigator,
                 private socialSharing: SocialSharing,
                 public calendar: Calendar) {
         console.log(this.e);
@@ -228,6 +231,11 @@ export class EventModalPage {
 
     callNumber(num) {
         window.open('tel:' + num);
+    }
+
+    openNavigatorPrompt() {
+                this.launchNavigator.userSelect(
+                    this.e.VenueStreetAddress + ', ' + this.e.VenueCity + ', ' + this.e.VenueState, {});
     }
 
     formatStartTime(startTime) {

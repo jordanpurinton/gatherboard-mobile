@@ -96,7 +96,8 @@
                 <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="locate"></ion-icon>
                 {{escapeEntity(e.VenueStreetAddress)}}
             </ion-label>
-            <button [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
+            <button *ngIf="e.VenueCity && e.VenueState" [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
+                    (click)="openNavigatorPrompt()"
                     ion-button round outline item-right>
                 Directions
             </button>
