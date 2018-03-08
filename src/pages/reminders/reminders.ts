@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
-import {IonicPage, Loading, LoadingController, ModalController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, Loading, LoadingController, ModalController, ToastController} from 'ionic-angular';
 import {LocalNotifications} from "@ionic-native/local-notifications";
 import {EventModalPage} from "../event-modal/event-modal";
-import * as moment from "moment";
 
 @IonicPage()
 @Component({
@@ -18,6 +17,8 @@ export class RemindersPage {
 
     constructor(public localNotifications: LocalNotifications,
                 public loadingController: LoadingController,
+                public alertController: AlertController,
+                public toastController: ToastController,
                 public modalController: ModalController) {
     }
 
@@ -30,6 +31,13 @@ export class RemindersPage {
                         console.log(JSON.parse(data[i].data));
                         this.scheduledEvents.push(JSON.parse(data[i].data));
                     }
+                    this.scheduledEvents.sort(
+                        (a, b) => {
+                            let dateA = new Date(a.EventStartDate + 'T' + a.EventTime);
+                            let dateB = new Date(b.EventStartDate + 'T' + b.EventTime);
+                            return +dateA - +dateB;
+                        }
+                    );
                     this.hasScheduledEvents = true;
                     this.dismissLoading();
                 }
@@ -51,6 +59,13 @@ export class RemindersPage {
                         for (let i = 0; i < data.length; i++) {
                             this.scheduledEvents.push(JSON.parse(data[i].data));
                         }
+                        this.scheduledEvents.sort(
+                            (a, b) => {
+                                let dateA = new Date(a.EventStartDate + 'T' + a.EventTime);
+                                let dateB = new Date(b.EventStartDate + 'T' + b.EventTime);
+                                return +dateA - +dateB;
+                            }
+                        );
                         this.hasScheduledEvents = true;
                     }
                     else {
@@ -59,6 +74,48 @@ export class RemindersPage {
                 }
             )
         }
+    }
+
+    clearAllNotifications() {
+        let alert = this.alertController.create({
+            title: 'Clear All',
+            message: 'Would you like to clear all planned events?\n(Note: This action is irreversible)',
+            buttons:
+                [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel'
+                    },
+                    {
+                        text: 'Confirm',
+                        handler: () => {
+                            this.localNotifications.cancelAll().then(
+                                data => {
+                                    console.log(data);
+                                    let toast = this.toastController.create({
+                                        message: 'All reminders cleared',
+                                        duration: 3000,
+                                        position: 'top'
+                                    });
+                                    toast.present();
+                                    this.ionViewDidEnter();
+                                },
+                                err => {
+                                    console.log(err);
+                                    let alert = this.alertController.create({
+                                        title: 'Oops!',
+                                        message: 'Something went wrong and your reminders couldn\t be removed.',
+                                        buttons: [{text: 'Dismiss', role: 'cancel'}]
+                                    });
+                                    alert.present();
+                                    this.ionViewDidEnter();
+                                }
+                            )
+                        }
+                    }
+                ]
+        });
+        alert.present();
     }
 
     openModal(e) {
