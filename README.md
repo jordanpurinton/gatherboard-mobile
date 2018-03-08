@@ -8,17 +8,17 @@ To run this program, make sure you have node and yarn or npm installed.
 ## Running the program
 Make sure you have Ionic and Cordova installed globally
 
-`yarn add ionic --global`
+`yarn add ionic --global` <b>OR</b> `npm i ionic -g`
 
-`yarn add cordova --global`
+`yarn add cordova --global` <b>OR</b> `npm i cordova -g`
 
 Install dependencies
 
-`yarn i` 
+`yarn install` <b>OR</b> `npm i`
 
 Run in browser
 
-`ionic serve -l`
+`ionic serve`
 
 ## References
 ##### GatherBoard website: https://gatherboard.com/
