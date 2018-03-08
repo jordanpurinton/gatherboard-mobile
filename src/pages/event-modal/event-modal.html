@@ -2,7 +2,12 @@
     <ion-navbar text-wrap>
         <ion-buttons left>
             <button class="modal-close" ion-button (click)="closeModal()">
-                <ion-icon class="close-icon" name="arrow-back"></ion-icon>
+                <ion-icon class="header-icon" name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-buttons right>
+            <button class="modal-close" ion-button (click)="generalShare()">
+                <ion-icon class="header-icon" name="share"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title text-wrap>Event Details</ion-title>
@@ -34,13 +39,15 @@
                             *ngIf="hasNotification"
                             (click)="onBellIconClick()">
                         Cancel
-                        <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="notifications"></ion-icon>
+                        <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}"
+                                  name="notifications"></ion-icon>
                     </button>
                     <button ion-button outline round class="reminder-button"
                             [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
                             *ngIf="!hasNotification" (click)="onBellIconClick()">
                         Remind
-                        <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="notifications"></ion-icon>
+                        <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}"
+                                  name="notifications"></ion-icon>
                     </button>
                     <button ion-button outline round class="calendar-button"
                             [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
@@ -59,15 +66,15 @@
 
         <!--description-->
         <ion-item *ngIf="e.Description">
-            <ion-label *ngIf="!isExpandedText && escapeEntity(e.Description).length > 400" style="margin-top: 0">
-                {{escapeEntity(e.Description).substr(0, 400)}}...
+            <ion-label *ngIf="!isExpandedText && escapeEntity(e.Description).length > 300" style="margin-top: 0">
+                {{escapeEntity(e.Description).substr(0, 300)}}...
                 <ion-label [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" class="expand-text"
                            (click)="expandDescription()">
                     <b *ngIf="platform.is('ios')">Read more</b>
                     <b *ngIf="platform.is('android')">READ MORE</b>
                 </ion-label>
             </ion-label>
-            <ion-label *ngIf="!isExpandedText && escapeEntity(e.Description).length < 400" style="margin-top: 0">
+            <ion-label *ngIf="!isExpandedText && escapeEntity(e.Description).length < 300" style="margin-top: 0">
                 {{escapeEntity(e.Description)}}
             </ion-label>
             <ion-label *ngIf="isExpandedText" style="margin-top: 0">
@@ -94,6 +101,12 @@
                 <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="locate"></ion-icon>
                 {{escapeEntity(e.VenueStreetAddress)}}
             </ion-label>
+            <button *ngIf="e.VenueCity && e.VenueState"
+                    [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
+                    (click)="openNavigatorPrompt()"
+                    ion-button round outline item-right>
+                Directions
+            </button>
         </ion-item>
 
         <!--city-->
@@ -108,47 +121,27 @@
         <ion-item *ngIf="e.VenuePhone" icon-left>
             <ion-label>
                 <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="call"></ion-icon>
-                <a [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" href="tel:{{e.VenuePhone}}">{{e.VenuePhone}}</a>
+                {{e.VenuePhone}}
             </ion-label>
+            <button (click)="callNumber(e.VenuePhone)"
+                    [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
+                    ion-button round outline item-right>
+                Call
+            </button>
         </ion-item>
 
         <!--websites-->
         <ion-item *ngIf="e.Websites" icon-left>
             <ion-label>
-                <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="link"></ion-icon>
-                <!--TODO, add fix for having multiple websites-->
-                <a [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" href="{{e.Websites}}">{{e.Websites}}</a>
+                <a *ngFor="let w of e.Websites.split('\n')" [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}"
+                   href="{{w}}">
+                    <span *ngIf="w.includes('.')">
+                    <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="link"></ion-icon>
+                    {{w}}
+                    <br>
+                    </span>
+                </a>
             </ion-label>
         </ion-item>
     </ion-list>
-
-    <!--social media-->
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <button ion-button icon-only clear (click)="regularShare()"
-                        [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" icon-end>
-                    <ion-icon class="share-icon" name="share"></ion-icon>
-                </button>
-            </ion-col>
-            <ion-col>
-                <button ion-button icon-only clear (click)="whatsappShare()"
-                        [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" icon-end>
-                    <ion-icon class="share-icon" name="logo-whatsapp"></ion-icon>
-                </button>
-            </ion-col>
-            <ion-col>
-                <button ion-button icon-only clear (click)="facebookShare()"
-                        [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" icon-end>
-                    <ion-icon class="share-icon" name="logo-facebook"></ion-icon>
-                </button>
-            </ion-col>
-            <ion-col>
-                <button ion-button icon-only clear (click)="twitterShare()"
-                        [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" icon-end>
-                    <ion-icon class="share-icon" name="logo-twitter"></ion-icon>
-                </button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
 </ion-content>

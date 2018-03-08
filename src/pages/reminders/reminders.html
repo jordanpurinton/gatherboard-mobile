@@ -1,6 +1,11 @@
 <ion-header>
 
     <ion-navbar>
+        <ion-buttons *ngIf="hasScheduledEvents" right>
+            <button (click)="clearAllNotifications()" ion-button>
+                <ion-icon class="header-icon" name="trash"></ion-icon>
+            </button>
+        </ion-buttons>
         <ion-title>Reminders</ion-title>
     </ion-navbar>
 

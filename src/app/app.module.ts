@@ -29,6 +29,7 @@ import {TabsPageModule} from "../pages/tabs/tabs.module";
 import {Calendar} from "@ionic-native/calendar";
 import {CalendarPageModule} from "../pages/calendar/calendar.module";
 import {NgCalendarModule} from "ionic2-calendar";
+import {LaunchNavigator} from "@ionic-native/launch-navigator";
 
 let classSelector = new ClassSelector();
 
@@ -72,6 +73,7 @@ let classSelector = new ClassSelector();
         LocalNotifications,
         SocialSharing,
         Calendar,
+        LaunchNavigator,
         // enable these when trying to test out device functionality
         // StatusBar,
         // SplashScreen,

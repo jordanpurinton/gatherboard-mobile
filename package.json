@@ -25,6 +25,7 @@
     "@ionic-native/diagnostic": "^4.5.3",
     "@ionic-native/geolocation": "^4.5.3",
     "@ionic-native/google-maps": "^4.5.3",
+    "@ionic-native/launch-navigator": "^4.5.3",
     "@ionic-native/local-notifications": "^4.5.3",
     "@ionic-native/native-geocoder": "^4.5.3",
     "@ionic-native/social-sharing": "^4.5.3",
@@ -35,7 +36,7 @@
     "@types/underscore": "^1.8.7",
     "angular": "^1.6.8",
     "cordova": "^8.0.0",
-    "cordova-android": "6.4.0",
+    "cordova-android": "^6.3.0",
     "cordova-browser": "^5.0.3",
     "cordova-ios": "4.5.4",
     "cordova-plugin-add-swift-support": "^1.7.1",
@@ -95,7 +96,8 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-nativegeocoder": {},
       "cordova-plugin-local-notification": {},
-      "cordova-plugin-x-socialsharing": {}
+      "cordova-plugin-x-socialsharing": {},
+      "uk.co.workingedge.phonegap.plugin.launchnavigator": {}
     },
     "platforms": [
       "browser",

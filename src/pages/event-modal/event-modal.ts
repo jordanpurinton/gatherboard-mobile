@@ -12,6 +12,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {SocialSharing} from '@ionic-native/social-sharing';
 import {Calendar} from "@ionic-native/calendar";
+import {LaunchNavigator, LaunchNavigatorOptions} from "@ionic-native/launch-navigator";
+import {Geolocation} from "@ionic-native/geolocation";
 
 @IonicPage()
 @Component({
@@ -36,6 +38,7 @@ export class EventModalPage {
                 public alertController: AlertController,
                 public navParams: NavParams,
                 private http: Http,
+                private launchNavigator: LaunchNavigator,
                 private socialSharing: SocialSharing,
                 public calendar: Calendar) {
         console.log(this.e);
@@ -226,6 +229,15 @@ export class EventModalPage {
         return parseInt(newId);
     }
 
+    callNumber(num) {
+        window.open('tel:' + num);
+    }
+
+    openNavigatorPrompt() {
+        this.launchNavigator.userSelect(
+            this.e.VenueStreetAddress + ', ' + this.e.VenueCity + ', ' + this.e.VenueState, {});
+    }
+
     formatStartTime(startTime) {
         let firstIndex = parseInt(startTime[0]);
         let secondIndex = parseInt(startTime[1]);
@@ -264,24 +276,33 @@ export class EventModalPage {
         return moment(startDate).format('M/D');
     }
 
+    // format string to full format
+    formatStartDateCondensed(startDate) {
+        return moment(startDate).format('MMMM D');
+    }
+
     escapeEntity(string) {
         return _.decode(string);
     }
 
 
-    regularShare() {
-        this.socialSharing.share(null, null, null, window.location.href);
-    }
-
-    whatsappShare() {
-        this.socialSharing.shareViaWhatsApp(null, null, window.location.href);
-    }
-
-    twitterShare() {
-        this.socialSharing.shareViaTwitter(null, null, window.location.href);
-    }
-
-    facebookShare() {
-        this.socialSharing.shareViaFacebook(null, null, window.location.href);
+    generalShare() {
+        let websites = '';
+        if (this.e.Websites) websites = this.e.Websites;
+        this.socialSharing.share('I\'\m going to ' + this.e.EventTitle + ' on ' +
+            this.formatStartDateCondensed(this.e.EventStartDate) + ' at ' + this.e.Venue + '!', 'Via GatherBoard Mobile:', null, websites).then(
+            data => {
+                console.log(data)
+            },
+            err => {
+                console.log(err);
+                let alert = this.alertController.create({
+                    title: 'Oops!',
+                    message: 'Something went wrong. Check that you have enabled permissions for GatherBoard in your device settings.'
+                });
+                alert.addButton({text: 'Dismiss', role: 'cancel'});
+                alert.present();
+            }
+        );
     }
 }
