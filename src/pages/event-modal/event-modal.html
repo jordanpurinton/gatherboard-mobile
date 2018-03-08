@@ -66,15 +66,15 @@
 
         <!--description-->
         <ion-item *ngIf="e.Description">
-            <ion-label *ngIf="!isExpandedText && escapeEntity(e.Description).length > 400" style="margin-top: 0">
-                {{escapeEntity(e.Description).substr(0, 400)}}...
+            <ion-label *ngIf="!isExpandedText && escapeEntity(e.Description).length > 300" style="margin-top: 0">
+                {{escapeEntity(e.Description).substr(0, 300)}}...
                 <ion-label [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" class="expand-text"
                            (click)="expandDescription()">
                     <b *ngIf="platform.is('ios')">Read more</b>
                     <b *ngIf="platform.is('android')">READ MORE</b>
                 </ion-label>
             </ion-label>
-            <ion-label *ngIf="!isExpandedText && escapeEntity(e.Description).length < 400" style="margin-top: 0">
+            <ion-label *ngIf="!isExpandedText && escapeEntity(e.Description).length < 300" style="margin-top: 0">
                 {{escapeEntity(e.Description)}}
             </ion-label>
             <ion-label *ngIf="isExpandedText" style="margin-top: 0">
@@ -101,7 +101,8 @@
                 <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="locate"></ion-icon>
                 {{escapeEntity(e.VenueStreetAddress)}}
             </ion-label>
-            <button *ngIf="e.VenueCity && e.VenueState" [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
+            <button *ngIf="e.VenueCity && e.VenueState"
+                    [ngStyle]="{'border-color': backgroundColorMap[e.ParentCatName], 'color': backgroundColorMap[e.ParentCatName]}"
                     (click)="openNavigatorPrompt()"
                     ion-button round outline item-right>
                 Directions
@@ -132,9 +133,14 @@
         <!--websites-->
         <ion-item *ngIf="e.Websites" icon-left>
             <ion-label>
-                <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="link"></ion-icon>
-                <!--TODO, add fix for having multiple websites-->
-                <a [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" href="{{e.Websites}}">{{e.Websites}}</a>
+                <a *ngFor="let w of e.Websites.split('\n')" [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}"
+                   href="{{w}}">
+                    <span *ngIf="w.includes('.')">
+                    <ion-icon [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" name="link"></ion-icon>
+                    {{w}}
+                    <br>
+                    </span>
+                </a>
             </ion-label>
         </ion-item>
     </ion-list>
