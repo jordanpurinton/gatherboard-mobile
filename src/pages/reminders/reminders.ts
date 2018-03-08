@@ -79,7 +79,7 @@ export class RemindersPage {
     clearAllNotifications() {
         let alert = this.alertController.create({
             title: 'Clear All',
-            message: 'Would you like to clear all planned events?\n(Note: This action is irreversible)',
+            message: 'Would you like to clear all planned events?<br>(Warning: This action is irreversible)',
             buttons:
                 [
                     {
