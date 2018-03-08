@@ -2,7 +2,12 @@
     <ion-navbar text-wrap>
         <ion-buttons left>
             <button class="modal-close" ion-button (click)="closeModal()">
-                <ion-icon class="close-icon" name="arrow-back"></ion-icon>
+                <ion-icon class="header-icon" name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-buttons right>
+            <button class="modal-close" ion-button (click)="generalShare()">
+                <ion-icon class="header-icon" name="share"></ion-icon>
             </button>
         </ion-buttons>
         <ion-title text-wrap>Event Details</ion-title>
@@ -133,34 +138,4 @@
             </ion-label>
         </ion-item>
     </ion-list>
-
-    <!--social media-->
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <button ion-button icon-only clear (click)="regularShare()"
-                        [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" icon-end>
-                    <ion-icon class="share-icon" name="share"></ion-icon>
-                </button>
-            </ion-col>
-            <ion-col>
-                <button ion-button icon-only clear (click)="whatsappShare()"
-                        [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" icon-end>
-                    <ion-icon class="share-icon" name="logo-whatsapp"></ion-icon>
-                </button>
-            </ion-col>
-            <ion-col>
-                <button ion-button icon-only clear (click)="facebookShare()"
-                        [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" icon-end>
-                    <ion-icon class="share-icon" name="logo-facebook"></ion-icon>
-                </button>
-            </ion-col>
-            <ion-col>
-                <button ion-button icon-only clear (click)="twitterShare()"
-                        [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}" icon-end>
-                    <ion-icon class="share-icon" name="logo-twitter"></ion-icon>
-                </button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
 </ion-content>

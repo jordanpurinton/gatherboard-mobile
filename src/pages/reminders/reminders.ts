@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, Loading, LoadingController, ModalController, NavParams} from 'ionic-angular';
 import {LocalNotifications} from "@ionic-native/local-notifications";
 import {EventModalPage} from "../event-modal/event-modal";
+import * as moment from "moment";
 
 @IonicPage()
 @Component({
@@ -15,8 +16,7 @@ export class RemindersPage {
     loading: Loading;
     isFirstLoad = true;
 
-    constructor(public navParams: NavParams,
-                public localNotifications: LocalNotifications,
+    constructor(public localNotifications: LocalNotifications,
                 public loadingController: LoadingController,
                 public modalController: ModalController) {
     }
@@ -26,7 +26,6 @@ export class RemindersPage {
         this.localNotifications.getAll().then(
             data => {
                 if (data.length > 0) {
-                    console.log(data);
                     for (let i = 0; i < data.length; i++) {
                         console.log(JSON.parse(data[i].data));
                         this.scheduledEvents.push(JSON.parse(data[i].data));
@@ -48,10 +47,8 @@ export class RemindersPage {
             this.localNotifications.getAll().then(
                 data => {
                     if (data.length > 0) {
-                        console.log(data);
                         this.scheduledEvents = [];
                         for (let i = 0; i < data.length; i++) {
-                            console.log(JSON.parse(data[i].data));
                             this.scheduledEvents.push(JSON.parse(data[i].data));
                         }
                         this.hasScheduledEvents = true;
