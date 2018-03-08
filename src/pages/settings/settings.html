@@ -115,7 +115,7 @@
 			<ion-searchbar [(ngModel)]="searchTerms" (ionInput)="onVenueSearchInput($event)"
 				(ionClear)="onVenueSearchClear()" debounce="500"></ion-searchbar>
 			
-			<ion-row *ngFor="let v of venues; let i=index"><ion-col text-left>
+			<ion-row *ngFor="let v of searchedVenues; let i=index"><ion-col text-left>
 			<ion-item no-lines>
 						<ion-checkbox (ionChange)="venueChange(v)" 
 											[checked]="selectedVenues.indexOf(v) > -1"

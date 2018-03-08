@@ -188,7 +188,7 @@ export class SettingsPage {
 		this.dataProvider.getVenues()
 		.subscribe(
 			 data => {
-				  this.venues = this.filterVenues(data);
+				  this.searchedVenues = this.filterVenues(data);
 			 },
 			 err => {
 				  console.log(err);
