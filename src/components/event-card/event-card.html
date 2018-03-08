@@ -1,31 +1,30 @@
 <ion-card no-padding no-border no-lines text-wrap>
     <button ion-item no-padding text-wrap detail-push>
         <ion-row text-wrap align-items-center>
+
+            <!--first col-->
             <ion-col class="first-col" align-self-stretch
                      [ngStyle]="{'background-color': backgroundColorMap[e.ParentCatName]}"
                      no-padding text-center text-wrap col-3>
+
+                <!--time-->
                 <div showWhen="ios" class="start-time-ios">
                     {{formatStartTime(e.EventTime).substr(0, formatStartTime(e.EventTime).length - 1)}}<span>{{formatStartTime(e.EventTime).substr(-1)}}</span>
                 </div>
                 <div showWhen="android" class="start-time-md">
                     {{formatStartTime(e.EventTime).substr(0, formatStartTime(e.EventTime).length - 1)}}<span>{{formatStartTime(e.EventTime).substr(-1)}}</span>
                 </div>
-                <div showWhen="ios" class="start-date-ios">
-                    {{formatStartDate(e.EventStartDate)}}
-                </div>
-                <div showWhen="android" class="start-date-md">
-                    {{formatStartDate(e.EventStartDate)}}
-                </div>
-                <!--<div>-->
-                    <!--<ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="{{iconName}}"></ion-icon>-->
-                <!--</div>-->
-                <div showWhen="ios" class="start-day-ios">
-                    {{formatStartDay(e.EventStartDate)}}
-                </div>
-                <div showWhen="android" class="start-day-md">
-                    {{formatStartDay(e.EventStartDate)}}
-                </div>
+
+                <!--date-->
+                <div showWhen="ios" class="start-date-ios">{{formatStartDate(e.EventStartDate)}}</div>
+                <div showWhen="android" class="start-date-md">{{formatStartDate(e.EventStartDate)}}</div>
+
+                <!--day of week-->
+                <div showWhen="ios" class="start-day-ios">{{formatStartDay(e.EventStartDate)}}</div>
+                <div showWhen="android" class="start-day-md">{{formatStartDay(e.EventStartDate)}}</div>
             </ion-col>
+
+            <!--second col-->
             <ion-col class="second-col" no-padding text-wrap col-9>
                 <p class="event-category" [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}">
                     <span class="parent-cat">{{e.ParentCatName}}</span>
