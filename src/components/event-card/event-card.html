@@ -4,16 +4,25 @@
             <ion-col class="first-col" align-self-stretch
                      [ngStyle]="{'background-color': backgroundColorMap[e.ParentCatName]}"
                      no-padding text-center text-wrap col-3>
-                <div class="start-time">
+                <div showWhen="ios" class="start-time-ios">
                     {{formatStartTime(e.EventTime).substr(0, formatStartTime(e.EventTime).length - 1)}}<span>{{formatStartTime(e.EventTime).substr(-1)}}</span>
                 </div>
-                <div class="start-date">
+                <div showWhen="android" class="start-time-md">
+                    {{formatStartTime(e.EventTime).substr(0, formatStartTime(e.EventTime).length - 1)}}<span>{{formatStartTime(e.EventTime).substr(-1)}}</span>
+                </div>
+                <div showWhen="ios" class="start-date-ios">
+                    {{formatStartDate(e.EventStartDate)}}
+                </div>
+                <div showWhen="android" class="start-date-md">
                     {{formatStartDate(e.EventStartDate)}}
                 </div>
                 <!--<div>-->
                     <!--<ion-icon [ngStyle]="{'color': iconColorMap[e.ParentCatName]}" name="{{iconName}}"></ion-icon>-->
                 <!--</div>-->
-                <div class="start-day">
+                <div showWhen="ios" class="start-day-ios">
+                    {{formatStartDay(e.EventStartDate)}}
+                </div>
+                <div showWhen="android" class="start-day-md">
                     {{formatStartDay(e.EventStartDate)}}
                 </div>
             </ion-col>

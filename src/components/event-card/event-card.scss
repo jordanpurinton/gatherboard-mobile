@@ -21,18 +21,35 @@ event-card {
     margin: 0;
     height: 100% !important;
   }
-  .start-time {
+  .start-time-ios {
+    color: white;
+    font-size: 18px;
+    padding-top: 4px;
+  }
+  .start-time-md {
     color: white;
     font-size: 18px;
   }
-  .start-date {
+  .start-date-ios {
     color: white;
     font-weight: bold;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     font-size: 28px;
   }
-  .start-day {
+  .start-date-md {
+    color: white;
+    font-weight: bold;
+    padding: 0;
+    font-size: 28px;
+  }
+  .start-day-ios {
+    color: white;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding-bottom: 4px;
+  }
+  .start-day-md {
     color: white;
     font-size: 18px;
     text-transform: uppercase;
