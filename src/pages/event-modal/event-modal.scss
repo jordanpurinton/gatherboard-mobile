@@ -34,21 +34,30 @@ page-event-modal {
     font-size: 50px;
   }
 
+  .event-header {
+    padding: 0 !important;
+  }
+
   .event-title {
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    font-size: 18px;
+    font-size: 24px;
+    text-transform: uppercase;
+    color: white !important;
   }
 
   .event-category {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 400;
+    text-transform: uppercase;
+    color: white !important;
   }
 
   // TIME
   #event-time-list {
     margin-bottom: 0;
+    padding: 0 16px 0 16px;
     .event-time-info {
       height: 100%;
       text-align: center;
@@ -79,6 +88,7 @@ page-event-modal {
   // ADDITIONAL DETAILS
   #event-detail-list {
     margin-top: 0;
+    padding: 0 16px 0 16px;
     ion-label {
       line-height: 1.5;
     }
@@ -91,7 +101,7 @@ page-event-modal {
     border: none;
   }
   .scroll-content {
-    padding-top: 0 !important;
+    padding: 0 !important;
   }
 
   .expand-text {

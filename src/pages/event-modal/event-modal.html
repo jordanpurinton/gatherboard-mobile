@@ -17,17 +17,19 @@
 
 <ion-content padding>
 
-    <!--event categories-->
+    <!--event header-->
+    <ion-item class="event-header" [ngStyle]="{'background-color': backgroundColorMap[e.ParentCatName]}" text-center>
+        <ion-card-header class="event-title" text-wrap><b>{{escapeEntity(e.EventTitle)}}</b>
+            <p class="event-category" [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}">
+                {{e.ParentCatName}}
+                <span *ngIf="e.SecCatName"> | </span>
+                <span>{{e.SecCatName}}</span><br>
+            </p>
+        </ion-card-header>
+    </ion-item>
+
+    <!--event action buttons-->
     <ion-list id="event-time-list" text-wrap>
-        <ion-item text-center>
-            <ion-card-header class="event-title" text-wrap><b>{{escapeEntity(e.EventTitle)}}</b>
-                <p class="event-category" [ngStyle]="{'color': backgroundColorMap[e.ParentCatName]}">
-                    {{e.ParentCatName}}
-                    <span *ngIf="e.SecCatName"> | </span>
-                    <span>{{e.SecCatName}}</span><br>
-                </p>
-            </ion-card-header>
-        </ion-item>
 
         <ion-item no-lines class="event-time-info">
             <!--event date/reminder-->
