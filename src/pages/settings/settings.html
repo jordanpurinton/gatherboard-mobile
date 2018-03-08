@@ -30,9 +30,11 @@
             </ion-label>
         </ion-row>
 		  
-		<ion-row ng-show="hasChanged">
-			<button ion-button (click)="saveAll(this)" id="save-button">Save Changes</button>
-			<button ion-button (click)="clearMemory(this)" id="save-button">Clear Data(Testing)</button>
+		<ion-row>
+		<div id="save-button-div" style="height:0px; margin-left:auto; display:none;">
+			<button ion-button color="secondary" (click)="saveAll(this)" id="save-button">Save Changes</button>
+			<button ion-button color="danger" (click)="clearMemory(this)" id="clear-button">Restore Defaults</button>
+		</div>
 		</ion-row>
 		  
     </ion-toolbar>
@@ -40,7 +42,7 @@
 
 <ion-content has-header="true" scroll="true">
 <ion-slides style="height: auto;" (ionSlideDidChange)="slideChanged()">
-	<ion-slide>
+	<ion-slide class="slides" id="slide1">
 
 	<ion-grid>
 			<ion-row *ngFor="let cat of categories; let i=index">
@@ -76,7 +78,7 @@
 		</ion-grid>
 	</ion-slide>
 
-	<ion-slide>
+	<ion-slide class="slide" id="slide2">
 
 		<ion-grid>
 			<ion-row *ngFor="let tag of tags; let i=index"><ion-col text-left>
@@ -92,7 +94,7 @@
 		
 	</ion-slide>
 		
-	<ion-slide>
+	<ion-slide class="slide" id="slide3">
 		<ion-grid>
 			<ion-row *ngFor="let ar of ageRanges; let i=index"><ion-col text-left>
 			<ion-item no-lines>
@@ -107,7 +109,7 @@
 		
 	</ion-slide>
 	
-	<ion-slide>
+	<ion-slide class="slide" id="slide4">
 
 		<ion-grid>
 			<ion-searchbar [(ngModel)]="searchTerms" (ionInput)="onVenueSearchInput($event)"

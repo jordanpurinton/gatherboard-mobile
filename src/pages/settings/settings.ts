@@ -3,7 +3,7 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Storage} from "@ionic/storage";
 import {DataProvider} from "../../providers/data-provider";
 import { ViewChild } from '@angular/core';
-import { Slides } from 'ionic-angular';
+import { Slides, ToastController } from 'ionic-angular';
 
 
 @IonicPage()
@@ -15,6 +15,7 @@ export class SettingsPage {
 	
 	@ViewChild(Slides) slides: Slides;
 	
+	headerState = "slides"
 	selectedTab = "Categories"
 	hasChanged = false;
 	
@@ -38,7 +39,7 @@ export class SettingsPage {
 	selectedVenues: Array<string>;
 	venueDisplayValues: Array<boolean>;
 	
-	constructor(public dataProvider: DataProvider, public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
+	constructor(public dataProvider: DataProvider, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public toastController: ToastController,) {
 
 	}
 	
@@ -214,6 +215,23 @@ export class SettingsPage {
 	  return newVenues;
 	}
 	
+	refresh = function() {
+		
+	}
+	
+	showSaveButton = function() {
+		this.hasChanged = true;
+		document.getElementById("save-button-div").style.height = "auto";
+		document.getElementById("save-button-div").style.display = "block";
+ 		document.getElementById("slide1").style.marginTop = "20px";
+		document.getElementById("slide2").style.marginTop = "20px";
+		document.getElementById("slide3").style.marginTop = "20px";
+		document.getElementById("slide4").style.marginTop = "20px"; 
+/* 		let slides = Array.from(document.getElementsByClassName("slide"));
+		for (let i = 0; i < slides.length; i++) {
+			slides[i].attr('margin-top','60')
+		} */
+	}
 	expandCat = function(categoryName) {
 		let exp = document.getElementById(categoryName + "-open").dataset.expanded;
 		if(exp == "false") {
@@ -228,6 +246,7 @@ export class SettingsPage {
 	}
 	
 	mainCatChange(value) {
+		this.showSaveButton();
 		//
 		this.hasChanged = true;
 		let aIndex = this.categories.indexOf(value);
@@ -263,6 +282,7 @@ export class SettingsPage {
 	}
 	
 	subCatChange(value) {
+		this.showSaveButton();
 		this.hasChanged = true;
   		let index = this.selectedCategories.indexOf(value);
 		
@@ -274,6 +294,7 @@ export class SettingsPage {
 	}
 	
 	tagChange(value) {
+		this.showSaveButton();
 		this.hasChanged = true;
 		let index = this.selectedTags.indexOf(value)
 		
@@ -286,7 +307,6 @@ export class SettingsPage {
 	
 	saveAll() {
 		
-		console.log(this.selectedCategories);
 		this.hasChanged = false;
 		
 		this.storage.set('tags', this.selectedTags);
@@ -297,11 +317,19 @@ export class SettingsPage {
 		
 		this.storage.set('venues', this.selectedVenues);
 		
-		
-		
+		let toast = this.toastController.create({
+			message: 'Saved Changes',
+			duration: 1500,
+			position: 'middle'
+	  });
+	  toast.present();
+
+	  
+	  
 	}
 	
 	venueChange(value) {
+		this.showSaveButton();
 		this.hasChanged = true;
 		let index = this.selectedVenues.indexOf(value);
 		if (index > -1) {
@@ -316,12 +344,147 @@ export class SettingsPage {
 		this.storage.set('tags', []);
 		this.storage.set('ageRanges', []);
 		this.storage.set('venues', []);
+		let toast = this.toastController.create({
+			message: 'Restored Defaults',
+			duration: 1500,
+			position: 'middle'
+	  });
+	  toast.present();
+	  
+		this.storage.get('venues').then((data) => {
+			if (data != null) {
+				this.selectedVenues = data;
+			} else {
+				this.selectedVenues = [];
+			}
+		});
+		
+		// setup age ranges, I can't find these in the events so I'm just using a preset list of the ones molly told us
+		this.ageRanges = ["Kids", "Teen", "Family", "Adult"];
+		this.selectedAgeRanges = [];
+		this.ageRangeDisplayValues = [];
+		this.storage.get('ageRanges').then((data) => {
+			if (data != null) {
+				this.selectedAgeRanges = data;
+			} else {
+				this.ageRanges.map (x => {this.selectedAgeRanges.push(x)});
+			}
+			
+			for (let k = 0; k < this.ageRanges.length; k++) {
+				if(this.selectedAgeRanges.indexOf(this.ageRanges[k]) >= 0) {
+					this.ageRangeDisplayValues.push(true);
+				} else {
+					this.ageRangeDisplayValues.push(false);
+				}
+			}
+			
+		});
+		
+		
+				this.selectedTags = [];
+
+		
+		this.selectedCategories = [];
 		this.storage.get('categories').then((data) => {
-				console.log(data);
+			console.log(data);
+			if (data != null) {
+				
+				this.selectedCategories = data;
+			} else {
+				this.selectedCategories = [];
+			}
+		
+		this.categories = new Array<string>();
+		this.catDisplayValues = new Array<boolean>();
+		
+		this.subCats = [];
+		let selectAll = this.selectedCategories.length > 0 ? false : true;
+		
+		console.log(this.selectedCategories);
+		//let selectAll = true;
+ 		this.dataProvider.getCategories()
+			.subscribe(
+				data => {
+					for (let i = 0; i < data.length; i++) {
+						this.categories.push(data[i].CatName);
+						this.subCats.push([]);
+						
+						if (!selectAll) {
+							if (this.selectedCategories.indexOf(this.categories[i]) > -1) {
+								this.catDisplayValues.push([true]);
+							} else {
+								this.catDisplayValues.push([false]);
+							}
+						} else {
+							this.selectedCategories.push(this.categories[i]);
+							this.catDisplayValues.push([true]);
+						}
+						
+						this.dataProvider.getSubcategories(data[i].UID).subscribe(
+								data1 => {
+								for (let k = 0; k < data1.length; k++) {
+									//this.catDisplayValues[i].push(true);
+									//this.selectedCategories[i].push(data1[k].CatName);
+									this.subCats[i].push(data1[k].CatName);
+									
+									if (!selectAll) {
+										console.log("selecting subCats");
+										if (this.selectedCategories.indexOf(this.categories[i] + "_" + this.subCats[i][k]) > -1) {
+											this.catDisplayValues[i].push(true);
+										} else {
+											this.catDisplayValues[i].push(false);
+										}
+									} else {
+										this.selectedCategories.push(this.categories[i] + "_" + this.subCats[i][k]);
+										this.catDisplayValues[i].push(true);
+									}
+								}
+							}
+						);
+					}
+				},
+			err => console.log(err)
+		);
+		
 		}); 
+		
+		
+		// setup venues list
+		this.venues = new Array<string>();
+		this.dataProvider.getVenues()
+			 .subscribe(
+				  data => {
+						for (let i = 0; i < data.length; i++) {
+							this.venues.push(data[i].VenueName);
+						}
+						this.searchedVenues = this.venues;
+				  }
+			 );
+			 
+		this.tags = new Array<string>();
+		this.tagDisplayValues = new Array<boolean>();
+		
+		this.dataProvider.getTags()
+			.subscribe(
+				data => {
+					
+					data.map(x => this.tags.push(x.Tag));
+					
+					for (let k = 0; k < this.tags.length; k++) {
+						if (this.selectedTags.indexOf(this.tags[k]) > -1) {
+							this.tagDisplayValues.push(true);
+						} else {
+							this.tagDisplayValues.push(false);
+						}
+					}
+					
+				},
+				err => console.log(err)
+			);
 	}
 	
 	ageRangeChange(value) {
+		this.showSaveButton();
 		let index = this.selectedAgeRanges.indexOf(value)
 		if (index > -1) {
 			this.selectedAgeRanges.splice(index, 1);
@@ -330,7 +493,7 @@ export class SettingsPage {
 		}
 	}
 	
-   saveAgeRange() {
+/*    saveAgeRange() {
         this.storage.get('ageRanges').then((data) => {
 
             let array = [];
@@ -340,7 +503,7 @@ export class SettingsPage {
             this.storage.set('ageRanges', array);
 
         });
-   }
+   } */
 
 	goToSlide(slideNum) {
 		this.slides.slideTo(slideNum, 300);
@@ -365,6 +528,8 @@ export class SettingsPage {
 				break;
 		}
   }
+  
+  
 
 }
 
