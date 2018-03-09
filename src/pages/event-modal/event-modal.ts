@@ -288,9 +288,10 @@ export class EventModalPage {
 
     generalShare() {
         let websites = '';
+        let message = 'I\'\m going to ' + this.escapeEntity(this.e.EventTitle) + ' on ' +
+            this.formatStartDateCondensed(this.e.EventStartDate) + ' at ' + this.escapeEntity(this.e.Venue) + '!';
         if (this.e.Websites) websites = this.e.Websites;
-        this.socialSharing.share('I\'\m going to ' + this.e.EventTitle + ' on ' +
-            this.formatStartDateCondensed(this.e.EventStartDate) + ' at ' + this.e.Venue + '!', 'Via GatherBoard Mobile:', null, websites).then(
+        this.socialSharing.share(message, 'Via GatherBoard Mobile:', null, websites).then(
             data => {
                 console.log(data)
             },

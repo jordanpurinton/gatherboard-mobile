@@ -36,7 +36,7 @@
     "@types/underscore": "^1.8.7",
     "angular": "^1.6.8",
     "cordova": "^8.0.0",
-    "cordova-android": "^6.3.0",
+    "cordova-android": "6.3.0",
     "cordova-browser": "^5.0.3",
     "cordova-ios": "4.5.4",
     "cordova-plugin-actionsheet": "^2.3.3",
@@ -53,10 +53,10 @@
     "cordova-plugin-nativegeocoder": "^3.1.1",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-whitelist": "^1.3.3",
-    "cordova-plugin-x-socialsharing": "^5.3.1",
-    "cordova-sqlite-storage": "^2.2.0",
+    "cordova-plugin-x-socialsharing": "^5.3.2",
+    "cordova-sqlite-storage": "^2.2.1",
     "cordova.plugins.diagnostic": "^3.9.2",
-    "es6-promise-plugin": "^4.1.0",
+    "es6-promise-plugin": "^4.2.2",
     "eslint": "^4.18.2",
     "he": "^1.1.1",
     "http": "0.0.0",
@@ -84,7 +84,9 @@
     "plugins": {
       "cordova-plugin-googlemaps": {
         "API_KEY_FOR_ANDROID": "AIzaSyCGNhkJGtzBEwRi0srNiZsKIbRiu1F-tNY",
-        "API_KEY_FOR_IOS": "AIzaSyDLTpsRaXzg41owGr6FFkS9805FIe-fzbQ"
+        "API_KEY_FOR_IOS": "AIzaSyDLTpsRaXzg41owGr6FFkS9805FIe-fzbQ",
+        "PLAY_SERVICES_VERSION": "11.8.0",
+        "ANDROID_SUPPORT_V4_VERSION": "24.1.0"
       },
       "cordova-sqlite-storage": {},
       "cordova-plugin-calendar": {},
