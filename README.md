@@ -21,7 +21,7 @@ Make sure you have Ionic and Cordova installed globally
 
 <b>Run in browser</b>
 
-`ionic serve`
+`ionic serve -l`
 
 <b>Run on device (better)</b>
 
