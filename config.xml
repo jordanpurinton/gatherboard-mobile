@@ -3,7 +3,7 @@
     <name>GatherBoard</name>
     <description>GatherBoard's Mobile App</description>
     <author href="http://www.gatherboard.com">GatherBoard</author>
-    <content original-src="index.html" src="http://192.168.1.14:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -102,5 +102,5 @@
     <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^4.1.5" />
     <allow-navigation href="http://192.168.1.14:8100" />
     <engine name="browser" spec="^5.0.3" />
-    <engine name="android" spec="6.3.0" />
+    <engine name="android" spec="~7.0.0" />
 </widget>
