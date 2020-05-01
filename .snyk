@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.1
+version: v1.14.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -35,3 +35,26 @@ patch:
         patched: '2018-12-05T03:26:35.156Z'
     - cordova > cordova-lib > cordova-create > cordova-fetch > cordova-common > plist > xmlbuilder > lodash:
         patched: '2018-12-05T03:26:35.156Z'
+  SNYK-JS-LODASH-567746:
+    - eslint > lodash:
+        patched: '2020-05-01T07:26:49.874Z'
+    - eslint > inquirer > lodash:
+        patched: '2020-05-01T07:26:49.874Z'
+    - eslint > table > lodash:
+        patched: '2020-05-01T07:26:49.874Z'
+    - ionic > @ionic/cli-utils > lodash:
+        patched: '2020-05-01T07:26:49.874Z'
+    - ionic > @ionic/cli-utils > inquirer > lodash:
+        patched: '2020-05-01T07:26:49.874Z'
+    - ionic > @ionic/cli-utils > archiver > lodash:
+        patched: '2020-05-01T07:26:49.874Z'
+    - ionic > @ionic/cli-utils > http-proxy-middleware > lodash:
+        patched: '2020-05-01T07:26:49.874Z'
+    - ionic > @ionic/cli-utils > archiver > archiver-utils > lodash:
+        patched: '2020-05-01T07:26:49.874Z'
+    - ionic > @ionic/cli-utils > archiver > async > lodash:
+        patched: '2020-05-01T07:26:49.874Z'
+    - ionic > @ionic/cli-utils > archiver > zip-stream > lodash:
+        patched: '2020-05-01T07:26:49.874Z'
+    - ionic > @ionic/cli-utils > archiver > zip-stream > archiver-utils > lodash:
+        patched: '2020-05-01T07:26:49.874Z'
