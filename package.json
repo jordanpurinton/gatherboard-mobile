@@ -59,7 +59,7 @@
     "cordova-sqlite-storage": "^2.2.1",
     "cordova.plugins.diagnostic": "^3.9.2",
     "es6-promise-plugin": "^4.2.2",
-    "eslint": "^4.18.2",
+    "eslint": "^5.0.0",
     "he": "^1.1.1",
     "http": "0.0.0",
     "intl": "^1.2.5",
